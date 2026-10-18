@@ -26,6 +26,7 @@ const dirname = path.dirname(filename)
 
 export default buildConfig({
   admin: {
+    theme: 'light',
     components: {
       graphics: {
         Logo: '@/components/admin/brand-logo#BrandLogo',
