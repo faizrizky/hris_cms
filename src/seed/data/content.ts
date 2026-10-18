@@ -33,10 +33,10 @@ export const siteSettingsSeed = {
 }
 
 export const homeSeed = {
-  heroLineOne: 'Absen, cuti,',
-  heroLineTwo: 'slip gaji.',
+  heroLineOne: 'Absen-to-Gaji',
+  heroLineTwo: 'HRIS Solutions',
   heroDescription:
-    'HRIS membantu perusahaan menyederhanakan operasional HR: absensi wajah, cuti, lembur, approval, sampai slip gaji dalam satu aplikasi yang praktis untuk karyawan, atasan, dan HR.',
+    'HRIS adalah aplikasi HR mobile untuk mengelola keseharian karyawan, mulai dari absensi wajah, cuti, lembur, dan approval, sampai slip gaji, dalam satu aplikasi yang praktis untuk karyawan, atasan, dan HR.',
   heroPrimaryAction: 'Minta demo',
   heroSecondaryAction: 'Pelajari selengkapnya',
   heroSecondaryHref: '#absensi',
