@@ -67,6 +67,81 @@ export const PricingBlock: Block = {
         },
       ],
     },
+    {
+      name: 'showEstimator',
+      type: 'checkbox',
+      label: 'Tampilkan hitung jumlah karyawan',
+      defaultValue: false,
+      admin: { description: 'Pengunjung mengisi jumlah karyawan dan melihat perkiraan biaya per bulan tiap paket (harga paket × jumlah).' },
+    },
+    {
+      name: 'estimatorTitle',
+      type: 'text',
+      maxLength: 80,
+      admin: { description: 'Mis. Pilih paket yang tepat.', condition: (_, siblingData) => Boolean(siblingData?.showEstimator) },
+    },
+    {
+      name: 'estimatorDescription',
+      type: 'text',
+      maxLength: 160,
+      admin: { condition: (_, siblingData) => Boolean(siblingData?.showEstimator) },
+    },
+    {
+      name: 'matrix',
+      type: 'array',
+      label: 'Tabel perbandingan fitur',
+      labels: { singular: 'Kategori', plural: 'Kategori' },
+      admin: { description: 'Tabel fitur per kategori. Kolom "Isi per paket" mengikuti urutan paket di atas (paket pertama, kedua, dst.).' },
+      fields: [
+        { name: 'title', type: 'text', required: true, maxLength: 60 },
+        {
+          name: 'groups',
+          type: 'array',
+          labels: { singular: 'Fitur', plural: 'Fitur' },
+          fields: [
+            {
+              type: 'row',
+              fields: [
+                { name: 'title', type: 'text', required: true, maxLength: 80, admin: { width: '70%' } },
+                { name: 'isSoon', type: 'checkbox', defaultValue: false, label: 'Segera hadir', admin: { width: '30%' } },
+              ],
+            },
+            {
+              name: 'points',
+              type: 'array',
+              labels: { singular: 'Poin', plural: 'Poin' },
+              fields: [{ name: 'text', type: 'text', required: true, maxLength: 160 }],
+            },
+            {
+              name: 'cells',
+              type: 'array',
+              label: 'Isi per paket',
+              labels: { singular: 'Paket', plural: 'Paket' },
+              maxRows: 4,
+              fields: [
+                {
+                  type: 'row',
+                  fields: [
+                    {
+                      name: 'mode',
+                      type: 'select',
+                      defaultValue: 'included',
+                      options: [
+                        { label: 'Termasuk', value: 'included' },
+                        { label: 'Tidak termasuk', value: 'excluded' },
+                        { label: 'Tambahan berbayar', value: 'addon' },
+                      ],
+                      admin: { width: '40%' },
+                    },
+                    { name: 'label', type: 'text', maxLength: 60, admin: { width: '60%', description: 'Untuk tambahan berbayar, mis. +Rp2.000.000/bulan.' } },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
     { name: 'addonNote', type: 'text', maxLength: 160, admin: { description: 'Catatan di bawah paket, mis. harga tambah fitur.' } },
     textListField('points', 'Poin penawaran (ringkas)', 5),
     buttonsField(1),

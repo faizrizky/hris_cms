@@ -180,6 +180,67 @@ function ctaBlock(): Record<string, unknown> {
   }
 }
 
+// Tabel perbandingan fitur: urutan sel mengikuti paket (Basic, Essential, Suite).
+type MatrixMode = 'included' | 'excluded' | 'addon'
+const cell = (mode: MatrixMode, label?: string) => ({ mode, label })
+const matrixGroup = (title: string, points: string[], cells: ReturnType<typeof cell>[], isSoon = false) => ({
+  title,
+  isSoon,
+  points: points.map((text) => ({ text })),
+  cells,
+})
+const ALL_PLANS = [cell('included'), cell('included'), cell('included')]
+const FROM_ESSENTIAL = [cell('excluded'), cell('included'), cell('included')]
+const FROM_SUITE = [cell('excluded'), cell('excluded'), cell('included')]
+
+const PRICING_MATRIX = [
+  {
+    title: 'Kehadiran',
+    groups: [
+      matrixGroup('Absensi online', ['Wajah dan lokasi', 'Mode offline saat sinyal buruk', 'Anti titip absen'], ALL_PLANS),
+      matrixGroup('Koreksi absensi', ['Pengajuan dari aplikasi', 'Jejak persetujuan yang jelas'], ALL_PLANS),
+    ],
+  },
+  {
+    title: 'Pengajuan & persetujuan',
+    groups: [
+      matrixGroup('Cuti online', ['Sisa kuota selalu jelas', 'Persetujuan dari aplikasi'], ALL_PLANS),
+      matrixGroup('Lembur online', ['Pengajuan dan persetujuan', 'Siap dipakai untuk payroll'], FROM_ESSENTIAL),
+      matrixGroup('Dinas luar & WFH', ['Pengajuan dengan jejak yang jelas', 'Cocok untuk tim lapangan'], FROM_ESSENTIAL),
+      matrixGroup('Approval berjenjang', ['Satu antrean untuk semua pengajuan', 'Atasan bertingkat'], FROM_ESSENTIAL),
+    ],
+  },
+  {
+    title: 'Gaji & pajak',
+    groups: [
+      matrixGroup('Slip gaji online', ['Rincian lengkap', 'Tersedia kapan saja'], ALL_PLANS),
+      matrixGroup('Ringkasan pajak & BPJS', ['Potongan transparan', 'Berdampingan dengan slip gaji'], FROM_ESSENTIAL),
+    ],
+  },
+  {
+    title: 'Dokumen & komunikasi',
+    groups: [
+      matrixGroup('Dokumen digital', ['Unggah oleh karyawan', 'Verifikasi oleh HR'], FROM_ESSENTIAL),
+      matrixGroup('Pengumuman perusahaan', ['Satu saluran resmi', 'Langsung di aplikasi kerja'], FROM_ESSENTIAL),
+    ],
+  },
+  {
+    title: 'Keamanan & kinerja',
+    groups: [
+      matrixGroup('Keamanan akun', ['Kunci biometrik', 'Kendali atas perangkat', 'Akses sesuai peran'], ALL_PLANS),
+      matrixGroup('Penilaian kinerja', ['Tersedia sebagian, ditambah bertahap'], FROM_SUITE),
+    ],
+  },
+  {
+    title: 'Segera hadir',
+    groups: [
+      matrixGroup('Reimbursement & cash advance', ['Klaim dengan bukti', 'Kasbon terkontrol'], FROM_SUITE, true),
+      matrixGroup('Pembelajaran', ['Materi terpusat', 'Pengingat pelatihan'], FROM_SUITE, true),
+      matrixGroup('Rekrutmen', ['Alur rekrutmen satu pintu', 'Onboarding terhubung'], [cell('excluded'), cell('addon', 'Opsional'), cell('addon', 'Opsional')], true),
+    ],
+  },
+]
+
 // ── Harga ────────────────────────────────────────────────────────────────
 function pricingBlock(variant: 'full' | 'compact'): Record<string, unknown> {
   return {
@@ -255,6 +316,10 @@ function pricingBlock(variant: 'full' | 'compact'): Record<string, unknown> {
         actionHref: DEMO_LINK,
       },
     ],
+    showEstimator: variant === 'full',
+    estimatorTitle: variant === 'full' ? 'Pilih paket yang tepat' : undefined,
+    estimatorDescription: variant === 'full' ? 'Isi jumlah karyawan untuk melihat perkiraan biaya per bulan. Harga final dikonfirmasi tim kami.' : undefined,
+    matrix: variant === 'full' ? PRICING_MATRIX : undefined,
     addonNote: variant === 'full' ? 'Tambah fitur baru mulai dari Rp2.000/bulan/karyawan.' : undefined,
     points: variant === 'compact' ? texts('Demo gratis 30 menit', 'Penawaran sesuai jumlah karyawan', 'Modul bisa ditambah bertahap') : undefined,
     buttons: variant === 'compact' ? buttons(['Lihat semua paket', '/harga']) : undefined,
