@@ -84,8 +84,8 @@ select:focus-visible {
 /* Logo dan ikon */
 .hris-logo {
   display: inline-flex;
-  align-items: baseline;
-  gap: 0.12em;
+  align-items: center;
+  gap: 0.6rem;
   font-family: var(--font-body);
   font-size: 2.2rem;
   font-weight: 800;
