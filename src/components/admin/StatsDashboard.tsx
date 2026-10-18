@@ -13,7 +13,7 @@ import { Info } from './StatsInfo'
 import { StatsRecheck } from './StatsRecheck'
 import { StatsTabs } from './StatsTabs'
 
-const CLARITY_URL = `https://clarity.microsoft.com/projects/view/${process.env.CLARITY_PROJECT_ID || 'v03jaczk0n'}/dashboard`
+const CLARITY_URL = `https://clarity.microsoft.com/projects/view/${process.env.CLARITY_PROJECT_ID ?? ''}/dashboard`
 
 const TEXT = {
   en: {
