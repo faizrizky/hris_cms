@@ -326,6 +326,25 @@ function pricingBlock(variant: 'full' | 'compact'): Record<string, unknown> {
   }
 }
 
+// ── Promo (kartu bento) ──────────────────────────────────────────────────
+const promoBentoBlock = (): Record<string, unknown> => ({
+  blockType: 'promoBento',
+  highlight: 'Demo gratis',
+  header: {
+    title: 'untuk temukan paket yang paling sesuai',
+    description: 'Ikut sesi demo 30 menit bersama tim kami. Kami bantu dari memilih paket sampai tim Anda mulai memakainya.',
+  },
+  tint: 'white',
+  cards: [
+    { title: 'Konsultasi paket gratis', description: 'Tim kami bantu merekomendasikan paket sesuai kebutuhan dan jumlah karyawan Anda.', icon: 'message', tone: 'lavender', size: 'tall' },
+    { title: 'Setup kebijakan dibantu', description: 'Aturan seperti jam kerja dan cuti dibantu disesuaikan dengan cara kerja perusahaan.', icon: 'settings', tone: 'yellow', size: 'normal' },
+    { title: 'Pendampingan awal', description: 'Tim kami menemani saat karyawan mulai memakai aplikasi.', icon: 'users', tone: 'cyan', size: 'normal' },
+    { title: 'Dukungan setelah mulai', description: 'Penyesuaian lanjutan tetap dibantu setelah sistem berjalan.', icon: 'headset', tone: 'yellow', size: 'normal' },
+    { title: 'Bantuan pindah data', description: 'Data karyawan dari sistem sebelumnya dibantu dipindahkan agar tidak mulai dari nol.', icon: 'cloudDownload', tone: 'lavender', size: 'wide' },
+    { title: 'Go-live terarah', description: 'Langkah penerapan yang jelas supaya sistem siap dipakai lebih cepat.', icon: 'rocket', tone: 'sky', size: 'normal' },
+  ],
+})
+
 export const hargaLayout = (): Layout => [
   {
     blockType: 'hero',
@@ -344,6 +363,7 @@ export const hargaLayout = (): Layout => [
     },
   },
   pricingBlock('full'),
+  promoBentoBlock(),
   {
     blockType: 'section',
     tag: '',

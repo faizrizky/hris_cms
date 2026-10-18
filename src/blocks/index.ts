@@ -17,6 +17,7 @@ import { SolutionCatalogBlock } from './SolutionCatalog'
 import { TestimonialsBlock } from './Testimonials'
 import { TextSectionsBlock } from './TextSections'
 import { ToolsListBlock } from './ToolsList'
+import { PromoBentoBlock } from './PromoBento'
 import { WorkflowBlock } from './Workflow'
 
 export const pageBlocks = [
@@ -37,6 +38,7 @@ export const pageBlocks = [
   TextSectionsBlock,
   FeatureGridBlock,
   WorkflowBlock,
+  PromoBentoBlock,
   PartnersBlock,
   LayoutSectionBlock,
   // Elemen kecil juga bisa langsung di halaman (seperti di editor visual).
