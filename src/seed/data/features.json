@@ -1,0 +1,1047 @@
+[
+  {
+    "slug": "absensi-online",
+    "name": "Absensi Online",
+    "category": "attendance",
+    "status": "available",
+    "order": 10,
+    "shortDescription": "Absen dengan verifikasi wajah dan lokasi kerja",
+    "heroTitle": "Absensi online yang tidak bisa dititipkan",
+    "heroDescription": "Karyawan absen dari HP dengan verifikasi wajah dan area kerja. Jam tepercaya, tetap jalan tanpa sinyal, dan semua terekam rapi untuk HR.",
+    "benefits": [
+      {
+        "title": "Anti titip absen",
+        "description": "Wajah diverifikasi, jadi absen hanya sah oleh orangnya sendiri."
+      },
+      {
+        "title": "Sesuai lokasi kerja",
+        "description": "Absen hanya diterima dari area kerja yang ditentukan perusahaan."
+      },
+      {
+        "title": "Tahan sinyal buruk",
+        "description": "Absen tersimpan di HP dan terkirim otomatis saat tersambung."
+      }
+    ],
+    "blocks": [
+      {
+        "title": "Verifikasi wajah dan lokasi dalam satu ketukan",
+        "description": "Tidak perlu mesin absen atau kartu. Karyawan cukup membuka aplikasi, wajah dipindai, lokasi dicek, absen tercatat.",
+        "points": [
+          {
+            "text": "Verifikasi wajah saat absen masuk dan pulang"
+          },
+          {
+            "text": "Validasi area kerja (geofence)"
+          },
+          {
+            "text": "Jam yang tidak bisa dimanipulasi dari pengaturan HP"
+          }
+        ]
+      },
+      {
+        "title": "Tetap bisa absen saat sinyal hilang",
+        "description": "Tim lapangan sering bekerja di tempat dengan sinyal lemah. Absen disimpan aman di HP lalu dikirim begitu perangkat tersambung.",
+        "points": [
+          {
+            "text": "Antrean absen offline otomatis"
+          },
+          {
+            "text": "Waktu absen tetap sesuai saat kejadian"
+          },
+          {
+            "text": "Status terkirim terlihat jelas"
+          }
+        ]
+      }
+    ],
+    "mock": {
+      "title": "Riwayat absensi",
+      "rows": [
+        {
+          "label": "Senin, 15 Okt",
+          "detail": "08:02 masuk · 17:10 pulang",
+          "status": "Tepat waktu"
+        },
+        {
+          "label": "Selasa, 16 Okt",
+          "detail": "08:21 masuk · 17:05 pulang",
+          "status": "Terlambat"
+        },
+        {
+          "label": "Rabu, 17 Okt",
+          "detail": "Cuti tahunan",
+          "status": "Cuti"
+        }
+      ]
+    },
+    "faqs": [
+      {
+        "question": "Apakah karyawan bisa absen tanpa internet?",
+        "answer": "Bisa. Absen disimpan di HP dan dikirim otomatis begitu perangkat tersambung lagi, dengan waktu yang tetap sesuai saat absen dilakukan."
+      },
+      {
+        "question": "Bagaimana jika wajah tidak terbaca?",
+        "answer": "Karyawan bisa mencoba ulang, dan jika tetap gagal dapat mengajukan koreksi absen yang disetujui atasan."
+      },
+      {
+        "question": "Apakah lokasi karyawan dilacak terus-menerus?",
+        "answer": "Tidak. Lokasi hanya dicek pada saat absen untuk memastikan karyawan berada di area kerja."
+      }
+    ],
+    "relatedSlugs": [
+      "koreksi-absensi",
+      "lembur-online",
+      "approval-berjenjang"
+    ]
+  },
+  {
+    "slug": "koreksi-absensi",
+    "name": "Koreksi Absensi",
+    "category": "attendance",
+    "status": "available",
+    "order": 20,
+    "shortDescription": "Ajukan perbaikan absen yang terlewat atau keliru",
+    "heroTitle": "Lupa absen? Koreksi tanpa drama",
+    "heroDescription": "Karyawan mengajukan koreksi absen dengan alasan dan bukti, atasan menyetujui dari HP, dan catatan kehadiran ikut diperbarui.",
+    "benefits": [
+      {
+        "title": "Ada jejak yang jelas",
+        "description": "Setiap koreksi tercatat lengkap dengan alasan dan siapa yang menyetujui."
+      },
+      {
+        "title": "Cepat diproses",
+        "description": "Atasan menyetujui dari HP tanpa menunggu rekap akhir bulan."
+      },
+      {
+        "title": "Data kehadiran tetap rapi",
+        "description": "Setelah disetujui, riwayat dan rekap ikut diperbarui."
+      }
+    ],
+    "blocks": [
+      {
+        "title": "Dari pengajuan sampai riwayat, semua terlihat",
+        "description": "Karyawan melihat status koreksinya, atasan melihat antrean persetujuan, HR melihat jejaknya.",
+        "points": [
+          {
+            "text": "Pengajuan koreksi dengan alasan"
+          },
+          {
+            "text": "Status menunggu, disetujui, atau ditolak"
+          },
+          {
+            "text": "Riwayat koreksi per karyawan"
+          }
+        ]
+      }
+    ],
+    "mock": {
+      "title": "Pengajuan koreksi",
+      "rows": [
+        {
+          "label": "Lupa absen pulang",
+          "detail": "Selasa · 17:05",
+          "status": "Menunggu"
+        },
+        {
+          "label": "Absen di luar area",
+          "detail": "Kamis · 08:10",
+          "status": "Disetujui"
+        }
+      ]
+    },
+    "faqs": [
+      {
+        "question": "Siapa yang menyetujui koreksi absen?",
+        "answer": "Atasan langsung karyawan sesuai alur approval yang ditetapkan perusahaan."
+      },
+      {
+        "question": "Apakah koreksi bisa diajukan untuk tanggal lampau?",
+        "answer": "Bisa, sesuai kebijakan perusahaan mengenai batas waktu pengajuan."
+      }
+    ],
+    "relatedSlugs": [
+      "absensi-online",
+      "approval-berjenjang"
+    ]
+  },
+  {
+    "slug": "cuti-online",
+    "name": "Cuti Online",
+    "category": "requests",
+    "status": "available",
+    "order": 30,
+    "shortDescription": "Ajukan cuti dan pantau sisa kuota dari HP",
+    "heroTitle": "Pengajuan cuti selesai dalam hitungan menit",
+    "heroDescription": "Karyawan mengajukan cuti dari HP dan langsung melihat sisa kuota. Atasan menyetujui tanpa kertas, HR tidak perlu merekap manual.",
+    "benefits": [
+      {
+        "title": "Sisa kuota selalu jelas",
+        "description": "Karyawan tahu berapa hari cuti tersisa sebelum mengajukan."
+      },
+      {
+        "title": "Persetujuan cepat",
+        "description": "Atasan menerima pengajuan dan menyetujuinya langsung dari HP."
+      },
+      {
+        "title": "Tanpa rekap manual",
+        "description": "Cuti yang disetujui otomatis tercatat di data karyawan."
+      }
+    ],
+    "blocks": [
+      {
+        "title": "Ajukan, pantau, dan batalkan dari satu layar",
+        "description": "Pilih jenis cuti, tanggal, dan alasan. Status pengajuan terlihat real-time.",
+        "points": [
+          {
+            "text": "Berbagai jenis cuti"
+          },
+          {
+            "text": "Sisa kuota per jenis cuti"
+          },
+          {
+            "text": "Status pengajuan real-time"
+          }
+        ]
+      },
+      {
+        "title": "Atasan menyetujui dengan konteks lengkap",
+        "description": "Atasan melihat siapa yang mengajukan, tanggalnya, dan sisa kuota sebelum memutuskan.",
+        "points": [
+          {
+            "text": "Antrean persetujuan di HP atasan"
+          },
+          {
+            "text": "Setuju atau tolak dengan catatan"
+          },
+          {
+            "text": "Karyawan langsung diberi tahu"
+          }
+        ]
+      }
+    ],
+    "mock": {
+      "title": "Pengajuan cuti",
+      "rows": [
+        {
+          "label": "Cuti tahunan",
+          "detail": "20 sampai 22 Okt · 3 hari",
+          "status": "Menunggu"
+        },
+        {
+          "label": "Cuti sakit",
+          "detail": "2 Okt · 1 hari",
+          "status": "Disetujui"
+        }
+      ]
+    },
+    "faqs": [
+      {
+        "question": "Apakah ada berbagai jenis cuti?",
+        "answer": "Ya. Jenis cuti mengikuti kebijakan perusahaan, lengkap dengan sisa kuota masing-masing."
+      },
+      {
+        "question": "Bagaimana karyawan tahu pengajuannya disetujui?",
+        "answer": "Statusnya langsung berubah di aplikasi begitu atasan memutuskan."
+      },
+      {
+        "question": "Apakah cuti memengaruhi absensi dan gaji?",
+        "answer": "Cuti yang disetujui tercatat sebagai kehadiran yang sah sehingga rekap tidak perlu dikoreksi manual."
+      }
+    ],
+    "relatedSlugs": [
+      "approval-berjenjang",
+      "dinas-luar-dan-wfh",
+      "slip-gaji-online"
+    ]
+  },
+  {
+    "slug": "lembur-online",
+    "name": "Lembur Online",
+    "category": "requests",
+    "status": "available",
+    "order": 40,
+    "shortDescription": "Ajukan dan setujui lembur tanpa formulir kertas",
+    "heroTitle": "Lembur tercatat rapi, disetujui tanpa ribet",
+    "heroDescription": "Karyawan mengajukan lembur dari HP, atasan menyetujui, dan datanya siap dipakai untuk perhitungan upah lembur.",
+    "benefits": [
+      {
+        "title": "Tidak ada lembur yang terlewat",
+        "description": "Setiap lembur punya pengajuan dan jejak persetujuan."
+      },
+      {
+        "title": "Transparan untuk karyawan",
+        "description": "Karyawan melihat jam lembur yang disetujui dan statusnya."
+      },
+      {
+        "title": "Siap untuk payroll",
+        "description": "Data lembur yang disetujui langsung bisa dipakai menghitung upah."
+      }
+    ],
+    "blocks": [
+      {
+        "title": "Dari pengajuan sampai disetujui dalam satu alur",
+        "description": "Karyawan mengisi tanggal, jam, dan alasan lembur. Atasan menyetujui dari HP.",
+        "points": [
+          {
+            "text": "Pengajuan dengan jam dan alasan"
+          },
+          {
+            "text": "Persetujuan atasan"
+          },
+          {
+            "text": "Riwayat lembur per karyawan"
+          }
+        ]
+      }
+    ],
+    "mock": {
+      "title": "Pengajuan lembur",
+      "rows": [
+        {
+          "label": "Proyek rilis",
+          "detail": "Jumat · 2 jam",
+          "status": "Disetujui"
+        },
+        {
+          "label": "Maintenance",
+          "detail": "Sabtu · 4 jam",
+          "status": "Menunggu"
+        }
+      ]
+    },
+    "faqs": [
+      {
+        "question": "Apakah lembur harus disetujui dulu?",
+        "answer": "Alur persetujuan mengikuti kebijakan perusahaan. Pengajuan dan jejak persetujuannya selalu tercatat."
+      },
+      {
+        "question": "Apakah ada kalkulator upah lembur?",
+        "answer": "Ada. Coba kalkulator upah lembur gratis di halaman Tools untuk memperkirakan hitungannya."
+      }
+    ],
+    "relatedSlugs": [
+      "absensi-online",
+      "approval-berjenjang",
+      "slip-gaji-online"
+    ]
+  },
+  {
+    "slug": "dinas-luar-dan-wfh",
+    "name": "Dinas Luar & WFH",
+    "category": "requests",
+    "status": "available",
+    "order": 50,
+    "shortDescription": "Kelola perjalanan dinas dan kerja dari rumah",
+    "heroTitle": "Dinas luar dan WFH tetap terpantau",
+    "heroDescription": "Karyawan mengajukan dinas luar atau WFH dari HP. Atasan menyetujui, dan HR punya catatan lengkap tanpa menunggu laporan.",
+    "benefits": [
+      {
+        "title": "Fleksibel namun terkendali",
+        "description": "Kerja di luar kantor tetap lewat persetujuan dan tercatat."
+      },
+      {
+        "title": "Jejak yang jelas",
+        "description": "Tanggal, tujuan, dan penyetuju tersimpan untuk setiap pengajuan."
+      },
+      {
+        "title": "Cocok untuk tim lapangan",
+        "description": "Dirancang untuk karyawan yang sering bekerja di luar kantor."
+      }
+    ],
+    "blocks": [
+      {
+        "title": "Satu alur untuk semua kerja di luar kantor",
+        "description": "Pilih jenis pengajuan, isi tanggal dan tujuan, kirim. Selesai.",
+        "points": [
+          {
+            "text": "Pengajuan dinas luar"
+          },
+          {
+            "text": "Pengajuan WFH"
+          },
+          {
+            "text": "Persetujuan atasan dan riwayat"
+          }
+        ]
+      }
+    ],
+    "mock": {
+      "title": "Pengajuan dinas",
+      "rows": [
+        {
+          "label": "Dinas luar · Bandung",
+          "detail": "2 hari · kunjungan klien",
+          "status": "Menunggu"
+        },
+        {
+          "label": "WFH",
+          "detail": "Rabu · 1 hari",
+          "status": "Disetujui"
+        }
+      ]
+    },
+    "faqs": [
+      {
+        "question": "Apakah WFH dan dinas luar diperlakukan berbeda?",
+        "answer": "Keduanya punya jenis pengajuan sendiri sehingga laporan HR tetap jelas."
+      },
+      {
+        "question": "Apakah biaya dinas bisa diklaim di aplikasi?",
+        "answer": "Klaim biaya (reimbursement) masih dalam rencana."
+      }
+    ],
+    "relatedSlugs": [
+      "cuti-online",
+      "approval-berjenjang"
+    ]
+  },
+  {
+    "slug": "approval-berjenjang",
+    "name": "Approval Berjenjang",
+    "category": "requests",
+    "status": "available",
+    "order": 60,
+    "shortDescription": "Atasan dan HR menyetujui langsung dari HP",
+    "heroTitle": "Approval dalam satu ketukan",
+    "heroDescription": "Cuti, lembur, dinas luar, WFH, koreksi absen, sampai dokumen. Semua antrean persetujuan ada di satu tempat, di HP atasan.",
+    "benefits": [
+      {
+        "title": "Satu antrean untuk semua",
+        "description": "Atasan tidak perlu membuka banyak formulir dan chat."
+      },
+      {
+        "title": "Tidak ada yang tercecer",
+        "description": "Setiap pengajuan punya status dan jejak keputusan."
+      },
+      {
+        "title": "Karyawan tidak menebak-nebak",
+        "description": "Status berubah di aplikasi begitu keputusan diambil."
+      }
+    ],
+    "blocks": [
+      {
+        "title": "Antrean persetujuan yang rapi",
+        "description": "Atasan melihat siapa mengajukan apa, lalu menyetujui atau menolak dengan catatan.",
+        "points": [
+          {
+            "text": "Daftar pengajuan menunggu"
+          },
+          {
+            "text": "Setuju atau tolak dengan catatan"
+          },
+          {
+            "text": "Berlaku untuk cuti, lembur, dinas, WFH, koreksi, dan dokumen"
+          }
+        ]
+      }
+    ],
+    "mock": {
+      "title": "Approval",
+      "rows": [
+        {
+          "label": "Andi Rahman",
+          "detail": "Cuti tahunan · 3 hari",
+          "status": "Menunggu"
+        },
+        {
+          "label": "Sari Dewi",
+          "detail": "Lembur · 2 jam",
+          "status": "Disetujui"
+        },
+        {
+          "label": "Lina Nur",
+          "detail": "Koreksi absen",
+          "status": "Disetujui"
+        }
+      ]
+    },
+    "faqs": [
+      {
+        "question": "Siapa saja yang bisa menyetujui?",
+        "answer": "Atasan dan HR sesuai peran. Menu approval hanya muncul untuk peran yang berwenang."
+      },
+      {
+        "question": "Apa saja yang bisa disetujui?",
+        "answer": "Cuti, lembur, dinas luar, WFH, koreksi absen, dokumen, dan perubahan profil."
+      }
+    ],
+    "relatedSlugs": [
+      "cuti-online",
+      "lembur-online",
+      "koreksi-absensi"
+    ]
+  },
+  {
+    "slug": "slip-gaji-online",
+    "name": "Slip Gaji Online",
+    "category": "payroll",
+    "status": "available",
+    "order": 70,
+    "shortDescription": "Slip gaji digital yang bisa dibuka kapan saja",
+    "heroTitle": "Slip gaji digital, aman dan paperless",
+    "heroDescription": "Karyawan membuka rincian gaji, tunjangan, dan potongan sendiri dari HP. HR tidak perlu lagi mencetak dan membagikan slip.",
+    "benefits": [
+      {
+        "title": "Rincian lengkap",
+        "description": "Pendapatan dan potongan terlihat jelas per periode."
+      },
+      {
+        "title": "Tersedia kapan saja",
+        "description": "Riwayat slip periode sebelumnya bisa dibuka lagi."
+      },
+      {
+        "title": "Lebih sedikit pertanyaan ke HR",
+        "description": "Karyawan mengecek sendiri tanpa menunggu."
+      }
+    ],
+    "blocks": [
+      {
+        "title": "Slip gaji di genggaman karyawan",
+        "description": "Buka slip per periode, lihat komponen pendapatan dan potongan.",
+        "points": [
+          {
+            "text": "Slip per periode"
+          },
+          {
+            "text": "Rincian pendapatan dan potongan"
+          },
+          {
+            "text": "Riwayat periode sebelumnya"
+          }
+        ]
+      }
+    ],
+    "mock": {
+      "title": "Slip gaji",
+      "rows": [
+        {
+          "label": "Oktober",
+          "detail": "Siap diunduh",
+          "status": "Terbaru"
+        },
+        {
+          "label": "September",
+          "detail": "Sudah dibaca",
+          "status": "Arsip"
+        }
+      ]
+    },
+    "faqs": [
+      {
+        "question": "Apakah slip gaji aman?",
+        "answer": "Slip hanya bisa dibuka oleh karyawan yang bersangkutan setelah masuk, dan aplikasi dapat dikunci dengan biometrik."
+      },
+      {
+        "question": "Apakah periode lama masih bisa dibuka?",
+        "answer": "Ya, riwayat periode sebelumnya tetap tersedia."
+      }
+    ],
+    "relatedSlugs": [
+      "ringkasan-pajak-bpjs",
+      "keamanan-akun"
+    ]
+  },
+  {
+    "slug": "ringkasan-pajak-bpjs",
+    "name": "Ringkasan Pajak & BPJS",
+    "category": "payroll",
+    "status": "available",
+    "order": 80,
+    "shortDescription": "Pahami potongan PPh 21 dan BPJS di slip gaji",
+    "heroTitle": "Potongan pajak dan BPJS yang mudah dipahami",
+    "heroDescription": "Selain rincian gaji, karyawan melihat ringkasan PPh 21 dan BPJS agar potongan di slip tidak lagi membingungkan.",
+    "benefits": [
+      {
+        "title": "Potongan jadi transparan",
+        "description": "Karyawan tahu dari mana potongan berasal."
+      },
+      {
+        "title": "Mengurangi pertanyaan berulang",
+        "description": "Jawaban ada di aplikasi, bukan di antrean HR."
+      },
+      {
+        "title": "Berdampingan dengan slip",
+        "description": "Ringkasan tampil bersama slip gaji per periode."
+      }
+    ],
+    "blocks": [
+      {
+        "title": "Ringkasan yang ramah karyawan",
+        "description": "Angka pajak dan BPJS dirangkum dengan bahasa sederhana.",
+        "points": [
+          {
+            "text": "Ringkasan PPh 21"
+          },
+          {
+            "text": "Ringkasan BPJS"
+          },
+          {
+            "text": "Terhubung dengan slip gaji"
+          }
+        ]
+      }
+    ],
+    "mock": {
+      "title": "Ringkasan potongan",
+      "rows": [
+        {
+          "label": "PPh 21",
+          "detail": "Periode Oktober",
+          "status": "Ringkasan"
+        },
+        {
+          "label": "BPJS",
+          "detail": "Periode Oktober",
+          "status": "Ringkasan"
+        }
+      ]
+    },
+    "faqs": [
+      {
+        "question": "Apakah aplikasi menghitung pajak untuk saya?",
+        "answer": "Aplikasi menampilkan ringkasan potongan dari payroll perusahaan. Untuk perkiraan sendiri, coba kalkulator di halaman Tools."
+      }
+    ],
+    "relatedSlugs": [
+      "slip-gaji-online"
+    ]
+  },
+  {
+    "slug": "dokumen-digital",
+    "name": "Dokumen Digital",
+    "category": "documents",
+    "status": "available",
+    "order": 90,
+    "shortDescription": "Simpan dokumen karyawan dengan verifikasi HR",
+    "heroTitle": "Dokumen karyawan rapi dan terverifikasi",
+    "heroDescription": "Karyawan mengunggah dokumennya dari HP, HR memverifikasi, dan semuanya tersimpan di satu tempat.",
+    "benefits": [
+      {
+        "title": "Tidak ada berkas hilang",
+        "description": "Dokumen tersimpan digital dan mudah dicari."
+      },
+      {
+        "title": "Ada verifikasi HR",
+        "description": "Setiap dokumen punya status verifikasi yang jelas."
+      },
+      {
+        "title": "Karyawan ikut terlibat",
+        "description": "Karyawan melengkapi datanya sendiri dari HP."
+      }
+    ],
+    "blocks": [
+      {
+        "title": "Unggah, verifikasi, simpan",
+        "description": "Alur sederhana dari karyawan ke HR tanpa fotokopi dan map berkas.",
+        "points": [
+          {
+            "text": "Unggah dokumen dari HP"
+          },
+          {
+            "text": "Verifikasi oleh HR"
+          },
+          {
+            "text": "Status terlihat oleh karyawan"
+          }
+        ]
+      }
+    ],
+    "mock": {
+      "title": "Dokumen saya",
+      "rows": [
+        {
+          "label": "KTP",
+          "detail": "Diunggah 3 Okt",
+          "status": "Terverifikasi"
+        },
+        {
+          "label": "Ijazah",
+          "detail": "Diunggah 3 Okt",
+          "status": "Diproses"
+        }
+      ]
+    },
+    "faqs": [
+      {
+        "question": "Siapa yang bisa melihat dokumen saya?",
+        "answer": "Karyawan yang bersangkutan dan HR yang berwenang."
+      },
+      {
+        "question": "Apakah perubahan profil juga perlu persetujuan?",
+        "answer": "Ya, perubahan profil melewati approval agar data tetap valid."
+      }
+    ],
+    "relatedSlugs": [
+      "approval-berjenjang",
+      "keamanan-akun"
+    ]
+  },
+  {
+    "slug": "pengumuman-perusahaan",
+    "name": "Pengumuman Perusahaan",
+    "category": "documents",
+    "status": "available",
+    "order": 100,
+    "shortDescription": "Sampaikan kabar penting ke seluruh karyawan",
+    "heroTitle": "Kabar perusahaan sampai ke semua orang",
+    "heroDescription": "Kirim pengumuman ke seluruh karyawan lewat aplikasi, tanpa mengandalkan grup chat yang mudah tenggelam.",
+    "benefits": [
+      {
+        "title": "Satu saluran resmi",
+        "description": "Pengumuman penting tidak tercecer di banyak grup."
+      },
+      {
+        "title": "Mudah ditemukan",
+        "description": "Karyawan bisa membuka kembali pengumuman sebelumnya."
+      },
+      {
+        "title": "Langsung di aplikasi kerja",
+        "description": "Dibaca di tempat yang sama dengan absen dan pengajuan."
+      }
+    ],
+    "blocks": [
+      {
+        "title": "Pengumuman yang tidak tenggelam",
+        "description": "Tulis, kirim, dan karyawan membacanya di aplikasi.",
+        "points": [
+          {
+            "text": "Pengumuman ke seluruh karyawan"
+          },
+          {
+            "text": "Riwayat pengumuman"
+          },
+          {
+            "text": "Tampil di beranda aplikasi"
+          }
+        ]
+      }
+    ],
+    "mock": {
+      "title": "Pengumuman",
+      "rows": [
+        {
+          "label": "Libur bersama",
+          "detail": "Dari HR · hari ini",
+          "status": "Baru"
+        },
+        {
+          "label": "Kebijakan WFH",
+          "detail": "Dari HR · kemarin",
+          "status": "Dibaca"
+        }
+      ]
+    },
+    "faqs": [
+      {
+        "question": "Siapa yang bisa membuat pengumuman?",
+        "answer": "HR atau peran yang diberi wewenang oleh perusahaan."
+      }
+    ],
+    "relatedSlugs": [
+      "dokumen-digital"
+    ]
+  },
+  {
+    "slug": "keamanan-akun",
+    "name": "Keamanan Akun",
+    "category": "security",
+    "status": "available",
+    "order": 110,
+    "shortDescription": "Kunci aplikasi biometrik dan kelola sesi perangkat",
+    "heroTitle": "Data karyawan aman di setiap perangkat",
+    "heroDescription": "Aplikasi dapat dikunci dengan biometrik, kata sandi bisa diganti kapan saja, dan sesi perangkat yang sedang masuk bisa dikelola.",
+    "benefits": [
+      {
+        "title": "Kunci biometrik",
+        "description": "Sidik jari atau wajah diminta sebelum aplikasi terbuka."
+      },
+      {
+        "title": "Kendali atas perangkat",
+        "description": "Lihat dan akhiri sesi di perangkat lain."
+      },
+      {
+        "title": "Akses sesuai peran",
+        "description": "Menu yang tampil mengikuti peran karyawan, atasan, atau HR."
+      }
+    ],
+    "blocks": [
+      {
+        "title": "Keamanan yang terasa praktis",
+        "description": "Perlindungan dasar yang diharapkan dari aplikasi HR, tanpa membuat karyawan repot.",
+        "points": [
+          {
+            "text": "Kunci aplikasi dengan biometrik"
+          },
+          {
+            "text": "Ganti kata sandi"
+          },
+          {
+            "text": "Kelola sesi perangkat"
+          }
+        ]
+      }
+    ],
+    "mock": {
+      "title": "Keamanan",
+      "rows": [
+        {
+          "label": "Kunci biometrik",
+          "detail": "Sidik jari atau wajah",
+          "status": "Aktif"
+        },
+        {
+          "label": "Sesi perangkat",
+          "detail": "2 perangkat masuk",
+          "status": "Kelola"
+        }
+      ]
+    },
+    "faqs": [
+      {
+        "question": "Apakah ada autentikasi dua langkah (2FA)?",
+        "answer": "Belum. Saat ini tersedia kunci biometrik, ganti kata sandi, dan pengelolaan sesi perangkat."
+      }
+    ],
+    "relatedSlugs": [
+      "slip-gaji-online",
+      "dokumen-digital"
+    ]
+  },
+  {
+    "slug": "penilaian-kinerja",
+    "name": "Penilaian Kinerja",
+    "category": "performance",
+    "status": "partial",
+    "order": 120,
+    "shortDescription": "Appraisal dan target karyawan",
+    "heroTitle": "Penilaian kinerja yang terdokumentasi",
+    "heroDescription": "Karyawan dan atasan melihat appraisal serta target dalam satu tempat. Penilaian 360 derajat masih dalam rencana.",
+    "benefits": [
+      {
+        "title": "Target jelas",
+        "description": "Karyawan tahu apa yang diharapkan darinya."
+      },
+      {
+        "title": "Dokumentasi rapi",
+        "description": "Hasil penilaian tersimpan, bukan hanya ingatan."
+      },
+      {
+        "title": "Bertahap berkembang",
+        "description": "Fitur lanjutan ditambahkan bertahap."
+      }
+    ],
+    "blocks": [
+      {
+        "title": "Appraisal dan target",
+        "description": "Tersedia untuk penilaian dasar. Fitur seperti 360 derajat belum tersedia.",
+        "points": [
+          {
+            "text": "Appraisal karyawan"
+          },
+          {
+            "text": "Target kinerja"
+          },
+          {
+            "text": "360 derajat: dalam rencana"
+          }
+        ]
+      }
+    ],
+    "mock": {
+      "title": "Kinerja",
+      "rows": [
+        {
+          "label": "Target kuartal",
+          "detail": "Atasan · Oktober",
+          "status": "Berjalan"
+        }
+      ]
+    },
+    "faqs": [
+      {
+        "question": "Apakah ada penilaian 360 derajat?",
+        "answer": "Belum. Saat ini tersedia appraisal dan target. Penilaian 360 derajat dalam rencana."
+      }
+    ],
+    "relatedSlugs": [
+      "approval-berjenjang"
+    ]
+  },
+  {
+    "slug": "reimbursement-dan-cash-advance",
+    "name": "Reimbursement & Cash Advance",
+    "category": "planned",
+    "status": "planned",
+    "order": 130,
+    "shortDescription": "Klaim biaya dan kasbon dari HP",
+    "heroTitle": "Klaim biaya dan kasbon tanpa nota menumpuk",
+    "heroDescription": "Modul ini sedang dalam rencana. Karyawan akan bisa mengajukan klaim dengan bukti dan kasbon, lalu disetujui dari HP.",
+    "benefits": [
+      {
+        "title": "Klaim dengan bukti",
+        "description": "Unggah foto nota langsung dari HP."
+      },
+      {
+        "title": "Kasbon terkontrol",
+        "description": "Pengajuan, persetujuan, dan potongan tercatat."
+      },
+      {
+        "title": "Satu alur approval",
+        "description": "Memakai antrean persetujuan yang sama dengan fitur lain."
+      }
+    ],
+    "blocks": [
+      {
+        "title": "Rencana fitur",
+        "description": "Kami ingin tahu kebutuhanmu agar urutan pengembangannya tepat.",
+        "points": [
+          {
+            "text": "Pengajuan klaim dengan bukti"
+          },
+          {
+            "text": "Pengajuan kasbon"
+          },
+          {
+            "text": "Persetujuan dan potongan otomatis"
+          }
+        ]
+      }
+    ],
+    "mock": {
+      "title": "Rencana",
+      "rows": [
+        {
+          "label": "Klaim biaya",
+          "detail": "Dalam pengembangan",
+          "status": "Rencana"
+        }
+      ]
+    },
+    "faqs": [
+      {
+        "question": "Kapan modul ini tersedia?",
+        "answer": "Belum ada tanggal pasti. Hubungi kami untuk menyampaikan kebutuhanmu agar kami bisa memprioritaskan."
+      }
+    ],
+    "relatedSlugs": [
+      "dinas-luar-dan-wfh"
+    ]
+  },
+  {
+    "slug": "pembelajaran",
+    "name": "Pembelajaran",
+    "category": "planned",
+    "status": "planned",
+    "order": 140,
+    "shortDescription": "Materi pelatihan karyawan di aplikasi",
+    "heroTitle": "Pelatihan karyawan di tempat yang sama",
+    "heroDescription": "Modul pembelajaran masih dalam rencana: materi, kursus, dan pengingat pelatihan.",
+    "benefits": [
+      {
+        "title": "Materi terpusat",
+        "description": "Semua materi pelatihan di satu aplikasi."
+      },
+      {
+        "title": "Pengingat pelatihan",
+        "description": "Karyawan diingatkan jadwal dan tenggatnya."
+      },
+      {
+        "title": "Terhubung ke kinerja",
+        "description": "Hasil belajar bisa menunjang penilaian."
+      }
+    ],
+    "blocks": [
+      {
+        "title": "Rencana fitur",
+        "description": "Beri tahu kami kebutuhan pelatihan di tempatmu.",
+        "points": [
+          {
+            "text": "Materi dan kursus"
+          },
+          {
+            "text": "Pengingat pelatihan"
+          }
+        ]
+      }
+    ],
+    "mock": {
+      "title": "Rencana",
+      "rows": [
+        {
+          "label": "Kursus",
+          "detail": "Dalam pengembangan",
+          "status": "Rencana"
+        }
+      ]
+    },
+    "faqs": [
+      {
+        "question": "Apakah modul ini sudah bisa dipakai?",
+        "answer": "Belum. Modul ini masih dalam rencana."
+      }
+    ],
+    "relatedSlugs": [
+      "penilaian-kinerja"
+    ]
+  },
+  {
+    "slug": "rekrutmen",
+    "name": "Rekrutmen",
+    "category": "planned",
+    "status": "planned",
+    "order": 150,
+    "shortDescription": "Kelola lamaran sampai onboarding",
+    "heroTitle": "Dari lamaran sampai karyawan baru",
+    "heroDescription": "Modul rekrutmen masih dalam rencana: lowongan, seleksi kandidat, dan onboarding.",
+    "benefits": [
+      {
+        "title": "Satu alur rekrutmen",
+        "description": "Dari lowongan sampai karyawan aktif."
+      },
+      {
+        "title": "Seleksi terdokumentasi",
+        "description": "Riwayat kandidat tersimpan."
+      },
+      {
+        "title": "Onboarding terhubung",
+        "description": "Data kandidat berlanjut menjadi data karyawan."
+      }
+    ],
+    "blocks": [
+      {
+        "title": "Rencana fitur",
+        "description": "Ceritakan proses rekrutmen di tempatmu agar kami merancang yang tepat.",
+        "points": [
+          {
+            "text": "Lowongan"
+          },
+          {
+            "text": "Seleksi kandidat"
+          },
+          {
+            "text": "Onboarding"
+          }
+        ]
+      }
+    ],
+    "mock": {
+      "title": "Rencana",
+      "rows": [
+        {
+          "label": "Lowongan",
+          "detail": "Dalam pengembangan",
+          "status": "Rencana"
+        }
+      ]
+    },
+    "faqs": [
+      {
+        "question": "Apakah rekrutmen sudah tersedia?",
+        "answer": "Belum. Modul ini masih dalam rencana."
+      }
+    ],
+    "relatedSlugs": [
+      "dokumen-digital"
+    ]
+  }
+]

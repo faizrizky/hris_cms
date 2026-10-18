@@ -4,13 +4,18 @@ import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
 
-import { Categories } from './collections/Categories'
+import { id as indonesian } from '@payloadcms/translations/languages/id'
+
+import { Features } from './collections/features'
+import { Leads } from './collections/leads'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
-import { Posts } from './collections/Posts'
+import { Solutions } from './collections/solutions'
+import { Testimonials } from './collections/testimonials'
 import { Users } from './collections/Users'
-import { Footer } from './Footer/config'
-import { Header } from './Header/config'
+import { Home } from './globals/home'
+import { AboutPage, PricingPage } from './globals/page-contents'
+import { SiteSettings } from './globals/site-settings'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getLandingURL, getServerSideURL } from './utilities/getURL'
@@ -21,12 +26,16 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   admin: {
     components: {
-      // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below.
-      beforeLogin: ['@/components/BeforeLogin'],
-      // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below.
-      beforeDashboard: ['@/components/BeforeDashboard'],
+      graphics: {
+        Logo: '@/components/admin/brand-logo#BrandLogo',
+        Icon: '@/components/admin/brand-icon#BrandIcon',
+      },
+      beforeLogin: ['@/components/admin/before-login#BeforeLogin'],
+      beforeDashboard: ['@/components/admin/before-dashboard#BeforeDashboard'],
+    },
+    meta: {
+      titleSuffix: ' · HRIS CMS',
+      description: 'Kelola konten situs HRIS.',
     },
     importMap: {
       baseDir: path.resolve(dirname),
@@ -62,11 +71,12 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URL || '',
     },
   }),
-  collections: [Pages, Posts, Media, Categories, Users],
+  collections: [Pages, Features, Solutions, Testimonials, Leads, Media, Users],
   serverURL: getServerSideURL(),
   cors: [getLandingURL()],
   csrf: [getLandingURL()],
-  globals: [Header, Footer],
+  globals: [SiteSettings, Home, PricingPage, AboutPage],
+  i18n: { supportedLanguages: { id: indonesian }, fallbackLanguage: 'id' },
   plugins,
   secret: process.env.PAYLOAD_SECRET,
   sharp,

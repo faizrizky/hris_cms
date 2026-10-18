@@ -1,0 +1,682 @@
+[
+  {
+    "slug": "logistik",
+    "name": "Logistik",
+    "type": "industry",
+    "order": 10,
+    "showOnHome": true,
+    "tagline": "Tingkatkan operasional tim lapangan",
+    "heroTitle": "Tim lapangan tetap tercatat",
+    "heroDescription": "Sopir, kurir, dan staf gudang absen dari HP di titik kerja, bahkan saat sinyal lemah. HR melihat kehadiran tanpa menunggu laporan.",
+    "pains": [
+      {
+        "title": "Absensi masih manual",
+        "description": "Rekap kehadiran tim lapangan memakan waktu dan rawan salah catat."
+      },
+      {
+        "title": "Persetujuan lambat",
+        "description": "Cuti dan lembur menunggu tanda tangan dan chat yang tercecer."
+      },
+      {
+        "title": "HR kewalahan administrasi",
+        "description": "Waktu HR habis untuk mengejar data, bukan membantu tim."
+      }
+    ],
+    "points": [
+      {
+        "title": "Absen di titik kerja",
+        "description": "Verifikasi wajah dan lokasi dari HP, tanpa mesin absen.",
+        "featureSlug": "absensi-online"
+      },
+      {
+        "title": "Tahan sinyal lemah",
+        "description": "Absen tersimpan dan terkirim saat tersambung.",
+        "featureSlug": "absensi-online"
+      },
+      {
+        "title": "Lembur terkendali",
+        "description": "Pengajuan dan persetujuan lembur tercatat rapi.",
+        "featureSlug": "lembur-online"
+      },
+      {
+        "title": "Slip gaji di HP",
+        "description": "Karyawan lapangan mengecek gaji sendiri.",
+        "featureSlug": "slip-gaji-online"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Apakah cocok untuk karyawan yang berpindah-pindah lokasi?",
+        "answer": "Ya. Absen memvalidasi area kerja, dan pengajuan dinas luar tersedia untuk perjalanan tugas."
+      },
+      {
+        "question": "Bagaimana jika sinyal hilang di jalan?",
+        "answer": "Absen disimpan di HP dan dikirim otomatis saat sinyal kembali."
+      }
+    ]
+  },
+  {
+    "slug": "konstruksi",
+    "name": "Konstruksi",
+    "type": "industry",
+    "order": 20,
+    "showOnHome": true,
+    "tagline": "Pantau kinerja tim lintas proyek",
+    "heroTitle": "Banyak proyek, satu catatan",
+    "heroDescription": "Pantau kehadiran tenaga kerja di berbagai lokasi proyek dan kelola dinas luar serta lembur lewat approval yang jelas.",
+    "pains": [
+      {
+        "title": "Absensi masih manual",
+        "description": "Rekap kehadiran di banyak lokasi proyek memakan waktu dan rawan salah catat."
+      },
+      {
+        "title": "Persetujuan lambat",
+        "description": "Cuti dan lembur menunggu tanda tangan dan chat yang tercecer."
+      },
+      {
+        "title": "HR kewalahan administrasi",
+        "description": "Waktu HR habis untuk mengejar data, bukan membantu tim."
+      }
+    ],
+    "points": [
+      {
+        "title": "Absen per lokasi",
+        "description": "Validasi area kerja untuk setiap proyek.",
+        "featureSlug": "absensi-online"
+      },
+      {
+        "title": "Dinas luar tercatat",
+        "description": "Penugasan antar proyek lewat pengajuan dan persetujuan.",
+        "featureSlug": "dinas-luar-dan-wfh"
+      },
+      {
+        "title": "Lembur jelas",
+        "description": "Jam lembur proyek punya jejak persetujuan.",
+        "featureSlug": "lembur-online"
+      },
+      {
+        "title": "Approval cepat",
+        "description": "Mandor dan atasan menyetujui dari HP.",
+        "featureSlug": "approval-berjenjang"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Apakah bisa dipakai di lokasi tanpa sinyal stabil?",
+        "answer": "Bisa. Mode offline menyimpan absen dan mengirimnya saat tersambung."
+      }
+    ]
+  },
+  {
+    "slug": "healthcare",
+    "name": "Healthcare",
+    "type": "industry",
+    "order": 30,
+    "showOnHome": true,
+    "tagline": "Atur shift tenaga medis",
+    "heroTitle": "Shift dan lembur medis rapi",
+    "heroDescription": "Kehadiran, lembur, dan cuti tenaga medis tercatat jelas sehingga rekap dan payroll tidak lagi menjadi beban akhir bulan.",
+    "pains": [
+      {
+        "title": "Absensi masih manual",
+        "description": "Rekap kehadiran tenaga medis memakan waktu dan rawan salah catat."
+      },
+      {
+        "title": "Persetujuan lambat",
+        "description": "Cuti dan lembur menunggu tanda tangan dan chat yang tercecer."
+      },
+      {
+        "title": "HR kewalahan administrasi",
+        "description": "Waktu HR habis untuk mengejar data, bukan membantu tim."
+      }
+    ],
+    "points": [
+      {
+        "title": "Kehadiran akurat",
+        "description": "Verifikasi wajah mencegah titip absen.",
+        "featureSlug": "absensi-online"
+      },
+      {
+        "title": "Lembur tercatat",
+        "description": "Jam tambahan punya pengajuan dan persetujuan.",
+        "featureSlug": "lembur-online"
+      },
+      {
+        "title": "Cuti terkelola",
+        "description": "Sisa kuota dan jadwal cuti jelas.",
+        "featureSlug": "cuti-online"
+      },
+      {
+        "title": "Dokumen terverifikasi",
+        "description": "Dokumen karyawan tersimpan dan diverifikasi HR.",
+        "featureSlug": "dokumen-digital"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Apakah mendukung kerja bergilir?",
+        "answer": "Kehadiran dan lembur dicatat per hari kerja sehingga cocok untuk pola bergilir. Hubungi kami untuk menyesuaikan dengan jadwal shift di tempatmu."
+      }
+    ]
+  },
+  {
+    "slug": "retail",
+    "name": "Retail",
+    "type": "industry",
+    "order": 40,
+    "showOnHome": true,
+    "tagline": "Sinkronkan operasional toko",
+    "heroTitle": "Banyak toko, satu kendali",
+    "heroDescription": "Absensi per outlet, pengumuman ke seluruh toko, dan persetujuan cepat membuat operasional retail berjalan seragam.",
+    "pains": [
+      {
+        "title": "Absensi masih manual",
+        "description": "Rekap kehadiran di banyak outlet memakan waktu dan rawan salah catat."
+      },
+      {
+        "title": "Persetujuan lambat",
+        "description": "Cuti dan lembur menunggu tanda tangan dan chat yang tercecer."
+      },
+      {
+        "title": "HR kewalahan administrasi",
+        "description": "Waktu HR habis untuk mengejar data, bukan membantu tim."
+      }
+    ],
+    "points": [
+      {
+        "title": "Absensi per outlet",
+        "description": "Setiap toko punya area kerja sendiri.",
+        "featureSlug": "absensi-online"
+      },
+      {
+        "title": "Pengumuman seragam",
+        "description": "Kebijakan baru sampai ke seluruh toko.",
+        "featureSlug": "pengumuman-perusahaan"
+      },
+      {
+        "title": "Lembur dan cuti",
+        "description": "Atur tenaga toko tanpa kertas.",
+        "featureSlug": "cuti-online"
+      },
+      {
+        "title": "Slip gaji digital",
+        "description": "Karyawan toko cek gaji dari HP.",
+        "featureSlug": "slip-gaji-online"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Apakah satu aplikasi bisa untuk banyak outlet?",
+        "answer": "Ya. Area kerja dapat diatur per lokasi sehingga absen divalidasi sesuai outlet."
+      }
+    ]
+  },
+  {
+    "slug": "manufaktur",
+    "name": "Manufaktur",
+    "type": "industry",
+    "order": 50,
+    "showOnHome": true,
+    "tagline": "Tingkatkan produktivitas tenaga pabrik",
+    "heroTitle": "Rekap kehadiran tanpa hitung manual",
+    "heroDescription": "Kehadiran dan lembur tenaga pabrik tercatat otomatis dan siap dipakai untuk payroll.",
+    "pains": [
+      {
+        "title": "Absensi masih manual",
+        "description": "Rekap kehadiran tenaga pabrik memakan waktu dan rawan salah catat."
+      },
+      {
+        "title": "Persetujuan lambat",
+        "description": "Cuti dan lembur menunggu tanda tangan dan chat yang tercecer."
+      },
+      {
+        "title": "HR kewalahan administrasi",
+        "description": "Waktu HR habis untuk mengejar data, bukan membantu tim."
+      }
+    ],
+    "points": [
+      {
+        "title": "Kehadiran otomatis",
+        "description": "Rekap harian tanpa input manual.",
+        "featureSlug": "absensi-online"
+      },
+      {
+        "title": "Lembur terdokumentasi",
+        "description": "Jam lembur punya persetujuan.",
+        "featureSlug": "lembur-online"
+      },
+      {
+        "title": "Koreksi terkendali",
+        "description": "Kesalahan absen diperbaiki lewat approval.",
+        "featureSlug": "koreksi-absensi"
+      },
+      {
+        "title": "Pengumuman cepat",
+        "description": "Informasi shift dan kebijakan sampai ke semua.",
+        "featureSlug": "pengumuman-perusahaan"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Apakah bisa terhubung ke mesin fingerprint?",
+        "answer": "Integrasi perangkat absensi belum tersedia. Absensi saat ini lewat aplikasi HP dengan verifikasi wajah."
+      }
+    ]
+  },
+  {
+    "slug": "hospitality",
+    "name": "Hospitality",
+    "type": "industry",
+    "order": 60,
+    "showOnHome": false,
+    "tagline": "Pantau karyawan di setiap shift",
+    "heroTitle": "Tim layanan yang selalu terpantau",
+    "heroDescription": "Catat kehadiran, kelola cuti dan lembur, dan pastikan pengumuman operasional sampai ke seluruh tim.",
+    "pains": [
+      {
+        "title": "Absensi masih manual",
+        "description": "Rekap kehadiran tim layanan memakan waktu dan rawan salah catat."
+      },
+      {
+        "title": "Persetujuan lambat",
+        "description": "Cuti dan lembur menunggu tanda tangan dan chat yang tercecer."
+      },
+      {
+        "title": "HR kewalahan administrasi",
+        "description": "Waktu HR habis untuk mengejar data, bukan membantu tim."
+      }
+    ],
+    "points": [
+      {
+        "title": "Absensi akurat",
+        "description": "Verifikasi wajah dan lokasi.",
+        "featureSlug": "absensi-online"
+      },
+      {
+        "title": "Cuti terkelola",
+        "description": "Kuota dan jadwal cuti jelas.",
+        "featureSlug": "cuti-online"
+      },
+      {
+        "title": "Lembur transparan",
+        "description": "Jam tambahan tercatat.",
+        "featureSlug": "lembur-online"
+      },
+      {
+        "title": "Pengumuman operasional",
+        "description": "Informasi cepat ke seluruh tim.",
+        "featureSlug": "pengumuman-perusahaan"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Apakah cocok untuk tim dengan jam kerja berbeda-beda?",
+        "answer": "Ya. Kehadiran dicatat per hari dan per orang. Hubungi kami untuk menyesuaikan kebijakan jam kerja."
+      }
+    ]
+  },
+  {
+    "slug": "jasa-profesional",
+    "name": "Jasa Profesional",
+    "type": "industry",
+    "order": 70,
+    "showOnHome": false,
+    "tagline": "Maksimalkan kinerja tim profesional",
+    "heroTitle": "Fleksibel tanpa kehilangan kendali",
+    "heroDescription": "WFH, dinas luar, dan cuti dikelola tanpa kertas, dengan catatan yang rapi untuk HR dan atasan.",
+    "pains": [
+      {
+        "title": "Absensi masih manual",
+        "description": "Rekap kehadiran tim profesional memakan waktu dan rawan salah catat."
+      },
+      {
+        "title": "Persetujuan lambat",
+        "description": "Cuti dan lembur menunggu tanda tangan dan chat yang tercecer."
+      },
+      {
+        "title": "HR kewalahan administrasi",
+        "description": "Waktu HR habis untuk mengejar data, bukan membantu tim."
+      }
+    ],
+    "points": [
+      {
+        "title": "WFH dan dinas luar",
+        "description": "Kerja fleksibel dengan persetujuan.",
+        "featureSlug": "dinas-luar-dan-wfh"
+      },
+      {
+        "title": "Cuti online",
+        "description": "Pengajuan cepat dari HP.",
+        "featureSlug": "cuti-online"
+      },
+      {
+        "title": "Penilaian kinerja",
+        "description": "Appraisal dan target terdokumentasi.",
+        "featureSlug": "penilaian-kinerja"
+      },
+      {
+        "title": "Slip gaji digital",
+        "description": "Rincian gaji aman di aplikasi.",
+        "featureSlug": "slip-gaji-online"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Apakah ada penilaian 360 derajat?",
+        "answer": "Belum. Saat ini tersedia appraisal dan target; 360 derajat dalam rencana."
+      }
+    ]
+  },
+  {
+    "slug": "fnb",
+    "name": "F&B",
+    "type": "industry",
+    "order": 80,
+    "showOnHome": true,
+    "tagline": "Atur & pantau shift setiap outlet",
+    "heroTitle": "Outlet banyak, tim tetap terpantau",
+    "heroDescription": "Absensi per outlet, lembur, dan cuti dikelola dari satu aplikasi sehingga manajer outlet fokus melayani pelanggan.",
+    "pains": [
+      {
+        "title": "Absensi masih manual",
+        "description": "Rekap kehadiran di setiap outlet memakan waktu dan rawan salah catat."
+      },
+      {
+        "title": "Persetujuan lambat",
+        "description": "Cuti dan lembur menunggu tanda tangan dan chat yang tercecer."
+      },
+      {
+        "title": "HR kewalahan administrasi",
+        "description": "Waktu HR habis untuk mengejar data, bukan membantu tim."
+      }
+    ],
+    "points": [
+      {
+        "title": "Absen per outlet",
+        "description": "Area kerja tiap outlet divalidasi.",
+        "featureSlug": "absensi-online"
+      },
+      {
+        "title": "Lembur jelas",
+        "description": "Jam tambahan tercatat dan disetujui.",
+        "featureSlug": "lembur-online"
+      },
+      {
+        "title": "Approval cepat",
+        "description": "Manajer outlet menyetujui dari HP.",
+        "featureSlug": "approval-berjenjang"
+      },
+      {
+        "title": "Slip gaji digital",
+        "description": "Tim outlet cek gaji sendiri.",
+        "featureSlug": "slip-gaji-online"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Apakah manajer outlet bisa menyetujui pengajuan timnya?",
+        "answer": "Ya. Atasan menyetujui pengajuan anggota timnya dari HP."
+      }
+    ]
+  },
+  {
+    "slug": "trading",
+    "name": "Trading",
+    "type": "industry",
+    "order": 90,
+    "showOnHome": false,
+    "tagline": "Dukung tim penjualan dan distribusi",
+    "heroTitle": "Tim sales tetap terpantau",
+    "heroDescription": "Tim penjualan yang sering di luar kantor tetap tercatat lewat absen lokasi dan pengajuan dinas luar.",
+    "pains": [
+      {
+        "title": "Absensi masih manual",
+        "description": "Rekap kehadiran tim sales dan distribusi memakan waktu dan rawan salah catat."
+      },
+      {
+        "title": "Persetujuan lambat",
+        "description": "Cuti dan lembur menunggu tanda tangan dan chat yang tercecer."
+      },
+      {
+        "title": "HR kewalahan administrasi",
+        "description": "Waktu HR habis untuk mengejar data, bukan membantu tim."
+      }
+    ],
+    "points": [
+      {
+        "title": "Absen di lapangan",
+        "description": "Verifikasi wajah dan lokasi dari HP.",
+        "featureSlug": "absensi-online"
+      },
+      {
+        "title": "Dinas luar",
+        "description": "Kunjungan klien lewat pengajuan.",
+        "featureSlug": "dinas-luar-dan-wfh"
+      },
+      {
+        "title": "Lembur",
+        "description": "Jam tambahan tercatat.",
+        "featureSlug": "lembur-online"
+      },
+      {
+        "title": "Slip gaji",
+        "description": "Rincian gaji di HP.",
+        "featureSlug": "slip-gaji-online"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Apakah cocok untuk sales yang berpindah-pindah?",
+        "answer": "Ya. Gunakan pengajuan dinas luar untuk perjalanan tugas dan absen lokasi untuk titik kerja."
+      }
+    ]
+  },
+  {
+    "slug": "outsource",
+    "name": "Outsource",
+    "type": "industry",
+    "order": 100,
+    "showOnHome": false,
+    "tagline": "Kontrol tenaga kerja lintas klien",
+    "heroTitle": "Tenaga kerja lintas klien terkendali",
+    "heroDescription": "Pantau kehadiran tenaga kerja yang ditempatkan di berbagai klien, dengan lokasi kerja tervalidasi dan persetujuan yang jelas.",
+    "pains": [
+      {
+        "title": "Absensi masih manual",
+        "description": "Rekap kehadiran tenaga kerja di banyak klien memakan waktu dan rawan salah catat."
+      },
+      {
+        "title": "Persetujuan lambat",
+        "description": "Cuti dan lembur menunggu tanda tangan dan chat yang tercecer."
+      },
+      {
+        "title": "HR kewalahan administrasi",
+        "description": "Waktu HR habis untuk mengejar data, bukan membantu tim."
+      }
+    ],
+    "points": [
+      {
+        "title": "Lokasi per klien",
+        "description": "Absen divalidasi sesuai tempat penugasan.",
+        "featureSlug": "absensi-online"
+      },
+      {
+        "title": "Approval berjenjang",
+        "description": "Koordinator dan HR menyetujui dari HP.",
+        "featureSlug": "approval-berjenjang"
+      },
+      {
+        "title": "Dokumen terverifikasi",
+        "description": "Berkas tenaga kerja terkumpul rapi.",
+        "featureSlug": "dokumen-digital"
+      },
+      {
+        "title": "Slip gaji digital",
+        "description": "Tenaga kerja cek gaji sendiri.",
+        "featureSlug": "slip-gaji-online"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Apakah bisa mengatur banyak lokasi penugasan?",
+        "answer": "Ya. Area kerja dapat diatur per lokasi."
+      }
+    ]
+  },
+  {
+    "slug": "startup",
+    "name": "Startup",
+    "type": "industry",
+    "order": 110,
+    "showOnHome": true,
+    "tagline": "Bangun HR yang siap berkembang",
+    "heroTitle": "Mulai cepat, tumbuh bersama tim",
+    "heroDescription": "Tidak perlu sistem HR yang berat di awal. Mulai dari absensi, cuti, dan slip gaji, lalu tambah modul saat tim membesar.",
+    "pains": [
+      {
+        "title": "Absensi masih manual",
+        "description": "Rekap kehadiran tim yang baru berkembang memakan waktu dan rawan salah catat."
+      },
+      {
+        "title": "Persetujuan lambat",
+        "description": "Cuti dan lembur menunggu tanda tangan dan chat yang tercecer."
+      },
+      {
+        "title": "HR kewalahan administrasi",
+        "description": "Waktu HR habis untuk mengejar data, bukan membantu tim."
+      }
+    ],
+    "points": [
+      {
+        "title": "Cepat dipakai",
+        "description": "Karyawan langsung terbiasa karena lewat HP.",
+        "featureSlug": "absensi-online"
+      },
+      {
+        "title": "Cuti dan lembur",
+        "description": "Tanpa spreadsheet dan formulir.",
+        "featureSlug": "cuti-online"
+      },
+      {
+        "title": "Slip gaji digital",
+        "description": "Profesional sejak awal.",
+        "featureSlug": "slip-gaji-online"
+      },
+      {
+        "title": "Tumbuh bertahap",
+        "description": "Modul ditambah sesuai kebutuhan.",
+        "featureSlug": "approval-berjenjang"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Apakah ada minimum jumlah karyawan?",
+        "answer": "Hubungi kami untuk membahas kebutuhan tim kecil maupun besar."
+      }
+    ]
+  },
+  {
+    "slug": "umkm",
+    "name": "UMKM",
+    "type": "scale",
+    "order": 120,
+    "showOnHome": false,
+    "tagline": "HR praktis untuk usaha kecil dan menengah",
+    "heroTitle": "Urusan HR beres tanpa ribet",
+    "heroDescription": "Absensi digital, pengajuan cuti, dan slip gaji dalam satu aplikasi, supaya pemilik usaha fokus mengembangkan bisnis.",
+    "pains": [
+      {
+        "title": "Absensi masih manual",
+        "description": "Catatan kertas dan chat memakan waktu."
+      },
+      {
+        "title": "Hitung gaji makan waktu",
+        "description": "Rekap kehadiran dan lembur dikerjakan manual."
+      },
+      {
+        "title": "Administrasi bikin stres",
+        "description": "Pemilik usaha merangkap HR."
+      }
+    ],
+    "points": [
+      {
+        "title": "Absensi digital",
+        "description": "Karyawan absen dari HP dengan wajah dan lokasi.",
+        "featureSlug": "absensi-online"
+      },
+      {
+        "title": "Cuti dan lembur",
+        "description": "Pengajuan dan persetujuan tanpa kertas.",
+        "featureSlug": "cuti-online"
+      },
+      {
+        "title": "Slip gaji digital",
+        "description": "Karyawan cek gaji sendiri.",
+        "featureSlug": "slip-gaji-online"
+      },
+      {
+        "title": "Mudah dipelajari",
+        "description": "Antarmuka sederhana, tanpa pelatihan panjang.",
+        "featureSlug": "approval-berjenjang"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Apakah terlalu rumit untuk usaha kecil?",
+        "answer": "Tidak. Mulai dari absensi dan pengajuan dasar, lalu tambah sesuai kebutuhan."
+      }
+    ]
+  },
+  {
+    "slug": "enterprise",
+    "name": "Enterprise",
+    "type": "scale",
+    "order": 130,
+    "showOnHome": false,
+    "tagline": "Kelola ribuan karyawan dengan satu sistem",
+    "heroTitle": "Ribuan karyawan, satu sistem",
+    "heroDescription": "Alur approval berjenjang, kehadiran lintas lokasi, dan keamanan akun membantu perusahaan besar tetap terkendali.",
+    "pains": [
+      {
+        "title": "Administrasi HR terlalu kompleks",
+        "description": "Banyak lokasi, banyak atasan, banyak formulir."
+      },
+      {
+        "title": "Kontrol kurang real-time",
+        "description": "Laporan terlambat membuat keputusan tertunda."
+      },
+      {
+        "title": "Risiko data",
+        "description": "Akses data karyawan perlu dijaga ketat."
+      }
+    ],
+    "points": [
+      {
+        "title": "Approval berjenjang",
+        "description": "Alur persetujuan mengikuti struktur organisasi.",
+        "featureSlug": "approval-berjenjang"
+      },
+      {
+        "title": "Kehadiran lintas lokasi",
+        "description": "Verifikasi wajah dan area kerja per lokasi.",
+        "featureSlug": "absensi-online"
+      },
+      {
+        "title": "Keamanan akun",
+        "description": "Kunci biometrik dan kelola sesi perangkat.",
+        "featureSlug": "keamanan-akun"
+      },
+      {
+        "title": "Dokumen terverifikasi",
+        "description": "Berkas karyawan terpusat dan diverifikasi HR.",
+        "featureSlug": "dokumen-digital"
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Apakah bisa disesuaikan dengan alur perusahaan besar?",
+        "answer": "Hubungi kami untuk membahas kebutuhan alur approval dan struktur organisasi di tempatmu."
+      }
+    ]
+  }
+]

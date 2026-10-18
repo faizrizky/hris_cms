@@ -1,0 +1,183 @@
+/*
+ * Tema admin HRIS CMS. Mengikuti landing: ground putih, ink gelap kebiruan, satu aksen biru,
+ * permukaan datar (beda warna, bukan garis dan bayangan), huruf Geist.
+ * Payload memakai @layer, jadi aturan di file ini otomatis menang.
+ */
+
+@font-face {
+  font-family: 'Geist';
+  src: url('/fonts/Geist-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+:root {
+  --hris-accent: #2490ef;
+  --hris-accent-ink: #ffffff;
+  --hris-ink: #0a0f1c;
+
+  /* Skala abu kebiruan yang dipakai Payload untuk semua permukaan dan teks. */
+  --color-base-0: #ffffff;
+  --color-base-50: #f4f7fb;
+  --color-base-100: #edf1f7;
+  --color-base-150: #e2e8f1;
+  --color-base-200: #d4dce8;
+  --color-base-250: #c3cddc;
+  --color-base-300: #b0bccf;
+  --color-base-350: #9aa8bd;
+  --color-base-400: #8594ac;
+  --color-base-450: #738299;
+  --color-base-500: #637188;
+  --color-base-550: #536076;
+  --color-base-600: #445064;
+  --color-base-650: #374255;
+  --color-base-700: #2b3547;
+  --color-base-750: #212a3a;
+  --color-base-800: #182030;
+  --color-base-850: #111827;
+  --color-base-900: #0d1321;
+  --color-base-950: #0a0f1c;
+  --color-base-1000: #060a14;
+
+  --font-body: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --style-radius-s: 4px;
+  --style-radius-m: 6px;
+  --style-radius-l: 8px;
+}
+
+html[data-theme='dark'] {
+  --hris-accent-ink: #06101f;
+}
+
+body {
+  font-family: var(--font-body);
+  letter-spacing: -0.005em;
+}
+
+/* Tombol utama memakai aksen merek; tombol lain tetap netral. */
+.btn--style-primary {
+  --bg-color: var(--hris-accent);
+  --color: var(--hris-accent-ink);
+  --hover-bg: color-mix(in srgb, var(--hris-accent) 86%, #000);
+  --hover-color: var(--hris-accent-ink);
+}
+
+/* Permukaan istirahat tidak berbayang; hanya elemen yang melayang (menu, dialog) yang boleh. */
+.card,
+.collection-list__wrap,
+.doc-controls,
+.field-type.blocks .blocks-field__row,
+.array-field__row,
+.render-fields .group-field {
+  box-shadow: none;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--hris-accent);
+  outline-offset: 2px;
+}
+
+/* Logo dan ikon */
+.hris-logo {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.12em;
+  font-family: var(--font-body);
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  color: var(--theme-text);
+}
+
+.hris-logo__dot {
+  width: 0.2em;
+  height: 0.2em;
+  border-radius: 50%;
+  background: var(--hris-accent);
+}
+
+.hris-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 6px;
+  background: var(--hris-accent);
+  color: var(--hris-accent-ink);
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: -0.04em;
+}
+
+/* Layar masuk */
+.hris-before-login {
+  margin: 0 0 1.4rem;
+  font-size: 1.4rem;
+  line-height: 1.4;
+  color: var(--theme-elevation-600);
+}
+
+/* Dasbor */
+.hris-dashboard {
+  margin-bottom: 2.4rem;
+}
+
+.hris-dashboard__title {
+  margin: 0;
+  font-size: 2.4rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.hris-dashboard__lead {
+  margin: 0.6rem 0 1.6rem;
+  max-width: 52ch;
+  color: var(--theme-elevation-600);
+}
+
+.hris-dashboard__links {
+  display: grid;
+  gap: 0.2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hris-dashboard__links li {
+  display: grid;
+  grid-template-columns: minmax(9rem, 14rem) 1fr;
+  align-items: baseline;
+  gap: 1.2rem;
+  padding: 0.9rem 1.2rem;
+  border-radius: var(--style-radius-m);
+  background: var(--theme-elevation-50);
+}
+
+.hris-dashboard__links li:nth-child(even) {
+  background: transparent;
+}
+
+.hris-dashboard__links a {
+  font-weight: 700;
+  color: var(--theme-text);
+  text-decoration: none;
+}
+
+.hris-dashboard__links a:hover {
+  color: var(--hris-accent);
+}
+
+.hris-dashboard__links span {
+  color: var(--theme-elevation-550);
+}
+
+@media (max-width: 700px) {
+  .hris-dashboard__links li {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+}

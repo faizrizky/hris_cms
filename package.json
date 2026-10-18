@@ -17,7 +17,8 @@
     "test": "pnpm run test:int && pnpm run test:e2e",
     "test:e2e": "cross-env NODE_OPTIONS=\"--no-deprecation --import=tsx/esm\" playwright test --config=playwright.config.ts",
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "seed": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/run-seed.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.91.0",
@@ -28,6 +29,7 @@
     "@payloadcms/plugin-search": "3.91.0",
     "@payloadcms/plugin-seo": "3.91.0",
     "@payloadcms/richtext-lexical": "3.91.0",
+    "@payloadcms/translations": "3.91.0",
     "@payloadcms/ui": "3.91.0",
     "cross-env": "^7.0.3",
     "dotenv": "16.4.7",
