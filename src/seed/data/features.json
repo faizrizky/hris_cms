@@ -1043,5 +1043,921 @@
       "dokumen-digital"
     ],
     "availability": "planned"
+  },
+  {
+    "slug": "verifikasi-wajah",
+    "name": "Verifikasi Wajah",
+    "category": "attendance",
+    "order": 25,
+    "shortDescription": "Daftarkan wajah karyawan dan tinjau hasilnya oleh HR",
+    "heroTitle": "Wajah terdaftar sekali, absen aman setiap hari",
+    "heroDescription": "Karyawan mendaftarkan wajah langsung dari aplikasi. HR meninjau pendaftaran sebelum dipakai untuk absen, jadi absen hanya sah oleh orangnya sendiri.",
+    "benefits": [
+      {
+        "title": "Pendaftaran dari HP",
+        "description": "Karyawan memindai wajah sendiri tanpa perlu datang ke kantor."
+      },
+      {
+        "title": "Ditinjau HR",
+        "description": "Pendaftaran wajah diperiksa HR sebelum dipakai."
+      },
+      {
+        "title": "Dipakai saat absen",
+        "description": "Wajah dicocokkan setiap absen masuk dan pulang."
+      }
+    ],
+    "blocks": [
+      {
+        "title": "Pendaftaran dan peninjauan",
+        "description": "Alurnya singkat dan terlacak, dari karyawan sampai persetujuan HR.",
+        "points": [
+          {
+            "text": "Pemindaian wajah dengan panduan di layar"
+          },
+          {
+            "text": "Antrean peninjauan untuk HR"
+          },
+          {
+            "text": "Wajah baru bisa diajukan ulang bila perlu"
+          }
+        ]
+      }
+    ],
+    "mock": {
+      "title": "Pendaftaran wajah",
+      "rows": [
+        {
+          "label": "Budi Santoso",
+          "detail": "Menunggu peninjauan HR",
+          "status": "Diajukan"
+        },
+        {
+          "label": "Sari Dewi",
+          "detail": "Wajah aktif untuk absen",
+          "status": "Disetujui"
+        }
+      ]
+    },
+    "faqs": [
+      {
+        "question": "Apakah foto wajah dipakai untuk hal lain?",
+        "answer": "Wajah dipakai untuk memverifikasi absen karyawan itu sendiri."
+      },
+      {
+        "question": "Bagaimana bila wajah berubah?",
+        "answer": "Karyawan bisa mengajukan pendaftaran ulang yang ditinjau HR."
+      }
+    ],
+    "relatedSlugs": [
+      "absensi-online",
+      "koreksi-absensi",
+      "keamanan-akun"
+    ],
+    "availability": "available"
+  },
+  {
+    "slug": "pantau-tim",
+    "name": "Pantau Tim",
+    "category": "team",
+    "order": 10,
+    "shortDescription": "Atasan melihat kehadiran dan riwayat anggota tim",
+    "heroTitle": "Atasan tahu kondisi timnya tanpa menunggu laporan",
+    "heroDescription": "Atasan membuka daftar anggota tim, melihat siapa yang sudah absen hari ini, dan menelusuri riwayat kehadiran tiap orang dari HP.",
+    "benefits": [
+      {
+        "title": "Kehadiran hari ini",
+        "description": "Lihat siapa yang sudah absen dan siapa yang belum."
+      },
+      {
+        "title": "Riwayat per orang",
+        "description": "Telusuri kehadiran anggota tim dari hari ke hari."
+      },
+      {
+        "title": "Dari HP",
+        "description": "Tidak perlu membuka laporan di komputer."
+      }
+    ],
+    "blocks": [
+      {
+        "title": "Satu layar untuk tim",
+        "description": "Daftar anggota dan detailnya mudah dibuka kapan saja.",
+        "points": [
+          {
+            "text": "Daftar anggota tim"
+          },
+          {
+            "text": "Kehadiran hari ini"
+          },
+          {
+            "text": "Riwayat kehadiran per anggota"
+          }
+        ]
+      }
+    ],
+    "mock": {
+      "title": "Tim saya",
+      "rows": [
+        {
+          "label": "Budi Santoso",
+          "detail": "08:02 masuk",
+          "status": "Hadir"
+        },
+        {
+          "label": "Sari Dewi",
+          "detail": "Belum absen",
+          "status": "Menunggu"
+        },
+        {
+          "label": "Rian Putra",
+          "detail": "Cuti tahunan",
+          "status": "Cuti"
+        }
+      ]
+    },
+    "faqs": [
+      {
+        "question": "Siapa yang bisa melihat tim?",
+        "answer": "Atasan melihat anggota timnya sesuai struktur yang diatur HR."
+      }
+    ],
+    "relatedSlugs": [
+      "absensi-online",
+      "approval-berjenjang",
+      "cuti-online"
+    ],
+    "availability": "available"
+  },
+  {
+    "slug": "profil-dan-data-karyawan",
+    "name": "Profil & Data Karyawan",
+    "category": "team",
+    "order": 20,
+    "shortDescription": "Karyawan memperbarui data diri, HR meninjau perubahannya",
+    "heroTitle": "Data karyawan selalu mutakhir dan terverifikasi",
+    "heroDescription": "Karyawan melihat data dirinya dan mengajukan perubahan dari aplikasi. Perubahan baru berlaku setelah ditinjau HR, lengkap dengan jejak apa yang berubah.",
+    "benefits": [
+      {
+        "title": "Karyawan ikut menjaga data",
+        "description": "Alamat, kontak, dan foto diperbarui sendiri oleh karyawan."
+      },
+      {
+        "title": "HR tetap memegang kendali",
+        "description": "Setiap perubahan ditinjau sebelum berlaku."
+      },
+      {
+        "title": "Ada jejak perubahan",
+        "description": "Terlihat apa yang berubah dari sebelumnya."
+      }
+    ],
+    "blocks": [
+      {
+        "title": "Ajukan, tinjau, setujui",
+        "description": "Alur perubahan data yang rapi dan terdokumentasi.",
+        "points": [
+          {
+            "text": "Ubah data diri dan foto profil"
+          },
+          {
+            "text": "Ringkasan perubahan untuk peninjau"
+          },
+          {
+            "text": "Unggah dokumen pendukung"
+          }
+        ]
+      }
+    ],
+    "mock": {
+      "title": "Perubahan data",
+      "rows": [
+        {
+          "label": "Alamat domisili",
+          "detail": "Diajukan Budi Santoso",
+          "status": "Menunggu"
+        },
+        {
+          "label": "Nomor telepon",
+          "detail": "Diajukan Sari Dewi",
+          "status": "Disetujui"
+        }
+      ]
+    },
+    "faqs": [
+      {
+        "question": "Apakah perubahan langsung berlaku?",
+        "answer": "Tidak. Perubahan berlaku setelah HR menyetujuinya."
+      }
+    ],
+    "relatedSlugs": [
+      "dokumen-digital",
+      "approval-berjenjang",
+      "database-karyawan"
+    ],
+    "availability": "available"
+  },
+  {
+    "slug": "notifikasi",
+    "name": "Notifikasi",
+    "category": "documents",
+    "order": 30,
+    "shortDescription": "Kabar pengajuan dan persetujuan langsung di aplikasi",
+    "heroTitle": "Tidak ada pengajuan yang terlewat",
+    "heroDescription": "Setiap pengajuan, persetujuan, dan pengumuman muncul sebagai notifikasi di aplikasi. Notifikasi push ke layar kunci HP sedang disiapkan.",
+    "benefits": [
+      {
+        "title": "Semua di satu tempat",
+        "description": "Pengajuan, persetujuan, dan pengumuman terkumpul di aplikasi."
+      },
+      {
+        "title": "Tahu statusnya",
+        "description": "Karyawan dan atasan melihat perkembangan tanpa bertanya."
+      },
+      {
+        "title": "Push menyusul",
+        "description": "Notifikasi push ke layar kunci sedang disiapkan."
+      }
+    ],
+    "blocks": [
+      {
+        "title": "Pusat notifikasi",
+        "description": "Riwayat notifikasi tersimpan dan bisa dibuka kapan saja.",
+        "points": [
+          {
+            "text": "Notifikasi di dalam aplikasi sudah berjalan"
+          },
+          {
+            "text": "Notifikasi push menyusul"
+          }
+        ]
+      }
+    ],
+    "mock": {
+      "title": "Notifikasi",
+      "rows": [
+        {
+          "label": "Cuti disetujui",
+          "detail": "2 jam lalu",
+          "status": "Baru"
+        },
+        {
+          "label": "Pengumuman perusahaan",
+          "detail": "Kemarin",
+          "status": "Dibaca"
+        }
+      ]
+    },
+    "faqs": [
+      {
+        "question": "Apakah ada notifikasi di layar kunci?",
+        "answer": "Belum. Saat ini notifikasi tampil di dalam aplikasi; notifikasi push sedang disiapkan."
+      }
+    ],
+    "relatedSlugs": [
+      "approval-berjenjang",
+      "pengumuman-perusahaan",
+      "cuti-online"
+    ],
+    "availability": "partial"
+  },
+  {
+    "slug": "database-karyawan",
+    "name": "Database Karyawan",
+    "category": "hradmin",
+    "order": 10,
+    "shortDescription": "Data karyawan terpusat dengan ID otomatis dan kolom kustom",
+    "heroTitle": "Satu sumber data karyawan yang rapi",
+    "heroDescription": "HR mengelola seluruh data karyawan di satu tempat. ID karyawan dibuat otomatis dan kolom data dapat disesuaikan dengan kebutuhan perusahaan.",
+    "benefits": [
+      {
+        "title": "Terpusat",
+        "description": "Tidak ada lagi data karyawan tersebar di banyak berkas."
+      },
+      {
+        "title": "ID otomatis",
+        "description": "Nomor induk karyawan dibuat otomatis dan konsisten."
+      },
+      {
+        "title": "Kolom kustom",
+        "description": "Tambahkan data yang khas untuk perusahaanmu."
+      }
+    ],
+    "blocks": [
+      {
+        "title": "Dikelola HR, dipakai semua fitur",
+        "description": "Data yang sama dipakai absensi, pengajuan, dan slip gaji.",
+        "points": [
+          {
+            "text": "Profil dan riwayat kerja karyawan"
+          },
+          {
+            "text": "Kolom data tambahan sesuai kebutuhan"
+          },
+          {
+            "text": "Dokumen karyawan terhubung"
+          }
+        ]
+      }
+    ],
+    "mock": {
+      "title": "Data karyawan",
+      "rows": [
+        {
+          "label": "EMP-0001",
+          "detail": "Budi Santoso · Operasional",
+          "status": "Aktif"
+        },
+        {
+          "label": "EMP-0002",
+          "detail": "Sari Dewi · Keuangan",
+          "status": "Aktif"
+        }
+      ]
+    },
+    "faqs": [
+      {
+        "question": "Apakah kolom data bisa disesuaikan?",
+        "answer": "Bisa. HR dapat menambah kolom data sesuai kebutuhan perusahaan."
+      }
+    ],
+    "relatedSlugs": [
+      "dokumen-digital",
+      "profil-dan-data-karyawan",
+      "hak-akses-peran"
+    ],
+    "availability": "available"
+  },
+  {
+    "slug": "shift-dan-jadwal",
+    "name": "Shift & Jadwal Kerja",
+    "category": "hradmin",
+    "order": 20,
+    "shortDescription": "Atur shift per lokasi dan tetapkan ke banyak karyawan sekaligus",
+    "heroTitle": "Jadwal kerja tertata, absen mengikuti shift",
+    "heroDescription": "HR menyusun shift per lokasi kerja dan menetapkannya ke banyak karyawan sekaligus. Absensi mengikuti jam dan lokasi shift yang berlaku.",
+    "benefits": [
+      {
+        "title": "Shift per lokasi",
+        "description": "Tiap lokasi kerja punya jam dan area sendiri."
+      },
+      {
+        "title": "Penugasan massal",
+        "description": "Tetapkan shift ke banyak karyawan dalam sekali proses."
+      },
+      {
+        "title": "Terhubung ke absensi",
+        "description": "Terlambat atau tepat waktu dihitung dari shift."
+      }
+    ],
+    "blocks": [
+      {
+        "title": "Dari jadwal ke absensi",
+        "description": "Satu pengaturan, dipakai di seluruh aplikasi.",
+        "points": [
+          {
+            "text": "Beberapa jenis shift"
+          },
+          {
+            "text": "Area kerja per lokasi"
+          },
+          {
+            "text": "Penugasan shift massal"
+          }
+        ]
+      }
+    ],
+    "mock": {
+      "title": "Jadwal shift",
+      "rows": [
+        {
+          "label": "Shift Pagi",
+          "detail": "08:00 - 17:00 · Kantor Pusat",
+          "status": "Aktif"
+        },
+        {
+          "label": "Shift Siang",
+          "detail": "13:00 - 21:00 · Gudang",
+          "status": "Aktif"
+        }
+      ]
+    },
+    "faqs": [
+      {
+        "question": "Apakah karyawan bisa meminta ganti shift?",
+        "answer": "Belum. Permintaan ganti shift ada dalam rencana."
+      }
+    ],
+    "relatedSlugs": [
+      "absensi-online",
+      "database-karyawan",
+      "kebijakan-cuti-dan-hari-libur"
+    ],
+    "availability": "available"
+  },
+  {
+    "slug": "kebijakan-cuti-dan-hari-libur",
+    "name": "Kebijakan Cuti & Hari Libur",
+    "category": "hradmin",
+    "order": 30,
+    "shortDescription": "Atur jenis cuti, kuota, hari libur, dan cuti bersama",
+    "heroTitle": "Aturan cuti perusahaan, berjalan otomatis",
+    "heroDescription": "HR menetapkan jenis cuti, kuota, daftar hari libur, dan cuti bersama. Sisa kuota dan hari kerja dihitung otomatis di aplikasi.",
+    "benefits": [
+      {
+        "title": "Kuota sesuai kebijakan",
+        "description": "Jenis dan jatah cuti mengikuti aturan perusahaan."
+      },
+      {
+        "title": "Hari libur tercatat",
+        "description": "Libur nasional dan cuti bersama masuk perhitungan."
+      },
+      {
+        "title": "Hitungan otomatis",
+        "description": "Tidak ada rekap manual di akhir bulan."
+      }
+    ],
+    "blocks": [
+      {
+        "title": "Aturan sekali, dipakai semua",
+        "description": "Kebijakan yang sama dipakai pengajuan cuti dan absensi.",
+        "points": [
+          {
+            "text": "Jenis cuti dan kuota"
+          },
+          {
+            "text": "Daftar hari libur dan cuti bersama"
+          },
+          {
+            "text": "Sisa cuti terlihat oleh karyawan"
+          }
+        ]
+      }
+    ],
+    "mock": {
+      "title": "Kebijakan cuti",
+      "rows": [
+        {
+          "label": "Cuti Tahunan",
+          "detail": "12 hari per tahun",
+          "status": "Aktif"
+        },
+        {
+          "label": "Cuti Bersama",
+          "detail": "Mengikuti kalender",
+          "status": "Aktif"
+        }
+      ]
+    },
+    "faqs": [
+      {
+        "question": "Apakah cuti bersama bisa diatur?",
+        "answer": "Bisa. HR menetapkan hari libur dan cuti bersama perusahaan."
+      }
+    ],
+    "relatedSlugs": [
+      "cuti-online",
+      "shift-dan-jadwal",
+      "approval-berjenjang"
+    ],
+    "availability": "available"
+  },
+  {
+    "slug": "penggajian",
+    "name": "Penggajian",
+    "category": "hradmin",
+    "order": 40,
+    "shortDescription": "Hitung tunjangan, potongan, BPJS, dan pajak",
+    "heroTitle": "Gaji dihitung rapi, slip sampai ke karyawan",
+    "heroDescription": "HR menghitung gaji dengan tunjangan, potongan, BPJS, dan pajak. Hasilnya langsung menjadi slip gaji yang bisa dibuka karyawan dari aplikasi.",
+    "benefits": [
+      {
+        "title": "Komponen lengkap",
+        "description": "Tunjangan, potongan, BPJS, dan pajak dalam satu hitungan."
+      },
+      {
+        "title": "Terhubung ke slip",
+        "description": "Hasil hitungan menjadi slip gaji digital."
+      },
+      {
+        "title": "Transparan",
+        "description": "Karyawan melihat rincian potongannya sendiri."
+      }
+    ],
+    "blocks": [
+      {
+        "title": "Dari hitungan sampai slip",
+        "description": "Satu alur dari HR sampai ke HP karyawan.",
+        "points": [
+          {
+            "text": "Tunjangan dan potongan"
+          },
+          {
+            "text": "Perhitungan BPJS dan PPh 21"
+          },
+          {
+            "text": "Slip gaji digital untuk karyawan"
+          }
+        ]
+      }
+    ],
+    "mock": {
+      "title": "Penggajian",
+      "rows": [
+        {
+          "label": "Gaji pokok",
+          "detail": "Rp8.000.000",
+          "status": "Komponen"
+        },
+        {
+          "label": "BPJS Kesehatan",
+          "detail": "-Rp80.000",
+          "status": "Potongan"
+        }
+      ]
+    },
+    "faqs": [
+      {
+        "question": "Apakah THR dan gaji terjadwal sudah ada?",
+        "answer": "Belum. THR dan penggajian terjadwal ada dalam rencana."
+      }
+    ],
+    "relatedSlugs": [
+      "slip-gaji-online",
+      "ringkasan-pajak-bpjs",
+      "database-karyawan"
+    ],
+    "availability": "available"
+  },
+  {
+    "slug": "hak-akses-peran",
+    "name": "Hak Akses Berdasarkan Peran",
+    "category": "hradmin",
+    "order": 50,
+    "shortDescription": "Akses data sesuai peran dan posisi",
+    "heroTitle": "Setiap orang hanya melihat yang perlu dilihatnya",
+    "heroDescription": "Akses ke data dan fitur diatur berdasarkan peran dan posisi. Karyawan, atasan, dan HR melihat dan melakukan hal yang sesuai tugas masing-masing.",
+    "benefits": [
+      {
+        "title": "Sesuai peran",
+        "description": "Karyawan, atasan, dan HR punya batas akses sendiri."
+      },
+      {
+        "title": "Data terlindungi",
+        "description": "Data sensitif hanya terlihat oleh yang berwenang."
+      },
+      {
+        "title": "Mudah diatur",
+        "description": "HR mengatur peran tanpa bantuan teknis."
+      }
+    ],
+    "blocks": [
+      {
+        "title": "Akses yang tepat",
+        "description": "Kendali akses mengikuti struktur perusahaan.",
+        "points": [
+          {
+            "text": "Peran karyawan, atasan, dan HR"
+          },
+          {
+            "text": "Akses tim mengikuti atasan langsung"
+          },
+          {
+            "text": "Data gaji hanya untuk yang berwenang"
+          }
+        ]
+      }
+    ],
+    "mock": {
+      "title": "Peran",
+      "rows": [
+        {
+          "label": "Karyawan",
+          "detail": "Absen, pengajuan, slip gaji sendiri",
+          "status": "Aktif"
+        },
+        {
+          "label": "Atasan",
+          "detail": "Tim dan persetujuan",
+          "status": "Aktif"
+        },
+        {
+          "label": "HR",
+          "detail": "Pengelolaan data",
+          "status": "Aktif"
+        }
+      ]
+    },
+    "faqs": [
+      {
+        "question": "Apakah ada verifikasi dua langkah?",
+        "answer": "Belum. Autentikasi dua langkah ada dalam rencana."
+      }
+    ],
+    "relatedSlugs": [
+      "keamanan-akun",
+      "approval-berjenjang",
+      "database-karyawan"
+    ],
+    "availability": "available"
+  },
+  {
+    "slug": "onboarding-dan-offboarding",
+    "name": "Onboarding & Offboarding",
+    "category": "planned",
+    "order": 160,
+    "shortDescription": "Checklist karyawan masuk dan keluar",
+    "heroTitle": "Karyawan baru dan yang keluar, tanpa ada yang terlewat",
+    "heroDescription": "Modul ini sedang dalam rencana. HR akan bisa menyusun checklist masuk dan keluar, lengkap dengan penanggung jawab dan persetujuan.",
+    "benefits": [
+      {
+        "title": "Checklist kustom",
+        "description": "Tugas masuk dan keluar sesuai kebutuhan perusahaan."
+      },
+      {
+        "title": "Ada penanggung jawab",
+        "description": "Tiap tugas punya PIC dan status."
+      },
+      {
+        "title": "Terhubung ke data",
+        "description": "Terhubung ke data dan dokumen karyawan."
+      }
+    ],
+    "blocks": [
+      {
+        "title": "Rencana fitur",
+        "description": "Kami ingin tahu kebutuhanmu agar urutan pengembangannya tepat.",
+        "points": [
+          {
+            "text": "Checklist onboarding"
+          },
+          {
+            "text": "Checklist offboarding dan serah terima"
+          },
+          {
+            "text": "Pengembalian aset"
+          }
+        ]
+      }
+    ],
+    "mock": {
+      "title": "Rencana",
+      "rows": [
+        {
+          "label": "Onboarding",
+          "detail": "Dalam pengembangan",
+          "status": "Rencana"
+        }
+      ]
+    },
+    "faqs": [
+      {
+        "question": "Kapan fitur ini tersedia?",
+        "answer": "Belum ada tanggal pasti. Hubungi kami untuk menyampaikan kebutuhanmu agar bisa kami prioritaskan."
+      }
+    ],
+    "relatedSlugs": [
+      "database-karyawan",
+      "dokumen-digital"
+    ],
+    "availability": "planned"
+  },
+  {
+    "slug": "dashboard-dan-laporan-hr",
+    "name": "Dashboard & Laporan HR",
+    "category": "planned",
+    "order": 170,
+    "shortDescription": "Ringkasan dan laporan kehadiran, gaji, dan karyawan",
+    "heroTitle": "Angka HR dalam satu layar",
+    "heroDescription": "Modul ini sedang dalam rencana. HR akan melihat dashboard ringkas dan laporan kehadiran, penggajian, dan turnover karyawan.",
+    "benefits": [
+      {
+        "title": "Ringkasan cepat",
+        "description": "Kondisi kehadiran dan karyawan dalam satu layar."
+      },
+      {
+        "title": "Laporan siap pakai",
+        "description": "Laporan absensi, gaji, dan kinerja."
+      },
+      {
+        "title": "Berbasis data yang ada",
+        "description": "Memakai data dari fitur yang sudah berjalan."
+      }
+    ],
+    "blocks": [
+      {
+        "title": "Rencana fitur",
+        "description": "Kami ingin tahu laporan apa yang paling kamu butuhkan.",
+        "points": [
+          {
+            "text": "Dashboard HR"
+          },
+          {
+            "text": "Laporan absensi dan penggajian"
+          },
+          {
+            "text": "Laporan turnover"
+          }
+        ]
+      }
+    ],
+    "mock": {
+      "title": "Rencana",
+      "rows": [
+        {
+          "label": "Dashboard HR",
+          "detail": "Dalam pengembangan",
+          "status": "Rencana"
+        }
+      ]
+    },
+    "faqs": [
+      {
+        "question": "Kapan fitur ini tersedia?",
+        "answer": "Belum ada tanggal pasti. Hubungi kami untuk menyampaikan kebutuhanmu agar bisa kami prioritaskan."
+      }
+    ],
+    "relatedSlugs": [
+      "penggajian",
+      "absensi-online"
+    ],
+    "availability": "planned"
+  },
+  {
+    "slug": "bonus-dan-thr",
+    "name": "Bonus & THR",
+    "category": "planned",
+    "order": 180,
+    "shortDescription": "Bonus, THR, dan penggajian terjadwal",
+    "heroTitle": "Komponen gaji tambahan tanpa hitung manual",
+    "heroDescription": "Modul ini sedang dalam rencana. HR akan bisa menghitung bonus dan THR serta menjadwalkan penggajian otomatis.",
+    "benefits": [
+      {
+        "title": "Bonus terkelola",
+        "description": "Aturan bonus tim dan individu."
+      },
+      {
+        "title": "THR otomatis",
+        "description": "Perhitungan THR mengikuti aturan."
+      },
+      {
+        "title": "Terjadwal",
+        "description": "Penggajian berjalan sesuai jadwal."
+      }
+    ],
+    "blocks": [
+      {
+        "title": "Rencana fitur",
+        "description": "Sampaikan kebutuhanmu agar bisa kami prioritaskan.",
+        "points": [
+          {
+            "text": "Bonus dan THR"
+          },
+          {
+            "text": "Penggajian terjadwal"
+          },
+          {
+            "text": "Laporan BPJS dan pajak"
+          }
+        ]
+      }
+    ],
+    "mock": {
+      "title": "Rencana",
+      "rows": [
+        {
+          "label": "Bonus & THR",
+          "detail": "Dalam pengembangan",
+          "status": "Rencana"
+        }
+      ]
+    },
+    "faqs": [
+      {
+        "question": "Kapan fitur ini tersedia?",
+        "answer": "Belum ada tanggal pasti. Hubungi kami untuk menyampaikan kebutuhanmu agar bisa kami prioritaskan."
+      }
+    ],
+    "relatedSlugs": [
+      "penggajian",
+      "slip-gaji-online"
+    ],
+    "availability": "planned"
+  },
+  {
+    "slug": "ganti-shift",
+    "name": "Ganti Shift",
+    "category": "planned",
+    "order": 190,
+    "shortDescription": "Karyawan meminta tukar atau ganti shift",
+    "heroTitle": "Tukar shift tanpa pesan berantai",
+    "heroDescription": "Modul ini sedang dalam rencana. Karyawan akan bisa meminta ganti shift dari aplikasi dan atasan menyetujuinya.",
+    "benefits": [
+      {
+        "title": "Dari HP",
+        "description": "Permintaan ganti shift diajukan di aplikasi."
+      },
+      {
+        "title": "Ada persetujuan",
+        "description": "Atasan menyetujui lewat antrean yang sama."
+      },
+      {
+        "title": "Terhubung jadwal",
+        "description": "Jadwal dan absensi ikut berubah."
+      }
+    ],
+    "blocks": [
+      {
+        "title": "Rencana fitur",
+        "description": "Kami ingin tahu pola shift yang kamu pakai.",
+        "points": [
+          {
+            "text": "Permintaan ganti shift"
+          },
+          {
+            "text": "Persetujuan atasan"
+          },
+          {
+            "text": "Jadwal diperbarui otomatis"
+          }
+        ]
+      }
+    ],
+    "mock": {
+      "title": "Rencana",
+      "rows": [
+        {
+          "label": "Ganti shift",
+          "detail": "Dalam pengembangan",
+          "status": "Rencana"
+        }
+      ]
+    },
+    "faqs": [
+      {
+        "question": "Kapan fitur ini tersedia?",
+        "answer": "Belum ada tanggal pasti. Hubungi kami untuk menyampaikan kebutuhanmu agar bisa kami prioritaskan."
+      }
+    ],
+    "relatedSlugs": [
+      "shift-dan-jadwal",
+      "approval-berjenjang"
+    ],
+    "availability": "planned"
+  },
+  {
+    "slug": "autentikasi-dua-langkah",
+    "name": "Autentikasi Dua Langkah",
+    "category": "planned",
+    "order": 200,
+    "shortDescription": "Verifikasi tambahan saat masuk akun",
+    "heroTitle": "Lapisan keamanan tambahan untuk akun",
+    "heroDescription": "Modul ini sedang dalam rencana. Akun akan bisa dilindungi verifikasi dua langkah tambahan saat masuk.",
+    "benefits": [
+      {
+        "title": "Lebih aman",
+        "description": "Akun terlindungi meski kata sandi bocor."
+      },
+      {
+        "title": "Mudah dipakai",
+        "description": "Verifikasi singkat saat masuk."
+      },
+      {
+        "title": "Melengkapi yang ada",
+        "description": "Menambah kunci biometrik dan kelola sesi perangkat."
+      }
+    ],
+    "blocks": [
+      {
+        "title": "Rencana fitur",
+        "description": "Sampaikan kebutuhan keamananmu.",
+        "points": [
+          {
+            "text": "Verifikasi dua langkah"
+          },
+          {
+            "text": "Kode sekali pakai"
+          }
+        ]
+      }
+    ],
+    "mock": {
+      "title": "Rencana",
+      "rows": [
+        {
+          "label": "2FA",
+          "detail": "Dalam pengembangan",
+          "status": "Rencana"
+        }
+      ]
+    },
+    "faqs": [
+      {
+        "question": "Kapan fitur ini tersedia?",
+        "answer": "Belum ada tanggal pasti. Hubungi kami untuk menyampaikan kebutuhanmu agar bisa kami prioritaskan."
+      }
+    ],
+    "relatedSlugs": [
+      "keamanan-akun",
+      "hak-akses-peran"
+    ],
+    "availability": "planned"
   }
 ]
