@@ -115,7 +115,7 @@ export const homeLayout = (): Layout => [
     header: {
       title: 'Satu aplikasi untuk keseharian karyawan',
       description:
-        'Dari absen pagi sampai slip gaji akhir bulan. Yang sudah berjalan ditandai Tersedia, sisanya jujur kami tandai sebagai rencana.',
+        'Dari absen pagi sampai slip gaji akhir bulan. Yang sudah berjalan ditandai Tersedia, yang belum lengkap ditandai Sebagian.',
     },
     tint: 'sky',
   },
@@ -155,11 +155,6 @@ export const homeLayout = (): Layout => [
         question: 'Bagaimana keamanan data karyawan?',
         answer:
           'Aplikasi bisa dikunci dengan biometrik, kata sandi dapat diganti kapan saja, dan sesi perangkat yang sedang masuk bisa dikelola dari dalam aplikasi.',
-      },
-      {
-        question: 'Fitur apa yang belum tersedia?',
-        answer:
-          'Reimbursement, cash advance, pembelajaran, dan rekrutmen masih dalam rencana, begitu juga penilaian 360 derajat. Semuanya ditandai jelas di daftar fitur.',
       },
     ],
   },
@@ -231,14 +226,6 @@ const PRICING_MATRIX = [
       matrixGroup('Penilaian kinerja', ['Tersedia sebagian, ditambah bertahap'], FROM_SUITE),
     ],
   },
-  {
-    title: 'Segera hadir',
-    groups: [
-      matrixGroup('Reimbursement & cash advance', ['Klaim dengan bukti', 'Kasbon terkontrol'], FROM_SUITE, true),
-      matrixGroup('Pembelajaran', ['Materi terpusat', 'Pengingat pelatihan'], FROM_SUITE, true),
-      matrixGroup('Rekrutmen', ['Alur rekrutmen satu pintu', 'Onboarding terhubung'], [cell('excluded'), cell('addon', 'Opsional'), cell('addon', 'Opsional')], true),
-    ],
-  },
 ]
 
 // ── Harga ────────────────────────────────────────────────────────────────
@@ -257,7 +244,7 @@ function pricingBlock(variant: 'full' | 'compact'): Record<string, unknown> {
           }
         : {
             title: 'Pilih paket sesuai kebutuhan',
-            description: 'Semua paket memakai aplikasi mobile yang sama. Fitur yang belum rilis ditandai Segera hadir.',
+            description: 'Semua paket memakai aplikasi mobile yang sama.',
           },
     tint: 'lavender',
     // KONFIRMASI: harga di bawah masih contoh dan harus diganti sesuai harga resmi.
@@ -304,13 +291,10 @@ function pricingBlock(variant: 'full' | 'compact'): Record<string, unknown> {
         pricePrefix: 'Mulai dari',
         price: 'Rp25.000',
         priceUnit: '/bulan/karyawan',
-        description: 'Seluruh fitur, termasuk yang masih disiapkan.',
+        description: 'Seluruh fitur yang tersedia, termasuk penilaian kinerja.',
         inheritsFrom: 'Semua fitur paket Essential',
         features: [
           { text: 'Penilaian kinerja (sebagian)', isSoon: false },
-          { text: 'Reimbursement dan cash advance', isSoon: true },
-          { text: 'Pembelajaran', isSoon: true },
-          { text: 'Rekrutmen', isSoon: true },
         ],
         actionLabel: 'Hubungi sales',
         actionHref: DEMO_LINK,
@@ -422,7 +406,7 @@ export const fiturLayout = (): Layout => [
     variant: 'page',
     tag: 'FITUR',
     title: 'Semua yang dikerjakan aplikasi',
-    description: 'Yang sudah berjalan ditandai jelas. Yang masih rencana kami sebut rencana.',
+    description: 'Yang sudah berjalan ditandai jelas. Yang belum lengkap kami tandai Sebagian.',
     buttons: buttons(['Minta demo', DEMO_LINK]),
     visual: { kind: 'board', tone: 'peach', accessory: 'bell', rowsSource: 'features' },
   },
@@ -503,7 +487,7 @@ export const tentangLayout = (): Layout => [
       kind: 'tilted',
       rowsSource: 'manual',
       rows: [
-        { title: 'Jujur soal fitur', detail: 'Yang sudah ada ditandai tersedia. Yang belum, kami sebut rencana.' },
+        { title: 'Jujur soal fitur', detail: 'Yang sudah ada ditandai tersedia, yang belum lengkap ditandai sebagian.' },
         { title: 'Ringan dipakai', detail: 'Karyawan bisa langsung memakainya dari HP tanpa pelatihan panjang.' },
         { title: 'Data dijaga', detail: 'Kunci biometrik, peran akses, dan pengelolaan sesi perangkat.' },
       ],
@@ -548,7 +532,7 @@ export const tentangLayout = (): Layout => [
     },
     columns: '3',
     items: [
-      { title: 'Jujur soal fitur', description: 'Yang sudah ada ditandai tersedia. Yang belum, kami sebut rencana.' },
+      { title: 'Jujur soal fitur', description: 'Yang sudah ada ditandai tersedia, yang belum lengkap ditandai sebagian.' },
       { title: 'Ringan dipakai', description: 'Karyawan bisa langsung memakainya dari HP tanpa pelatihan panjang.' },
       { title: 'Data dijaga', description: 'Kunci biometrik, peran akses, dan pengelolaan sesi perangkat.' },
     ],
@@ -593,7 +577,7 @@ export const legalPages = [
       },
       {
         heading: 'Informasi fitur',
-        body: 'Fitur yang ditandai dalam rencana belum tersedia dan dapat berubah. Tampilan antarmuka di situs adalah ilustrasi.',
+        body: 'Tampilan antarmuka di situs adalah ilustrasi.',
       },
       {
         heading: 'Batasan tanggung jawab',

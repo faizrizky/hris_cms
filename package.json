@@ -15,7 +15,7 @@
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start --port 3001",
     "typecheck": "tsc --noEmit",
     "seed": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/index.ts",
-    "seed:harga": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/update-harga.ts",
+    "seed:halaman": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/update-pages.ts",
     "seed:fitur": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/add-features.ts",
     "migrate": "cross-env NODE_OPTIONS=--no-deprecation payload migrate",
     "migrate:create": "cross-env NODE_OPTIONS=--no-deprecation payload migrate:create",
