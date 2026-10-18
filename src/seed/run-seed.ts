@@ -5,6 +5,7 @@ import featuresData from './data/features.json'
 import solutionsData from './data/solutions.json'
 import {
   aboutPageSeed,
+  pageCopySeed,
   homeSeed,
   legalPagesSeed,
   pricingPageSeed,
@@ -116,6 +117,7 @@ const seedSolutions = async (payload: Payload, featureIds: Map<string, number>) 
 const seedGlobals = async (payload: Payload) => {
   await payload.updateGlobal({ slug: 'site-settings', data: siteSettingsSeed as never, context: SEED_CONTEXT })
   await payload.updateGlobal({ slug: 'home', data: homeSeed as never, context: SEED_CONTEXT })
+  await payload.updateGlobal({ slug: 'page-copy', data: pageCopySeed as never, context: SEED_CONTEXT })
   await payload.updateGlobal({ slug: 'pricing-page', data: pricingPageSeed as never, context: SEED_CONTEXT })
   await payload.updateGlobal({ slug: 'about-page', data: aboutPageSeed as never, context: SEED_CONTEXT })
   payload.logger.info('Global: site-settings, home, pricing-page, about-page')

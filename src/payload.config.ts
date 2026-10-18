@@ -14,6 +14,7 @@ import { Solutions } from './collections/solutions'
 import { Testimonials } from './collections/testimonials'
 import { Users } from './collections/Users'
 import { Home } from './globals/home'
+import { PageCopy } from './globals/page-copy'
 import { AboutPage, PricingPage } from './globals/page-contents'
 import { SiteSettings } from './globals/site-settings'
 import { plugins } from './plugins'
@@ -75,7 +76,7 @@ export default buildConfig({
   serverURL: getServerSideURL(),
   cors: [getLandingURL()],
   csrf: [getLandingURL()],
-  globals: [SiteSettings, Home, PricingPage, AboutPage],
+  globals: [SiteSettings, Home, PageCopy, PricingPage, AboutPage],
   i18n: { supportedLanguages: { id: indonesian }, fallbackLanguage: 'id' },
   plugins,
   secret: process.env.PAYLOAD_SECRET,

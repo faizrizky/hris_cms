@@ -11,7 +11,8 @@ interface QuickLink {
 }
 
 const getQuickLinks = (): QuickLink[] => [
-  { label: 'Beranda', description: 'Hero, cara kerja, dan penawaran di halaman depan', href: '/admin/globals/home' },
+  { label: 'Beranda', description: 'Slogan hero, mockup, bagian fitur, penawaran, FAQ, dan penutup di halaman depan', href: '/admin/globals/home' },
+  { label: 'Teks Halaman', description: 'Judul dan kalimat di halaman fitur, solusi, tools, demo, harga, dan tentang', href: '/admin/globals/page-copy' },
   { label: 'Fitur', description: 'Halaman fitur dan mega menu', href: '/admin/collections/features' },
   { label: 'Solusi', description: 'Halaman per industri dan skala bisnis', href: '/admin/collections/solutions' },
   { label: 'Pengajuan demo', description: 'Prospek yang mengisi form demo', href: '/admin/collections/leads' },
