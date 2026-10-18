@@ -1,71 +1,86 @@
-# To use this Dockerfile, you have to set `output: 'standalone'` in your next.config.js file.
-# From https://github.com/vercel/next.js/blob/canary/examples/with-docker/Dockerfile
+# syntax=docker/dockerfile:1
 
-FROM node:22.17.0-alpine AS base
+# HRIS CMS (Payload 3 on Next.js) as a container. Built and run by the
+# `hris-deploy` project (docker compose); not meant to be run on its own.
+#
+# Targets:
+#   runner   the app: Next.js standalone server (default)
+#   builder  the full toolchain; used as a one-off job for `payload migrate`
+#
+# Build arguments are values Next.js bakes into the build (CSP headers, the
+# media proxy, the upload cap). Changing one means rebuilding the image.
 
-# Install dependencies only when needed
-FROM base AS deps
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+ARG NODE_VERSION=24
+
+FROM node:${NODE_VERSION}-alpine AS base
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Install dependencies based on the preferred package manager
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
-RUN \
-  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
-  elif [ -f package-lock.json ]; then npm ci; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm i --frozen-lockfile; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
+# ── dependencies ─────────────────────────────────────────────────────
+FROM base AS deps
+# `npm ci` runs the postinstall script, which needs to be there.
+COPY package.json package-lock.json .npmrc ./
+COPY scripts/patch-payload-upload.mjs ./scripts/patch-payload-upload.mjs
+RUN --mount=type=cache,target=/root/.npm npm ci
 
-
-# Rebuild the source code only when needed
+# ── build ────────────────────────────────────────────────────────────
 FROM base AS builder
-WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Next.js collects completely anonymous telemetry data about general usage.
-# Learn more here: https://nextjs.org/telemetry
-# Uncomment the following line in case you want to disable telemetry during the build.
-# ENV NEXT_TELEMETRY_DISABLED 1
+# Public address of the website (allowed to frame the admin's visual editor).
+ARG FRONTEND_URL
+# Where browsers load media from, and how to reach the bucket when that is a
+# path on this host (S3_PUBLIC_URL=/media): see hris-deploy/.env.example.
+ARG S3_PUBLIC_URL
+ARG S3_ENDPOINT
+ARG S3_BUCKET
+# Upload cap of this host in MB (Vercel is capped at ~4.5 MB; our own server isn't).
+ARG NEXT_PUBLIC_BODY_LIMIT_MB=50
+# Node's heap limit for the build. It peaks around 2.5 GB; raise this if the
+# build dies with "heap out of memory" or is killed (exit 137).
+ARG BUILD_MEMORY_MB=4096
 
-RUN \
-  if [ -f yarn.lock ]; then yarn run build; \
-  elif [ -f package-lock.json ]; then npm run build; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
+# The app validates its environment while it builds, so give it placeholders.
+# They exist only for this RUN — nothing is kept in the image; the real values
+# come from the container's environment when it runs.
+RUN set -eu; \
+    export NODE_ENV=production \
+      BUILD_STANDALONE=true \
+      NEXT_TELEMETRY_DISABLED=1 \
+      NODE_OPTIONS="--no-deprecation --max-old-space-size=${BUILD_MEMORY_MB}" \
+      DATABASE_URL="postgres://build:build@localhost:5432/build" \
+      PAYLOAD_SECRET="build-only-placeholder-0123456789abcdef" \
+      REVALIDATE_SECRET="build-only-placeholder-0123456789abcdef" \
+      CONTACT_API_KEY="build-only-placeholder-0123456789abcdef" \
+      SERVER_URL="http://localhost:3001" \
+      FRONTEND_URL="${FRONTEND_URL:-http://localhost:3000}" \
+      S3_PUBLIC_URL="${S3_PUBLIC_URL:-}" \
+      S3_ENDPOINT="${S3_ENDPOINT:-}" \
+      S3_BUCKET="${S3_BUCKET:-}" \
+      S3_ACCESS_KEY_ID="${S3_BUCKET:+build-only}" \
+      S3_SECRET_ACCESS_KEY="${S3_BUCKET:+build-only}"; \
+    npx next build
 
-# Production image, copy all the files and run next
+# ── run ──────────────────────────────────────────────────────────────
 FROM base AS runner
-WORKDIR /app
+ENV NODE_ENV=production \
+    NEXT_TELEMETRY_DISABLED=1 \
+    PORT=3001 \
+    HOSTNAME=0.0.0.0
 
-ENV NODE_ENV production
-# Uncomment the following line in case you want to disable telemetry during runtime.
-# ENV NEXT_TELEMETRY_DISABLED 1
+RUN addgroup --system --gid 1001 nodejs \
+ && adduser --system --uid 1001 nextjs
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-
-# Remove this line if you do not have this folder
 COPY --from=builder /app/public ./public
-
-# Set the correct permission for prerender cache
-RUN mkdir .next
-RUN chown nextjs:nodejs .next
-
-# Automatically leverage output traces to reduce image size
-# https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 USER nextjs
+EXPOSE 3001
 
-EXPOSE 3000
+# Answers once the app is up and can reach its database.
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+  CMD wget -q -O /dev/null http://127.0.0.1:3001/api/users/me || exit 1
 
-ENV PORT 3000
-
-# server.js is created by next build from the standalone output
-# https://nextjs.org/docs/pages/api-reference/next-config-js/output
-CMD HOSTNAME="0.0.0.0" node server.js
+CMD ["node", "server.js"]

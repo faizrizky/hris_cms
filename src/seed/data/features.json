@@ -3,7 +3,6 @@
     "slug": "absensi-online",
     "name": "Absensi Online",
     "category": "attendance",
-    "status": "available",
     "order": 10,
     "shortDescription": "Absen dengan verifikasi wajah dan lokasi kerja",
     "heroTitle": "Absensi online yang tidak bisa dititipkan",
@@ -92,13 +91,13 @@
       "koreksi-absensi",
       "lembur-online",
       "approval-berjenjang"
-    ]
+    ],
+    "availability": "available"
   },
   {
     "slug": "koreksi-absensi",
     "name": "Koreksi Absensi",
     "category": "attendance",
-    "status": "available",
     "order": 20,
     "shortDescription": "Ajukan perbaikan absen yang terlewat atau keliru",
     "heroTitle": "Lupa absen? Koreksi tanpa drama",
@@ -162,13 +161,13 @@
     "relatedSlugs": [
       "absensi-online",
       "approval-berjenjang"
-    ]
+    ],
+    "availability": "available"
   },
   {
     "slug": "cuti-online",
     "name": "Cuti Online",
     "category": "requests",
-    "status": "available",
     "order": 30,
     "shortDescription": "Ajukan cuti dan pantau sisa kuota dari HP",
     "heroTitle": "Pengajuan cuti selesai dalam hitungan menit",
@@ -252,13 +251,13 @@
       "approval-berjenjang",
       "dinas-luar-dan-wfh",
       "slip-gaji-online"
-    ]
+    ],
+    "availability": "available"
   },
   {
     "slug": "lembur-online",
     "name": "Lembur Online",
     "category": "requests",
-    "status": "available",
     "order": 40,
     "shortDescription": "Ajukan dan setujui lembur tanpa formulir kertas",
     "heroTitle": "Lembur tercatat rapi, disetujui tanpa ribet",
@@ -323,13 +322,13 @@
       "absensi-online",
       "approval-berjenjang",
       "slip-gaji-online"
-    ]
+    ],
+    "availability": "available"
   },
   {
     "slug": "dinas-luar-dan-wfh",
     "name": "Dinas Luar & WFH",
     "category": "requests",
-    "status": "available",
     "order": 50,
     "shortDescription": "Kelola perjalanan dinas dan kerja dari rumah",
     "heroTitle": "Dinas luar dan WFH tetap terpantau",
@@ -393,13 +392,13 @@
     "relatedSlugs": [
       "cuti-online",
       "approval-berjenjang"
-    ]
+    ],
+    "availability": "available"
   },
   {
     "slug": "approval-berjenjang",
     "name": "Approval Berjenjang",
     "category": "requests",
-    "status": "available",
     "order": 60,
     "shortDescription": "Atasan dan HR menyetujui langsung dari HP",
     "heroTitle": "Approval dalam satu ketukan",
@@ -469,13 +468,13 @@
       "cuti-online",
       "lembur-online",
       "koreksi-absensi"
-    ]
+    ],
+    "availability": "available"
   },
   {
     "slug": "slip-gaji-online",
     "name": "Slip Gaji Online",
     "category": "payroll",
-    "status": "available",
     "order": 70,
     "shortDescription": "Slip gaji digital yang bisa dibuka kapan saja",
     "heroTitle": "Slip gaji digital, aman dan paperless",
@@ -539,13 +538,13 @@
     "relatedSlugs": [
       "ringkasan-pajak-bpjs",
       "keamanan-akun"
-    ]
+    ],
+    "availability": "available"
   },
   {
     "slug": "ringkasan-pajak-bpjs",
     "name": "Ringkasan Pajak & BPJS",
     "category": "payroll",
-    "status": "available",
     "order": 80,
     "shortDescription": "Pahami potongan PPh 21 dan BPJS di slip gaji",
     "heroTitle": "Potongan pajak dan BPJS yang mudah dipahami",
@@ -604,13 +603,13 @@
     ],
     "relatedSlugs": [
       "slip-gaji-online"
-    ]
+    ],
+    "availability": "available"
   },
   {
     "slug": "dokumen-digital",
     "name": "Dokumen Digital",
     "category": "documents",
-    "status": "available",
     "order": 90,
     "shortDescription": "Simpan dokumen karyawan dengan verifikasi HR",
     "heroTitle": "Dokumen karyawan rapi dan terverifikasi",
@@ -674,13 +673,13 @@
     "relatedSlugs": [
       "approval-berjenjang",
       "keamanan-akun"
-    ]
+    ],
+    "availability": "available"
   },
   {
     "slug": "pengumuman-perusahaan",
     "name": "Pengumuman Perusahaan",
     "category": "documents",
-    "status": "available",
     "order": 100,
     "shortDescription": "Sampaikan kabar penting ke seluruh karyawan",
     "heroTitle": "Kabar perusahaan sampai ke semua orang",
@@ -739,13 +738,13 @@
     ],
     "relatedSlugs": [
       "dokumen-digital"
-    ]
+    ],
+    "availability": "available"
   },
   {
     "slug": "keamanan-akun",
     "name": "Keamanan Akun",
     "category": "security",
-    "status": "available",
     "order": 110,
     "shortDescription": "Kunci aplikasi biometrik dan kelola sesi perangkat",
     "heroTitle": "Data karyawan aman di setiap perangkat",
@@ -805,13 +804,13 @@
     "relatedSlugs": [
       "slip-gaji-online",
       "dokumen-digital"
-    ]
+    ],
+    "availability": "available"
   },
   {
     "slug": "penilaian-kinerja",
     "name": "Penilaian Kinerja",
     "category": "performance",
-    "status": "partial",
     "order": 120,
     "shortDescription": "Appraisal dan target karyawan",
     "heroTitle": "Penilaian kinerja yang terdokumentasi",
@@ -865,13 +864,13 @@
     ],
     "relatedSlugs": [
       "approval-berjenjang"
-    ]
+    ],
+    "availability": "partial"
   },
   {
     "slug": "reimbursement-dan-cash-advance",
     "name": "Reimbursement & Cash Advance",
     "category": "planned",
-    "status": "planned",
     "order": 130,
     "shortDescription": "Klaim biaya dan kasbon dari HP",
     "heroTitle": "Klaim biaya dan kasbon tanpa nota menumpuk",
@@ -925,13 +924,13 @@
     ],
     "relatedSlugs": [
       "dinas-luar-dan-wfh"
-    ]
+    ],
+    "availability": "planned"
   },
   {
     "slug": "pembelajaran",
     "name": "Pembelajaran",
     "category": "planned",
-    "status": "planned",
     "order": 140,
     "shortDescription": "Materi pelatihan karyawan di aplikasi",
     "heroTitle": "Pelatihan karyawan di tempat yang sama",
@@ -982,13 +981,13 @@
     ],
     "relatedSlugs": [
       "penilaian-kinerja"
-    ]
+    ],
+    "availability": "planned"
   },
   {
     "slug": "rekrutmen",
     "name": "Rekrutmen",
     "category": "planned",
-    "status": "planned",
     "order": 150,
     "shortDescription": "Kelola lamaran sampai onboarding",
     "heroTitle": "Dari lamaran sampai karyawan baru",
@@ -1042,6 +1041,7 @@
     ],
     "relatedSlugs": [
       "dokumen-digital"
-    ]
+    ],
+    "availability": "planned"
   }
 ]

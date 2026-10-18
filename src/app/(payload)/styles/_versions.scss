@@ -1,0 +1,328 @@
+/* ── Versions: Compare Versions page ──────────────────────────────────────
+   One glass card (like the list tables) holding: the header, the two version
+   pickers, and the field-by-field diff. Each changed field shows its old and
+   new value as two separate tiles side by side; an empty side shows "—". */
+
+.view-version {
+  --hris-diff-line: rgb(31 122 224 / 0.14);
+  --diff-create-pill-bg: rgb(22 163 74 / 0.14);
+  --diff-create-pill-color: #166534;
+  --diff-create-pill-border: rgb(22 163 74 / 0.45);
+  --diff-create-parent-bg: transparent;
+  --diff-create-parent-color: inherit;
+  --diff-create-link-color: #166534;
+  --diff-delete-pill-bg: rgb(217 48 54 / 0.12);
+  --diff-delete-pill-color: #b42318;
+  --diff-delete-pill-border: rgb(217 48 54 / 0.4);
+  --diff-delete-parent-bg: transparent;
+  --diff-delete-parent-color: inherit;
+  --diff-delete-link-color: #b42318;
+
+  width: auto;
+  margin: 4px var(--gutter-h) var(--hris-visual-gap);
+  padding-bottom: 8px;
+  overflow: hidden;
+  border: 1px solid var(--hris-line);
+  border-radius: var(--style-radius-l);
+  background: rgb(255 255 255 / 0.6);
+  box-shadow: 0 14px 40px -20px rgb(30 90 160 / 0.4);
+  backdrop-filter: blur(10px);
+}
+
+/* Header row: title left, "Modified only" + locales right. */
+.view-version-controls-top {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--hris-diff-line);
+
+  h2 {
+    margin: 0;
+    color: var(--hris-ink);
+    font-size: 20px;
+    font-weight: 600;
+  }
+}
+
+.view-version__toggle-locales-label {
+  color: var(--hris-muted);
+}
+
+/* The two version pickers, on a faint band. */
+.view-version-controls-bottom {
+  padding: 16px 24px 18px;
+  border-bottom: 1px solid var(--hris-diff-line);
+  background: rgb(232 244 255 / 0.55);
+
+  &::after {
+    display: none;
+  }
+}
+
+.view-version-controls-bottom__wrapper {
+  gap: 20px;
+}
+
+.view-version__version-from-labels,
+.view-version__version-to-labels {
+  color: var(--hris-ink);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.view-version__time-elapsed {
+  color: var(--hris-muted);
+  font-weight: 400;
+}
+
+.view-version__version-to-version {
+  min-height: 48px;
+  padding: 6px 6px 6px 14px;
+  border: 1px solid var(--color-base-150);
+  border-radius: var(--style-radius-m);
+  background: #fff;
+}
+
+.view-version__version-to-version h2 {
+  color: var(--hris-ink);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.version-pill-label-date {
+  color: var(--hris-muted);
+}
+
+/* ── The diff ─────────────────────────────────────────────────────────── */
+
+.view-version__diff-wrap {
+  gap: 22px;
+  padding: 22px 24px 16px;
+
+  /* Columns are separate tiles now: no centre line. */
+  &::after {
+    display: none;
+  }
+}
+
+.render-field-diffs {
+  gap: 18px;
+}
+
+/* Group headings ("General", "Sections", "Layout"…). */
+.diff-collapser__toggle-button {
+  color: var(--hris-ink);
+  font-size: 14px;
+  font-weight: 600;
+
+  .icon {
+    color: var(--hris-accent);
+  }
+
+  &:hover::before {
+    background-color: rgb(31 122 224 / 0.08);
+  }
+}
+
+.diff-collapser__field-change-count {
+  margin-left: 6px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: rgb(31 122 224 / 0.12);
+  color: var(--hris-accent-hover);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.diff-collapser__content:not(.diff-collapser__content--hide-gutter) {
+  margin-top: 10px;
+  border-left: 2px solid rgb(31 122 224 / 0.18) !important;
+  padding-left: 14px !important;
+}
+
+/* Rows of a list ("Block 01", "Item 02"). */
+.iterable-diff__label {
+  color: var(--hris-muted);
+  font-weight: 500;
+}
+
+.iterable-diff-label-prefix {
+  background-color: transparent;
+
+  &::before {
+    background-color: var(--hris-accent);
+    opacity: 0.5;
+  }
+}
+
+/* Field label ("en Title"). */
+.field-diff-label {
+  margin-bottom: 8px;
+  color: var(--hris-ink);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.field-diff__locale-label,
+.iterable-diff__locale-label,
+.group-diff__locale-label {
+  margin-right: 6px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: rgb(31 122 224 / 0.1);
+  color: var(--hris-accent-hover);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Old | new: two tiles side by side. */
+.field-diff-content {
+  gap: 16px;
+  padding: 0;
+  background: none;
+}
+
+.field-diff-content > * {
+  min-width: 0;
+  min-height: 44px;
+  padding: 11px 14px;
+  border: 1px solid var(--color-base-150);
+  border-radius: var(--style-radius-m);
+  background: rgb(255 255 255 / 0.85);
+}
+
+/* The side that gained / lost text gets a coloured edge, not a coloured block. */
+.field-diff-content > :has([data-match-type='create']) {
+  border-color: rgb(22 163 74 / 0.35);
+  box-shadow: inset 3px 0 0 rgb(22 163 74 / 0.75);
+}
+
+.field-diff-content > :has([data-match-type='delete']) {
+  border-color: rgb(217 48 54 / 0.3);
+  box-shadow: inset 3px 0 0 rgb(217 48 54 / 0.7);
+}
+
+/* Nothing on this side (e.g. the field didn't exist yet). */
+.field-diff-content > :not(:has(img, svg, [data-match-type], .upload-diff, .relationship-diff)):not(
+    :has(:is(p, span, div, li, pre):not(:empty))
+  )::before {
+  content: '—';
+  color: var(--color-base-350);
+}
+
+.html-diff {
+  color: var(--hris-ink);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Payload paints a full coloured block behind changed paragraphs: the tile edge does that now. */
+.view-version .html-diff :is(p, h1, h2, h3, h4, h5, h6, blockquote, pre, li, div)::before {
+  background: transparent !important;
+}
+
+.html-diff [data-match-type='create']:not(img),
+.html-diff [data-match-type='delete'] {
+  padding: 1px 3px;
+  border-radius: 5px;
+}
+
+.html-diff-no-value {
+  color: var(--color-base-350);
+}
+
+/* Files and linked items: same cards as upload fields, inside the tile. */
+.upload-diff-container .field-diff-content > *,
+.relationship-diff-container .field-diff-content > * {
+  padding: 6px;
+}
+
+.upload-diff,
+.relationship-diff {
+  min-width: 0;
+  max-height: none;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.upload-diff[data-match-type],
+.relationship-diff[data-match-type] {
+  border: 0;
+  background: none;
+}
+
+.upload-diff__card {
+  gap: 4px;
+}
+
+.upload-diff__thumbnail {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--color-base-150);
+  border-radius: 10px !important;
+  background: #1f2937;
+}
+
+.upload-diff__thumbnail img {
+  border-radius: 10px !important;
+}
+
+/* A video has no still image: no broken-image icon (see MediaNames). */
+.upload-diff__thumbnail.is-broken img {
+  display: none;
+}
+
+.upload-diff__info {
+  min-width: 0;
+  gap: 2px;
+  padding: 2px 10px;
+
+  strong {
+    overflow: hidden;
+    max-width: 100%;
+    color: var(--hris-ink);
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.upload-diff[data-match-type] *,
+.relationship-diff[data-match-type] * {
+  color: var(--hris-ink);
+  text-decoration-line: none;
+}
+
+.upload-diff__pill,
+.relationship-diff__pill {
+  padding: 0 8px;
+  border-radius: 999px;
+  background: rgb(31 122 224 / 0.1) !important;
+  color: var(--hris-accent-hover) !important;
+  font-size: 12px;
+}
+
+/* Restore: the split primary button, as everywhere else. */
+.restore-version .btn {
+  border-radius: 999px;
+}
+
+.restore-version__wrapper {
+  border: 1px solid var(--hris-line);
+  border-radius: var(--style-radius-l);
+  background: rgb(255 255 255 / 0.92);
+  box-shadow: 0 24px 60px -24px rgb(30 90 160 / 0.5);
+}
+
+@media (max-width: 1024px) {
+  .view-version {
+    margin-inline: 12px;
+  }
+
+  .view-version-controls-top,
+  .view-version-controls-bottom,
+  .view-version__diff-wrap {
+    padding-inline: 16px;
+  }
+}

@@ -1,0 +1,145 @@
+import { z } from 'zod'
+
+/**
+ * Validated server environment. Fails fast at boot so a misconfigured
+ * deployment never starts with an empty secret or a wildcard origin.
+ */
+/** Treats `KEY=` (empty, e.g. copied from .env.example) the same as unset. */
+const optional = <T extends z.ZodType>(type: T) =>
+  z.preprocess((value) => (value === '' ? undefined : value), type.optional())
+
+const schema = z
+  .object({
+    NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
+    DATABASE_URL: z.string().url(),
+    DATABASE_SSL: z
+      .enum(['true', 'false'])
+      .default('false')
+      .transform((v) => v === 'true'),
+    /**
+     * PEM of the database's CA when it is not publicly trusted (Supabase:
+     * Project Settings → Database → SSL certificate). `\n` escapes allowed.
+     */
+    DATABASE_SSL_CA: optional(z.string()).transform((v) => v?.replace(/\\n/g, '\n')),
+    PAYLOAD_SECRET: z.string().min(32, 'PAYLOAD_SECRET must be at least 32 characters'),
+    SERVER_URL: z.string().url('SERVER_URL must be a full URL, e.g. https://cms.example.com'),
+    FRONTEND_URL: z.string().url('FRONTEND_URL must be a full URL, e.g. https://example.com'),
+    /**
+     * How this server reaches the website to refresh its cache, when that
+     * differs from the public FRONTEND_URL (Docker: http://web:3000, so the
+     * call stays on the private network). Defaults to FRONTEND_URL.
+     */
+    FRONTEND_INTERNAL_URL: optional(z.string().url()),
+    REVALIDATE_SECRET: z.string().min(32, 'REVALIDATE_SECRET must be at least 32 characters'),
+    CONTACT_API_KEY: z.string().min(32, 'CONTACT_API_KEY must be at least 32 characters'),
+    /**
+     * Parent domain for the admin session cookie (e.g. `.falahtech.co.id`) so the
+     * visual editor on the website domain can verify the editor's session.
+     * Leave unset locally (localhost cookies are shared across ports).
+     */
+    COOKIE_DOMAIN: optional(z.string()),
+    /**
+     * The admin is served over plain http (e.g. by LAN IP, no TLS yet). Browsers
+     * then send no Sec-Fetch-Site header, and a same-origin GET carries no
+     * Origin, so Payload would ignore the session cookie on every read: login
+     * succeeds, then the admin acts signed out. `true` makes the proxy mark
+     * such requests same-origin (see src/proxy.ts). Leave unset with https.
+     */
+    ALLOW_PLAIN_HTTP: optional(z.enum(['true', 'false'])).transform((v) => v === 'true'),
+    /**
+     * Incoming webhook for security alerts (logins, new users, role and 2FA
+     * changes): Discord, Slack or Google Chat. Leave unset to only audit-log.
+     */
+    SECURITY_WEBHOOK_URL: optional(z.string().url().startsWith('https://')),
+
+    // Optional S3-compatible storage (Cloudflare R2 / AWS S3 / Supabase).
+    S3_BUCKET: optional(z.string()),
+    S3_REGION: optional(z.string()).transform((v) => v ?? 'auto'),
+    S3_ENDPOINT: optional(z.string().url()),
+    S3_ACCESS_KEY_ID: optional(z.string()),
+    S3_SECRET_ACCESS_KEY: optional(z.string()),
+    /**
+     * Where browsers load media from: a public URL (CDN / bucket), or a path
+     * such as /media that this app proxies to the bucket — then media works
+     * on any host (localhost, LAN IP) without changing this value.
+     */
+    S3_PUBLIC_URL: optional(
+      z
+        .string()
+        .refine((v) => /^\/[\w-]+$/.test(v) || URL.canParse(v), 'Use a URL or a path like /media'),
+    ),
+    /** Path-style URLs (host/bucket/key) — required by MinIO, harmless elsewhere. */
+    S3_FORCE_PATH_STYLE: optional(z.enum(['true', 'false'])).transform((v) => v === 'true'),
+    /**
+     * Admin served over plain http on a LAN IP (no HTTPS). Browsers only send
+     * Sec-Fetch-Site to secure origins, so Payload ignores the session cookie on
+     * page loads and login loops back. See `src/proxy.ts`. Leave unset on HTTPS.
+     */
+
+
+    /**
+     * Mail server (SMTP) for the email about each new contact message. Unset:
+     * no email is sent (messages still land in the Inbox). The sender address,
+     * subject and on/off live in Settings → Email notifications.
+     */
+    SMTP_HOST: optional(z.string()),
+    SMTP_PORT: optional(z.coerce.number().int().min(1).max(65535)).transform((v) => v ?? 465),
+    /** TLS from the first byte (port 465); false = STARTTLS (587). Default: true on 465. */
+    SMTP_SECURE: optional(z.enum(['true', 'false'])),
+    SMTP_USER: optional(z.string()),
+    SMTP_PASS: optional(z.string()),
+    /**
+     * Ask the visitor's mail server whether the mailbox exists before accepting
+     * a contact message (see lib/mailboxCheck; needs outbound port 25). On by
+     * default; `false` to turn it off.
+     */
+    EMAIL_MAILBOX_CHECK: optional(z.enum(['true', 'false'])).transform((v) => v !== 'false'),
+  })
+  .superRefine((env, ctx) => {
+    const s3 = [env.S3_BUCKET, env.S3_ACCESS_KEY_ID, env.S3_SECRET_ACCESS_KEY]
+    if (s3.some(Boolean) && !s3.every(Boolean)) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'S3_BUCKET, S3_ACCESS_KEY_ID and S3_SECRET_ACCESS_KEY must be set together',
+      })
+    }
+    if (
+      env.SMTP_HOST
+        ? Boolean(env.SMTP_USER) !== Boolean(env.SMTP_PASS)
+        : env.SMTP_USER || env.SMTP_PASS
+    ) {
+      ctx.addIssue({
+        code: 'custom',
+        message: env.SMTP_HOST
+          ? 'SMTP_USER and SMTP_PASS must be set together'
+          : 'SMTP_USER / SMTP_PASS need SMTP_HOST',
+      })
+    }
+    if (env.NODE_ENV === 'production') {
+      for (const key of ['SERVER_URL', 'FRONTEND_URL'] as const) {
+        // An invalid URL is already reported by its own .url() check.
+        if (!URL.canParse(env[key])) continue
+        const url = new URL(env[key])
+        const isLocal = ['localhost', '127.0.0.1'].includes(url.hostname)
+        if (url.protocol !== 'https:' && !isLocal) {
+          ctx.addIssue({
+            code: 'custom',
+            path: [key],
+            message: `${key} must use https in production`,
+          })
+        }
+      }
+    }
+  })
+
+const parsed = schema.safeParse(process.env)
+
+if (!parsed.success) {
+  const issues = parsed.error.issues.map((i) => `  - ${i.path.join('.') || 'env'}: ${i.message}`)
+  throw new Error(`Invalid environment configuration:\n${issues.join('\n')}`)
+}
+
+export const env = parsed.data
+export const isProduction = env.NODE_ENV === 'production'
+export const s3Enabled = Boolean(env.S3_BUCKET)
+export const smtpEnabled = Boolean(env.SMTP_HOST)

@@ -1,0 +1,150 @@
+'use client'
+
+import { useState } from 'react'
+
+import type { Ranked } from '@/lib/clarity'
+
+import { Info } from './StatsInfo'
+
+type Tab = { key: string; label: string; rows: Ranked[] }
+
+const COLORS = ['#1f7ae0', '#38bdf8', '#6366f1', '#14b8a6', '#f59e0b', '#94a3b8']
+
+const fmt = (n: number, locale: string) => new Intl.NumberFormat(locale).format(Math.round(n))
+
+/** Top 5 plus "Other", for the donut. */
+function slices(rows: Ranked[], other: string): Ranked[] {
+  if (rows.length <= 6) return rows
+  const rest = rows.slice(5).reduce((s, r) => s + r.sessions, 0)
+  return [...rows.slice(0, 5), { label: other, sessions: rest }]
+}
+
+function Donut({ rows }: { rows: Ranked[] }) {
+  const total = rows.reduce((s, r) => s + r.sessions, 0) || 1
+  const r = 52
+  const c = 2 * Math.PI * r
+  // Where each slice starts along the ring.
+  const starts = rows.map((_, i) => rows.slice(0, i).reduce((sum, row) => sum + (row.sessions / total) * c, 0))
+  return (
+    <svg className="hris-donut" viewBox="0 0 140 140" aria-hidden>
+      <circle cx="70" cy="70" r={r} className="hris-donut__track" />
+      {rows.map((row, i) => {
+        const length = (row.sessions / total) * c
+        return (
+          <circle
+            key={row.label}
+            cx="70"
+            cy="70"
+            r={r}
+            stroke={COLORS[i % COLORS.length]}
+            strokeDasharray={`${Math.max(length - 2, 0)} ${c}`}
+            strokeDashoffset={-starts[i]}
+            className="hris-donut__slice"
+          />
+        )
+      })}
+    </svg>
+  )
+}
+
+/**
+ * A card with tabs (Browsers / Devices / OS / Countries, or Channel / Source /
+ * …). `donut` shows the share as a ring with a legend; `bars` as bar rows.
+ */
+export function StatsTabs({
+  title,
+  info,
+  tabs,
+  variant,
+  locale,
+  labels,
+}: {
+  title: string
+  info?: string
+  tabs: Tab[]
+  variant: 'donut' | 'bars'
+  locale: string
+  labels: { sessions: string; empty: string; other: string }
+}) {
+  const available = tabs.filter((t) => t.rows.length > 0)
+  const [active, setActive] = useState(available[0]?.key ?? tabs[0]?.key)
+  const tab = tabs.find((t) => t.key === active) ?? tabs[0]
+  const rows = variant === 'donut' ? slices(tab.rows, labels.other) : tab.rows
+  const total = rows.reduce((s, r) => s + r.sessions, 0) || 1
+  const max = Math.max(1, ...rows.map((r) => r.sessions))
+
+  return (
+    <section className="hris-stat-panel">
+      <div className="hris-stat-panel__head">
+        <h2>
+          {title}
+          {info ? <Info text={info} /> : null}
+        </h2>
+        <div
+          className="hris-stat-tabs"
+          role="tablist"
+          style={
+            {
+              '--tabs': tabs.length,
+              '--active': Math.max(0, tabs.findIndex((t) => t.key === active)),
+            } as React.CSSProperties
+          }
+        >
+          {tabs.map((t) => (
+            <button
+              key={t.key}
+              type="button"
+              role="tab"
+              aria-selected={t.key === active}
+              className="hris-stat-tabs__tab"
+              onClick={() => setActive(t.key)}
+              title={t.label}
+            >
+              <span>{t.label}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {rows.length === 0 ? (
+        <p className="hris-stat-panel__empty">{labels.empty}</p>
+      ) : variant === 'donut' ? (
+        <div className="hris-stat-donut">
+          <Donut rows={rows} />
+          <ol className="hris-stat-legend">
+            {rows.map((row, i) => (
+              <li key={row.label}>
+                <span className="hris-stat-legend__dot" style={{ background: COLORS[i % COLORS.length] }} />
+                <span className="hris-stat-legend__label" title={row.label}>
+                  {row.label}
+                </span>
+                <span className="hris-stat-legend__pct">{Math.round((row.sessions / total) * 1000) / 10}%</span>
+                <span className="hris-stat-legend__value">
+                  {fmt(row.sessions, locale)} {labels.sessions}
+                </span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      ) : (
+        <ol className="hris-stat-bars">
+          {rows.map((row) => (
+            <li key={row.label}>
+              <div className="hris-stat-bar__head">
+                <span className="hris-stat-bar__label" title={row.label}>
+                  {row.label}
+                </span>
+                <span className="hris-stat-bar__value">
+                  {fmt(row.sessions, locale)} · {Math.round((row.sessions / total) * 100)}%
+                </span>
+              </div>
+              <span className="hris-stat-bar__track">
+                <span style={{ width: `${(row.sessions / max) * 100}%` }} />
+              </span>
+            </li>
+          ))}
+        </ol>
+      )}
+    </section>
+  )
+}

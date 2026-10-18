@@ -1,0 +1,123 @@
+'use client'
+
+import { toast, useTranslation } from '@payloadcms/ui'
+import { type ReactNode, useEffect, useRef } from 'react'
+
+import { limitFor, shownLimits, toMb } from '@/lib/uploadLimits'
+
+import { useDomScan } from './useDomScan'
+
+const TEXT = {
+  en: {
+    limits: (file: number, video: number, hosted: boolean) =>
+      file === video
+        ? `Maximum size: ${file} MB per file${hosted ? ' (server limit — compress larger files)' : ''}.`
+        : `Maximum size: ${file} MB for images, PDF and SVG · ${video} MB for videos (MP4 / WebM).`,
+    tooBig: (name: string, size: number, limit: number) =>
+      `“${name}” is ${size} MB, over the ${limit} MB limit. Choose a smaller file (or compress it).`,
+  },
+  id: {
+    limits: (file: number, video: number, hosted: boolean) =>
+      file === video
+        ? `Ukuran maksimal: ${file} MB per file${hosted ? ' (batas server — kompres file yang lebih besar)' : ''}.`
+        : `Ukuran maksimal: ${file} MB untuk gambar, PDF, dan SVG · ${video} MB untuk video (MP4 / WebM).`,
+    tooBig: (name: string, size: number, limit: number) =>
+      `“${name}” berukuran ${size} MB, melebihi batas ${limit} MB. Pilih file yang lebih kecil (atau kompres dulu).`,
+  },
+}
+
+const HINT = 'data-hris-upload-limit'
+const ERROR = 'data-hris-upload-error'
+
+/**
+ * Upload drop zones show the size limits, and a file over its limit is refused
+ * on the spot (chosen or dropped): nothing is attached, so it can't be saved,
+ * and the reason is shown under the drop zone. The server checks again.
+ */
+export function UploadLimitsProvider({ children }: { children?: ReactNode }) {
+  const { i18n } = useTranslation()
+  const t = TEXT[i18n.language === 'id' ? 'id' : 'en']
+  const text = useRef(t)
+  useEffect(() => {
+    text.current = t
+  }, [t])
+  const lastError = useRef<string | null>(null)
+
+  // Hint under every drop zone, plus the last refusal while that zone is on screen.
+  useDomScan(() => {
+    const shown = shownLimits()
+    const limits = text.current.limits(toMb(shown.file), toMb(shown.video), shown.hosted)
+    for (const zone of document.querySelectorAll<HTMLElement>('.dropzone')) {
+      // Inside the drop zone, as a row under its buttons.
+      let hint = zone.querySelector<HTMLElement>(`[${HINT}]`)
+      if (!hint) {
+        hint = document.createElement('p')
+        hint.setAttribute(HINT, '')
+        hint.className = 'hris-upload-limit'
+        zone.append(hint)
+      }
+      if (hint.textContent !== limits) hint.textContent = limits
+      let error = zone.querySelector<HTMLElement>(`[${ERROR}]`)
+      if (lastError.current) {
+        if (!error) {
+          error = document.createElement('p')
+          error.setAttribute(ERROR, '')
+          error.setAttribute('role', 'alert')
+          error.className = 'hris-upload-error'
+          zone.append(error)
+        }
+        if (error.textContent !== lastError.current) error.textContent = lastError.current
+      } else {
+        error?.remove()
+      }
+      zone.classList.toggle('hris-dropzone--refused', Boolean(lastError.current))
+    }
+    if (!document.querySelector('.dropzone')) lastError.current = null
+  })
+
+  useEffect(() => {
+    const refuse = (files: File[]): boolean => {
+      const big = files.find((f) => f.size > limitFor(f))
+      if (!big) {
+        lastError.current = null
+        document.querySelectorAll(`[${ERROR}]`).forEach((el) => el.remove())
+        document.querySelectorAll('.hris-dropzone--refused').forEach((el) => el.classList.remove('hris-dropzone--refused'))
+        return false
+      }
+      const message = text.current.tooBig(big.name, toMb(big.size), toMb(limitFor(big)))
+      lastError.current = message
+      toast.error(message)
+      document.querySelectorAll(`[${ERROR}]`).forEach((el) => {
+        el.textContent = message
+      })
+      document.querySelectorAll('.dropzone').forEach((el) => el.classList.add('hris-dropzone--refused'))
+      return true
+    }
+
+    // Before Payload sees it: capture phase, on the document.
+    const onChange = (e: Event) => {
+      const input = e.target
+      if (!(input instanceof HTMLInputElement) || input.type !== 'file' || !input.files?.length) return
+      if (refuse([...input.files])) {
+        e.stopImmediatePropagation()
+        input.value = ''
+      }
+    }
+    const onDrop = (e: DragEvent) => {
+      const files = e.dataTransfer?.files
+      if (!files?.length || !(e.target as HTMLElement | null)?.closest?.('.dropzone')) return
+      if (refuse([...files])) {
+        e.preventDefault()
+        e.stopImmediatePropagation()
+      }
+    }
+    document.addEventListener('change', onChange, true)
+    document.addEventListener('drop', onDrop, true)
+    return () => {
+      document.removeEventListener('change', onChange, true)
+      document.removeEventListener('drop', onDrop, true)
+    }
+  }, [])
+
+  return <>{children}</>
+}

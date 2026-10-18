@@ -1,0 +1,873 @@
+/* ── Guided tour (components/admin/tutorial) ───────────────────────────── */
+
+// Above Payload's drawers and modals; the page underneath can't be clicked.
+.hris-tour {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  cursor: default;
+}
+
+// The highlight: a hole in the dimmed page, gliding from element to element.
+.hris-tour__spot {
+  position: fixed;
+  border-radius: 14px;
+  box-shadow:
+    0 0 0 3px rgb(56 189 248 / 0.9),
+    0 0 0 9px rgb(56 189 248 / 0.22),
+    0 0 0 200vmax rgb(8 22 44 / 0.58);
+  pointer-events: none;
+  will-change: top, left, width, height;
+
+  // No element: the whole page is dimmed (the hole shrinks to nothing).
+  &.is-centered {
+    border-radius: 50%;
+    box-shadow: 0 0 0 200vmax rgb(8 22 44 / 0.58);
+  }
+}
+
+.hris-tour__card {
+  position: fixed;
+  width: min(360px, calc(100vw - 32px));
+  padding: 18px 20px 16px;
+  border: 1px solid rgb(255 255 255 / 0.9);
+  border-radius: 18px;
+  background: rgb(255 255 255 / 0.96);
+  box-shadow: 0 24px 60px -18px rgb(8 30 70 / 0.55);
+  color: var(--hris-ink);
+  transition: opacity 0.25s;
+
+  &.is-loading {
+    opacity: 0.85;
+  }
+}
+
+.hris-tour__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.hris-tour__badge {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #e7f5fe;
+  color: var(--hris-accent);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hris-tour__count {
+  color: var(--hris-muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.hris-tour__title {
+  margin: 0 0 6px;
+  color: var(--hris-ink);
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.hris-tour__body {
+  max-height: min(42vh, 320px);
+  overflow-y: auto;
+  color: #36506d;
+  font-size: 14px;
+  line-height: 1.55;
+
+  p {
+    margin: 0;
+  }
+
+  p + p,
+  p + ul,
+  ul + p {
+    margin-top: 6px;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 0;
+    padding-left: 18px;
+  }
+
+  li::marker {
+    color: var(--hris-accent);
+  }
+}
+
+// Gliding to the next step (only then: small later moves apply at once).
+.hris-tour.is-gliding:not([data-following]) {
+  .hris-tour__spot {
+    transition:
+      top 0.55s cubic-bezier(0.5, 0, 0.2, 1),
+      left 0.55s cubic-bezier(0.5, 0, 0.2, 1),
+      width 0.55s cubic-bezier(0.5, 0, 0.2, 1),
+      height 0.55s cubic-bezier(0.5, 0, 0.2, 1),
+      border-radius 0.55s;
+  }
+
+  .hris-tour__card {
+    transition:
+      top 0.55s cubic-bezier(0.5, 0, 0.2, 1),
+      left 0.55s cubic-bezier(0.5, 0, 0.2, 1),
+      opacity 0.25s;
+  }
+}
+
+.hris-tour__progress {
+  height: 4px;
+  margin: 14px 0 12px;
+  border-radius: 999px;
+  background: #e3eef9;
+  overflow: hidden;
+
+  span {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--hris-accent-gradient);
+    transition: width 0.4s;
+  }
+}
+
+.hris-tour__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.hris-tour__nav {
+  display: flex;
+  gap: 8px;
+}
+
+.hris-tour__actions button {
+  height: 36px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.hris-tour__skip {
+  padding: 0 4px !important;
+  background: none;
+  color: var(--hris-muted);
+
+  &:hover {
+    color: var(--hris-ink);
+  }
+}
+
+.hris-tour__back {
+  border: 1px solid #d3e2f3 !important;
+  background: #fff;
+  color: var(--hris-accent);
+}
+
+.hris-tour__next {
+  min-width: 92px;
+  background: var(--hris-accent-gradient);
+  color: #fff;
+  box-shadow: 0 8px 18px -10px rgb(31 122 224 / 0.9);
+
+  &:disabled {
+    cursor: progress;
+    filter: saturate(0.6);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hris-tour__spot,
+  .hris-tour__card {
+    transition: none;
+  }
+}
+
+/* ── "Which tutorial?" ─────────────────────────────────────────────────── */
+
+.hris-tour-chooser {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+}
+
+.hris-tour-chooser__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgb(8 22 44 / 0.58);
+  animation: hris-tour-chooser-fade 0.2s ease-out;
+}
+
+.hris-tour-chooser__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(420px, 100%);
+  max-height: min(640px, calc(100vh - 32px));
+  padding: 18px 20px 20px;
+  border: 1px solid rgb(255 255 255 / 0.9);
+  border-radius: 18px;
+  background: rgb(255 255 255 / 0.97);
+  box-shadow: 0 24px 60px -18px rgb(8 30 70 / 0.55);
+  color: var(--hris-ink);
+  animation: hris-tour-chooser-rise 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.hris-tour-chooser__close {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--hris-muted);
+  cursor: pointer;
+
+  svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+  }
+
+  &:hover {
+    background: #eef5fd;
+    color: var(--hris-ink);
+  }
+}
+
+.hris-tour-chooser__help {
+  margin: 0 0 14px;
+  color: #36506d;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.hris-tour-chooser__all,
+.hris-tour-chooser__part {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  border-radius: 12px;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.hris-tour-chooser__all {
+  justify-content: space-between;
+  height: 44px;
+  margin-bottom: 10px;
+  padding: 0 16px;
+  border: 0;
+  background: var(--hris-accent-gradient);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 8px 18px -10px rgb(31 122 224 / 0.9);
+
+  .hris-tour-chooser__count {
+    color: rgb(255 255 255 / 0.85);
+  }
+
+  &:hover {
+    filter: brightness(1.05);
+  }
+}
+
+.hris-tour-chooser__list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.hris-tour-chooser__part {
+  min-height: 40px;
+  padding: 0 12px;
+  border: 1px solid transparent;
+  background: none;
+  color: var(--hris-ink);
+  font-size: 14px;
+
+  &:hover,
+  &:focus-visible {
+    border-color: #d3e2f3;
+    background: #f3f8fe;
+  }
+
+  &.is-here {
+    border-color: #bfe0fb;
+    background: #eaf5fe;
+  }
+}
+
+.hris-tour-chooser__label {
+  flex: 1;
+  font-weight: 600;
+}
+
+.hris-tour-chooser__here {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--hris-accent);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.hris-tour-chooser__count {
+  color: var(--hris-muted);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+@keyframes hris-tour-chooser-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes hris-tour-chooser-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hris-tour-chooser__backdrop,
+  .hris-tour-chooser__card {
+    animation: none;
+  }
+}
+
+/* ── Element picker window ─────────────────────────────────────────────── */
+
+.hris-tour-pick {
+  position: fixed;
+  top: 14px;
+  left: 50%;
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 8px 8px 18px;
+  border-radius: 999px;
+  background: #0f2742;
+  color: #fff;
+  box-shadow: 0 16px 40px -12px rgb(8 22 44 / 0.6);
+  transform: translateX(-50%);
+
+  button {
+    height: 32px;
+    padding: 0 14px;
+    border: 0;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.14);
+    color: #fff;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+}
+
+.hris-tour-pick__text {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  font-weight: 600;
+
+  small {
+    color: #9fc3ec;
+    font-size: 11px;
+    font-weight: 500;
+  }
+}
+
+.hris-tour-pick__hover {
+  position: fixed;
+  z-index: 10000;
+  border: 2px solid #38bdf8;
+  border-radius: 8px;
+  background: rgb(56 189 248 / 0.12);
+  pointer-events: none;
+  transition: all 0.08s;
+}
+
+/* ── Account page, account menu and settings ───────────────────────────── */
+
+.hris-tutorial-replay {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.hris-tutorial-replay__label {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.hris-tutorial-replay__help {
+  margin: 0;
+  color: var(--hris-muted);
+  font-size: 12px;
+}
+
+// Pill buttons: the theme's secondary look (white, blue text, soft border).
+@mixin hris-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 16px;
+  border: 1px solid #d3e2f3;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--hris-accent);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    box-shadow 0.15s;
+
+  &:hover:not(:disabled) {
+    border-color: #a9cdf2;
+    background: #f3f9ff;
+  }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.55;
+  }
+}
+
+.hris-tutorial-replay__button {
+  @include hris-pill;
+}
+
+button.hris-account__item {
+  width: 100%;
+  border: 0;
+  background: none;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+/* Sidebar of Settings → Tutorial, under the version. */
+.hris-tutorial-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+
+  button {
+    @include hris-pill;
+    width: 100%;
+  }
+
+  .hris-tutorial-actions__primary {
+    border: 0;
+    background: var(--hris-accent-gradient);
+    color: #fff;
+    box-shadow: 0 8px 18px -12px rgb(31 122 224 / 0.9);
+
+    &:hover:not(:disabled) {
+      background: var(--hris-accent-gradient);
+      filter: brightness(1.05);
+    }
+  }
+}
+
+.hris-tutorial-actions__label {
+  margin-bottom: 2px;
+  color: var(--hris-ink);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ── Steps editor: a list, only the open step shows its inputs ─────────── */
+
+.hris-steps__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.hris-steps__count {
+  color: var(--hris-muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.hris-steps__add,
+.hris-steps__pick {
+  @include hris-pill;
+}
+
+.hris-steps__error {
+  margin: 0 0 12px;
+  padding: 10px 14px;
+  border: 1px solid #f5c2c0;
+  border-radius: 12px;
+  background: #fdecec;
+  color: #b42318;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.hris-steps__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hris-steps__item {
+  border: 1px solid #e3edf8;
+  border-radius: var(--style-radius-m, 14px);
+  background: rgb(255 255 255 / 0.75);
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s,
+    background 0.2s;
+
+  &:hover {
+    border-color: #cfe2f6;
+  }
+
+  &.is-open {
+    border-color: #bcd9f6;
+    background: #fff;
+    box-shadow: 0 14px 34px -24px rgb(30 90 160 / 0.6);
+  }
+
+  &.is-off .hris-steps__title,
+  &.is-off .hris-steps__num {
+    opacity: 0.5;
+  }
+}
+
+.hris-steps__row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding-right: 10px;
+}
+
+.hris-steps__toggle {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 12px 8px 12px 14px;
+  border: 0;
+  background: none;
+  color: var(--hris-ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.hris-steps__num {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #e7f5fe;
+  color: var(--hris-accent);
+  font-size: 12px;
+  font-weight: 700;
+
+  .is-open & {
+    background: var(--hris-accent-gradient);
+    color: #fff;
+  }
+}
+
+.hris-steps__title {
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hris-steps__tags {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.hris-steps__tag {
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: #eef4fb;
+  color: var(--hris-muted);
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+
+  &.is-warn {
+    background: #fff4e5;
+    color: #b45309;
+  }
+}
+
+.hris-steps__chevron,
+.hris-steps__moves svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.hris-steps__chevron {
+  flex: none;
+  color: var(--hris-muted);
+  transition: transform 0.2s;
+
+  .is-open & {
+    transform: rotate(180deg);
+  }
+}
+
+.hris-steps__moves {
+  display: flex;
+  gap: 2px;
+  padding-left: 6px;
+  border-left: 1px solid #eef3f9;
+
+  button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border: 0;
+    border-radius: 8px;
+    background: none;
+    color: var(--hris-muted);
+    cursor: pointer;
+
+    &:hover:not(:disabled) {
+      background: #e7f5fe;
+      color: var(--hris-accent);
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+  }
+}
+
+.hris-steps__form {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px 18px 18px;
+  border-top: 1px solid #eef3f9;
+}
+
+.hris-steps__section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 0;
+
+  & + & {
+    border-top: 1px dashed #e3edf8;
+  }
+
+  h4 {
+    margin: 0;
+    color: var(--hris-muted);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  // Payload's inputs, inside the step: no extra field spacing.
+  .field-type {
+    margin: 0;
+  }
+}
+
+.hris-steps__checks {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+}
+
+.hris-steps__divider {
+  width: 1px;
+  height: 20px;
+  background: #e3edf8;
+}
+
+.hris-steps__checks-label {
+  color: var(--hris-muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.hris-steps__pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.hris-steps__help {
+  margin: 0;
+  color: var(--hris-muted);
+  font-size: 12px;
+}
+
+.hris-steps__spot {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 1px solid #e3edf8;
+  border-radius: 12px;
+  background: #f7fbff;
+  color: var(--hris-ink);
+  font-size: 13px;
+  font-weight: 500;
+
+  &.is-set {
+    border-color: #bfe6cf;
+    background: #f0faf4;
+  }
+}
+
+.hris-steps__spot-icon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #e3edf8;
+  color: var(--hris-muted);
+  font-size: 12px;
+  font-weight: 700;
+
+  .is-set & {
+    background: #22c55e;
+    color: #fff;
+  }
+}
+
+.hris-steps__spot-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+}
+
+.hris-steps__link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--hris-muted);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+
+  &:hover {
+    color: #d93036;
+  }
+}
+
+// Editors: the steps can be read, not changed.
+.hris-steps__note {
+  margin: 0 0 12px;
+  padding: 10px 14px;
+  border: 1px solid #d3e2f3;
+  border-radius: 12px;
+  background: #f3f8fe;
+  color: #36506d;
+  font-size: 13px;
+}
+
+.hris-steps__warn {
+  margin: 0;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: #fff4e5;
+  color: #92400e;
+  font-size: 12px;
+}
+
+.hris-steps__footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 12px;
+  border-top: 1px dashed #e3edf8;
+}
+
+.hris-steps__delete {
+  @include hris-pill;
+  border-color: #f5c2c0;
+  color: #d93036;
+
+  &:hover:not(:disabled) {
+    border-color: #ef9a9a;
+    background: #fff5f5;
+  }
+}
