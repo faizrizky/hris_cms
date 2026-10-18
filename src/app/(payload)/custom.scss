@@ -52,6 +52,7 @@
 
 html[data-theme='dark'] {
   --hris-accent-ink: #06101f;
+  --hris-card-shadow: none;
 }
 
 body {
@@ -91,12 +92,6 @@ html:not([data-theme='dark']) .template-minimal {
   box-shadow: var(--hris-card-shadow);
 }
 
-html:not([data-theme='dark']) .card,
-html:not([data-theme='dark']) .array-field__row {
-  background: #fff;
-  border: 1px solid var(--hris-line);
-}
-
 input:not([type='checkbox']):not([type='radio']),
 textarea,
 .rs__control {
@@ -105,6 +100,8 @@ textarea,
 
 /* Tab di dalam dokumen (mis. tab Hero, Mockup hero) berbentuk pil. */
 .tabs-field__tab-button {
+  height: auto;
+  padding: 0.7rem 1.4rem;
   border-radius: 999px;
 }
 
@@ -195,8 +192,8 @@ select:focus-visible {
   gap: 1.2rem;
   padding: 0.9rem 1.2rem;
   border-radius: var(--style-radius-l);
-  background: #fff;
-  border: 1px solid var(--hris-line);
+  background: var(--theme-elevation-0);
+  border: 1px solid var(--theme-elevation-100);
   box-shadow: var(--hris-card-shadow);
 }
 

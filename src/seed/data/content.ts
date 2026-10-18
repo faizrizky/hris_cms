@@ -113,15 +113,15 @@ export const homeSeed = {
     'Alur kerja tiap industri berbeda. HRIS fleksibel agar absensi, lembur, dan approval mengikuti cara kerja timmu.',
 
   // KONFIRMASI: janji layanan di bawah ini harus bisa dipenuhi.
-  offerTitle: 'Harga sesuai jumlah karyawan',
+  offerTitle: 'Paket sesuai kebutuhan',
   offerDescription:
-    'Belum ada daftar harga tetap. Biaya mengikuti jumlah karyawan dan modul yang dipakai, jadi kami menyusun penawaran setelah mendengar kebutuhanmu.',
+    'Pilih paket per karyawan per bulan, mulai dari Basic sampai Suite. Harga final dikonfirmasi tim kami setelah demo.',
   offerPoints: [
     { text: 'Demo gratis 30 menit' },
     { text: 'Penawaran sesuai jumlah karyawan' },
     { text: 'Modul bisa ditambah bertahap' },
   ],
-  offerAction: 'Minta penawaran',
+  offerAction: 'Lihat semua paket',
 
   faqTitle: 'Pertanyaan umum',
   faqItems: [
@@ -164,10 +164,68 @@ export const homeSeed = {
 }
 
 export const pricingPageSeed = {
-  heading: 'Harga mengikuti jumlah karyawan.',
+  heading: 'Paket yang pas untuk timmu',
   intro:
-    'Belum ada daftar harga tetap. Biaya bergantung pada jumlah karyawan dan modul yang dipakai, jadi kami menyusun penawaran setelah mendengar kebutuhanmu.',
+    'Harga per karyawan per bulan. Mulai dari paket Basic, lalu naik ke paket yang lebih lengkap saat timmu butuh. Harga di bawah masih contoh dan dapat disesuaikan.',
   action: 'Minta penawaran',
+  plansTitle: 'Pilih paket sesuai kebutuhan',
+  plansDescription: 'Semua paket memakai aplikasi mobile yang sama. Fitur yang belum rilis ditandai Segera hadir.',
+  plans: [
+    {
+      name: 'Basic',
+      badge: '',
+      isFeatured: false,
+      pricePrefix: 'Mulai dari',
+      price: 'Rp11.900',
+      priceUnit: '/bulan/karyawan',
+      description: 'Absensi dan pengajuan dasar untuk tim yang baru mulai.',
+      inheritsFrom: '',
+      features: [
+        { text: 'Absensi online: wajah, lokasi, dan mode offline', isSoon: false },
+        { text: 'Koreksi absensi', isSoon: false },
+        { text: 'Cuti online', isSoon: false },
+        { text: 'Slip gaji online', isSoon: false },
+        { text: 'Keamanan akun', isSoon: false },
+      ],
+      actionLabel: 'Hubungi sales',
+    },
+    {
+      name: 'Essential',
+      badge: 'Paling populer',
+      isFeatured: true,
+      pricePrefix: 'Mulai dari',
+      price: 'Rp19.900',
+      priceUnit: '/bulan/karyawan',
+      description: 'Pengajuan lengkap dengan approval berjenjang dan dokumen.',
+      inheritsFrom: 'Semua fitur paket Basic',
+      features: [
+        { text: 'Lembur online', isSoon: false },
+        { text: 'Dinas luar dan WFH', isSoon: false },
+        { text: 'Approval berjenjang', isSoon: false },
+        { text: 'Ringkasan pajak dan BPJS', isSoon: false },
+        { text: 'Dokumen digital dan pengumuman perusahaan', isSoon: false },
+      ],
+      actionLabel: 'Hubungi sales',
+    },
+    {
+      name: 'Suite',
+      badge: '',
+      isFeatured: false,
+      pricePrefix: 'Mulai dari',
+      price: 'Rp25.000',
+      priceUnit: '/bulan/karyawan',
+      description: 'Seluruh fitur, termasuk yang masih disiapkan.',
+      inheritsFrom: 'Semua fitur paket Essential',
+      features: [
+        { text: 'Penilaian kinerja (sebagian)', isSoon: false },
+        { text: 'Reimbursement dan cash advance', isSoon: true },
+        { text: 'Pembelajaran', isSoon: true },
+        { text: 'Rekrutmen', isSoon: true },
+      ],
+      actionLabel: 'Hubungi sales',
+    },
+  ],
+  addonNote: 'Tambah fitur baru mulai dari Rp2.000/bulan/karyawan.',
   steps: [
     { title: 'Ceritakan kebutuhanmu', description: 'Jumlah karyawan, jenis usaha, dan proses HR yang paling menyita waktu.' },
     { title: 'Lihat demo 30 menit', description: 'Kami tunjukkan alur absen, pengajuan, approval, dan slip gaji langsung di aplikasi.' },
@@ -179,7 +237,7 @@ export const pricingPageSeed = {
     { text: 'Modul ditambah sesuai kebutuhan' },
   ],
   faqs: [
-    { question: 'Apakah ada paket harga tetap?', answer: 'Belum. Penawaran disusun sesuai jumlah karyawan dan modul yang dipakai.' },
+    { question: 'Apakah harga di halaman ini sudah final?', answer: 'Harga di halaman ini masih contoh. Tim kami mengonfirmasi harga final dan diskon sesuai jumlah karyawan saat demo.' },
     { question: 'Apakah ada minimum jumlah karyawan?', answer: 'Hubungi kami untuk membahas kebutuhan tim kecil maupun besar.' },
     { question: 'Bisakah mulai dari satu modul?', answer: 'Bisa. Banyak tim mulai dari absensi, lalu menambah pengajuan dan slip gaji.' },
   ],
