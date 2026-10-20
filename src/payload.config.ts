@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { s3Storage } from '@payloadcms/storage-s3'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { en } from '@payloadcms/translations/languages/en'
 import { id } from '@payloadcms/translations/languages/id'
 import { buildConfig } from 'payload'
@@ -25,7 +26,7 @@ import { withListEnhancements } from './fields/listEnhancements'
 import { localizeTextFields } from './fields/localize'
 import { translateCollection, translateGlobal } from './i18n/translateAdmin'
 import { MAX_UPLOAD_BYTES } from './hooks/secureUpload'
-import { env, s3Enabled, smtpEnabled } from './lib/env'
+import { blobEnabled, env, s3Enabled, smtpEnabled } from './lib/env'
 import { DEFAULT_FROM_ADDRESS, DEFAULT_FROM_NAME } from './lib/mail'
 import { SUPABASE_ROOT_CA } from './lib/supabaseCa'
 import { saveWithProgress } from './endpoints/saveWithProgress'
@@ -263,7 +264,16 @@ export default buildConfig({
           },
         }),
       ]
-    : [],
+    : blobEnabled
+      ? [
+          vercelBlobStorage({
+            collections: { media: true },
+            token: env.BLOB_READ_WRITE_TOKEN!,
+            // Nama file tetap sama dengan di database, supaya salinan dari lokal (copy-media-to-blob) cocok.
+            addRandomSuffix: false,
+          }),
+        ]
+      : [],
 
   typescript: { outputFile: path.resolve(dirname, 'payload-types.ts') },
 })

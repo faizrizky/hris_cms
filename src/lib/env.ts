@@ -52,6 +52,12 @@ const schema = z
      */
     SECURITY_WEBHOOK_URL: optional(z.string().url().startsWith('https://')),
 
+    /**
+     * Vercel Blob (Vercel → Storage → Blob). Dibuat otomatis saat store Blob dihubungkan ke proyek.
+     * Dipakai bila S3 tidak diatur.
+     */
+    BLOB_READ_WRITE_TOKEN: optional(z.string()),
+
     // Optional S3-compatible storage (Cloudflare R2 / AWS S3 / Supabase).
     S3_BUCKET: optional(z.string()),
     S3_REGION: optional(z.string()).transform((v) => v ?? 'auto'),
@@ -142,4 +148,5 @@ if (!parsed.success) {
 export const env = parsed.data
 export const isProduction = env.NODE_ENV === 'production'
 export const s3Enabled = Boolean(env.S3_BUCKET)
+export const blobEnabled = !s3Enabled && Boolean(env.BLOB_READ_WRITE_TOKEN)
 export const smtpEnabled = Boolean(env.SMTP_HOST)
