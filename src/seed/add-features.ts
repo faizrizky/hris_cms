@@ -54,7 +54,7 @@ async function setPageScreens(payload: Payload, mediaIds: Map<string, number>) {
     {
       slug: 'home',
       apply: (block: LooseBlock & { anchor?: string }, id: number) => block.blockType === 'featureBand' && block.anchor === 'absensi' && Object.assign(block, { screenImage: id }),
-      screen: 'attendance',
+      screen: 'face-recognition',
     },
     {
       slug: 'home',

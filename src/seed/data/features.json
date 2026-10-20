@@ -93,7 +93,7 @@
       "approval-berjenjang"
     ],
     "availability": "available",
-    "screenFile": "attendance"
+    "screenFile": "face-recognition"
   },
   {
     "slug": "koreksi-absensi",
@@ -971,7 +971,8 @@
       "koreksi-absensi",
       "keamanan-akun"
     ],
-    "availability": "available"
+    "availability": "available",
+    "screenFile": "face-register"
   },
   {
     "slug": "pantau-tim",
@@ -1047,7 +1048,7 @@
       "cuti-online"
     ],
     "availability": "available",
-    "screenFile": "team-attendance"
+    "screenFile": "employees"
   },
   {
     "slug": "profil-dan-data-karyawan",
