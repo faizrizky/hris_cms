@@ -68,39 +68,31 @@ export interface Config {
   blocks: {};
   collections: {
     pages: Page;
-    posts: Post;
     media: Media;
-    categories: Category;
+    partners: Partner;
+    solutions: Solution;
+    features: Feature;
+    'contact-submissions': ContactSubmission;
     users: User;
-    redirects: Redirect;
-    forms: Form;
-    'form-submissions': FormSubmission;
-    search: Search;
+    'audit-logs': AuditLog;
     'payload-kv': PayloadKv;
     'payload-jobs': PayloadJob;
-    'payload-folders': FolderInterface;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  collectionsJoins: {
-    'payload-folders': {
-      documentsAndFolders: 'payload-folders' | 'media';
-    };
-  };
+  collectionsJoins: {};
   collectionsSelect: {
     pages: PagesSelect<false> | PagesSelect<true>;
-    posts: PostsSelect<false> | PostsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
-    categories: CategoriesSelect<false> | CategoriesSelect<true>;
+    partners: PartnersSelect<false> | PartnersSelect<true>;
+    solutions: SolutionsSelect<false> | SolutionsSelect<true>;
+    features: FeaturesSelect<false> | FeaturesSelect<true>;
+    'contact-submissions': ContactSubmissionsSelect<false> | ContactSubmissionsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
-    redirects: RedirectsSelect<false> | RedirectsSelect<true>;
-    forms: FormsSelect<false> | FormsSelect<true>;
-    'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
-    search: SearchSelect<false> | SearchSelect<true>;
+    'audit-logs': AuditLogsSelect<false> | AuditLogsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
-    'payload-folders': PayloadFoldersSelect<false> | PayloadFoldersSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -108,16 +100,20 @@ export interface Config {
   db: {
     defaultIDType: number;
   };
-  fallbackLocale: null;
+  fallbackLocale: ('false' | 'none' | 'null') | false | null | ('id' | 'en') | ('id' | 'en')[];
   globals: {
-    header: Header;
+    'site-settings': SiteSetting;
+    navigation: Navigation;
     footer: Footer;
+    tutorial: Tutorial;
   };
   globalsSelect: {
-    header: HeaderSelect<false> | HeaderSelect<true>;
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+    navigation: NavigationSelect<false> | NavigationSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    tutorial: TutorialSelect<false> | TutorialSelect<true>;
   };
-  locale: null;
+  locale: 'id' | 'en';
   widgets: {
     collections: CollectionsWidget;
   };
@@ -158,117 +154,170 @@ export interface UserAuthOperations {
 export interface Page {
   id: number;
   title: string;
-  hero: {
-    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
-    richText?: {
-      root: {
-        type: string;
-        children: {
-          type: any;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
-    links?:
-      | {
-          link: {
-            type?: ('reference' | 'custom') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: number | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: number | Post;
-                } | null);
-            url?: string | null;
-            label: string;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-    media?: (number | null) | Media;
-  };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | PinnedStoryBlock)[];
+  /**
+   * URL part. Lowercase letters, numbers and "-". Generated from the title when empty.
+   */
+  slug: string;
+  layout: (
+    | HeroBlock
+    | FeatureBandBlock
+    | RequestsBoardBlock
+    | ModulesMapBlock
+    | IndustriesBlock
+    | TestimonialsBlock
+    | PricingBlock
+    | FaqBlock
+    | CtaBlock
+    | SectionBlock
+    | FeatureCatalogBlock
+    | SolutionCatalogBlock
+    | ToolsListBlock
+    | ContactFormBlock
+    | TextSectionsBlock
+    | FeatureGridBlock
+    | WorkflowBlock
+    | PromoBentoBlock
+    | PartnersBlock
+    | LayoutSectionBlock
+    | BadgeElement
+    | HeadingElement
+    | ParagraphElement
+    | ImageElement
+    | ButtonElement
+    | CardElement
+    | SpacerElement
+  )[];
+  /**
+   * Leave empty to use the page title & the site's default description.
+   */
   meta?: {
     title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (number | null) | Media;
     description?: string | null;
+    image?: (number | null) | Media;
   };
-  publishedAt?: string | null;
-  /**
-   * When enabled, the slug will auto-generate from the title field on save and autosave.
-   */
-  generateSlug?: boolean | null;
-  slug: string;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
+ * via the `definition` "HeroBlock".
  */
-export interface Post {
-  id: number;
-  title: string;
-  heroImage?: (number | null) | Media;
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  relatedPosts?: (number | Post)[] | null;
-  categories?: (number | Category)[] | null;
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (number | null) | Media;
-    description?: string | null;
-  };
-  publishedAt?: string | null;
-  authors?: (number | User)[] | null;
-  populatedAuthors?:
+export interface HeroBlock {
+  variant: 'home' | 'page';
+  /**
+   * Label kecil di atas judul.
+   */
+  tag?: string | null;
+  /**
+   * Baris pertama judul. Maksimal 24 karakter.
+   */
+  titleLineOne?: string | null;
+  /**
+   * Baris kedua (berwarna biru). Maksimal 24 karakter.
+   */
+  titleLineTwo?: string | null;
+  title?: string | null;
+  /**
+   * Catatan kecil oranye di bawah judul, mis. status fitur.
+   */
+  note?: string | null;
+  description?: string | null;
+  buttons?:
     | {
+        label: string;
+        /**
+         * Pick a page, or "Other" for your own URL (/contact, #faq, https://…).
+         */
+        href: string;
+        style?: ('fill' | 'stroke') | null;
         id?: string | null;
-        name?: string | null;
       }[]
     | null;
   /**
-   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   * Isi mockup isometrik di kanan hero.
    */
-  generateSlug?: boolean | null;
-  slug: string;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
+  mockup?: {
+    approvalsTitle?: string | null;
+    approvals?:
+      | {
+          person: string;
+          detail: string;
+          status: string;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Teks status yang dianggap selesai (hijau), mis. Disetujui.
+     */
+    doneLabel?: string | null;
+    attendanceTitle?: string | null;
+    attendanceFigure?: string | null;
+    attendanceDetail?: string | null;
+    payslipTitle?: string | null;
+    payslipDetail?: string | null;
+    phoneChips?:
+      | {
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Tangkapan layar aplikasi yang ditampilkan di HP pada mockup. Kosongkan untuk tampilan bawaan.
+     */
+    phoneScreen?: (number | null) | Media;
+  };
+  /**
+   * Empat keunggulan di bawah hero.
+   */
+  trustPoints?:
+    | {
+        title: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Gambar beranimasi di kanan hero.
+   */
+  visual?: {
+    kind: 'isometric' | 'board' | 'phone' | 'offer' | 'tilted' | 'calculator' | 'panel' | 'shield' | 'none';
+    tone?: ('sky' | 'lavender' | 'peach') | null;
+    accessory?:
+      | (
+          | 'bell'
+          | 'shield'
+          | 'checkCircle'
+          | 'users'
+          | 'calculator'
+          | 'wallet'
+          | 'chat'
+          | 'chart'
+          | 'calendar'
+          | 'clock'
+          | 'document'
+          | 'lock'
+          | 'star'
+        )
+      | null;
+    title?: string | null;
+    /**
+     * Tangkapan layar aplikasi di dalam HP. Kosongkan untuk HP berisi daftar di bawah.
+     */
+    screen?: (number | null) | Media;
+    rowsSource?: ('manual' | 'features' | 'solutions' | 'calculators') | null;
+    rows?:
+      | {
+          title: string;
+          detail?: string | null;
+          badge?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'hero';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -276,23 +325,15 @@ export interface Post {
  */
 export interface Media {
   id: number;
+  /**
+   * The name shown in the media library. The file extension stays the same; a name already used gets -1, -2…
+   */
+  displayName?: string | null;
+  /**
+   * Alternative text for accessibility & SEO. Leave empty for decorative images.
+   */
   alt?: string | null;
-  caption?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  folder?: (number | null) | FolderInterface;
+  fileSizeMb?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -313,7 +354,7 @@ export interface Media {
       filesize?: number | null;
       filename?: string | null;
     };
-    square?: {
+    card?: {
       url?: string | null;
       width?: number | null;
       height?: number | null;
@@ -321,39 +362,7 @@ export interface Media {
       filesize?: number | null;
       filename?: string | null;
     };
-    small?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    medium?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    large?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    xlarge?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    og?: {
+    hero?: {
       url?: string | null;
       width?: number | null;
       height?: number | null;
@@ -365,51 +374,1068 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "payload-folders".
+ * via the `definition` "FeatureBandBlock".
  */
-export interface FolderInterface {
-  id: number;
-  name: string;
-  folder?: (number | null) | FolderInterface;
-  documentsAndFolders?: {
-    docs?: (
-      | {
-          relationTo?: 'payload-folders';
-          value: number | FolderInterface;
-        }
-      | {
-          relationTo?: 'media';
-          value: number | Media;
-        }
-    )[];
-    hasNextPage?: boolean;
-    totalDocs?: number;
-  };
-  folderType?: 'media'[] | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories".
- */
-export interface Category {
-  id: number;
-  title: string;
+export interface FeatureBandBlock {
   /**
-   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   * ID untuk tautan #bagian, mis. absensi.
    */
-  generateSlug?: boolean | null;
-  slug: string;
-  parent?: (number | null) | Category;
-  breadcrumbs?:
+  anchor?: string | null;
+  screen: 'faceScan' | 'approval';
+  /**
+   * Tangkapan layar aplikasi. Jika diisi, menggantikan layar beranimasi di atas.
+   */
+  screenImage?: (number | null) | Media;
+  /**
+   * Label kecil di atas judul, mis. FITUR. Kosongkan untuk menyembunyikan.
+   */
+  tag?: string | null;
+  header: {
+    /**
+     * Press Enter for a new line.
+     */
+    title: string;
+    description?: string | null;
+  };
+  buttons?:
     | {
-        doc?: (number | null) | Category;
-        url?: string | null;
-        label?: string | null;
+        label: string;
+        /**
+         * Pick a page, or "Other" for your own URL (/contact, #faq, https://…).
+         */
+        href: string;
+        style?: ('fill' | 'stroke') | null;
         id?: string | null;
       }[]
     | null;
+  /**
+   * Warna pita latar bagian ini.
+   */
+  tint?: ('white' | 'sky' | 'lavender' | 'peach') | null;
+  /**
+   * Lencana yang melayang di samping HP.
+   */
+  accessory?:
+    | (
+        | 'bell'
+        | 'shield'
+        | 'checkCircle'
+        | 'users'
+        | 'calculator'
+        | 'wallet'
+        | 'chat'
+        | 'chart'
+        | 'calendar'
+        | 'clock'
+        | 'document'
+        | 'lock'
+        | 'star'
+      )
+    | null;
+  screenTitle?: string | null;
+  /**
+   * Tanggal (layar absen) atau anak judul (layar approval).
+   */
+  screenSubtitle?: string | null;
+  chips?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  screenButton?: string | null;
+  pendingLabel?: string | null;
+  doneLabel?: string | null;
+  items?:
+    | {
+        name: string;
+        detail: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'featureBand';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RequestsBoardBlock".
+ */
+export interface RequestsBoardBlock {
+  anchor?: string | null;
+  /**
+   * Label kecil di atas judul, mis. FITUR. Kosongkan untuk menyembunyikan.
+   */
+  tag?: string | null;
+  header: {
+    /**
+     * Press Enter for a new line.
+     */
+    title: string;
+    description?: string | null;
+  };
+  buttons?:
+    | {
+        label: string;
+        /**
+         * Pick a page, or "Other" for your own URL (/contact, #faq, https://…).
+         */
+        href: string;
+        style?: ('fill' | 'stroke') | null;
+        id?: string | null;
+      }[]
+    | null;
+  cards?:
+    | {
+        title: string;
+        subtitle?: string | null;
+        status?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Status yang dianggap selesai, mis. Disetujui.
+   */
+  doneLabel?: string | null;
+  stripTitle?: string | null;
+  stripItems?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'requestsBoard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ModulesMapBlock".
+ */
+export interface ModulesMapBlock {
+  anchor?: string | null;
+  /**
+   * Label kecil di atas judul, mis. FITUR. Kosongkan untuk menyembunyikan.
+   */
+  tag?: string | null;
+  header: {
+    /**
+     * Press Enter for a new line.
+     */
+    title: string;
+    description?: string | null;
+  };
+  /**
+   * Warna pita latar bagian ini.
+   */
+  tint?: ('white' | 'sky' | 'lavender' | 'peach') | null;
+  /**
+   * Kosongkan untuk menampilkan semua fitur sesuai urutannya.
+   */
+  features?: (number | Feature)[] | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'modulesMap';
+}
+/**
+ * Setiap fitur punya halaman detail di /fitur/<slug> dan muncul di mega menu. Geser untuk mengatur urutan.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "features".
+ */
+export interface Feature {
+  id: number;
+  _order?: string | null;
+  name: string;
+  category:
+    'attendance' | 'requests' | 'payroll' | 'team' | 'hradmin' | 'documents' | 'security' | 'performance' | 'planned';
+  /**
+   * Jangan tandai Tersedia untuk fitur yang belum rilis.
+   */
+  availability: 'available' | 'partial' | 'planned';
+  /**
+   * Deskripsi singkat untuk mega menu dan kartu.
+   */
+  shortDescription: string;
+  /**
+   * URL part. Lowercase letters, numbers and "-". Generated from the title when empty.
+   */
+  slug: string;
+  /**
+   * H1 halaman. Maksimal 60 karakter agar tetap dua baris di HP.
+   */
+  heroTitle: string;
+  heroDescription: string;
+  benefits?:
+    | {
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  blocks?:
+    | {
+        title: string;
+        description: string;
+        points?:
+          | {
+              text: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  mock: {
+    title: string;
+    /**
+     * Tangkapan layar aplikasi di HP pada bagian atas halaman. Kosongkan untuk memakai daftar di bawah.
+     */
+    screen?: (number | null) | Media;
+    rows?:
+      | {
+          label: string;
+          detail: string;
+          status: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  faqs?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  related?: (number | Feature)[] | null;
+  /**
+   * Leave empty to use the page title & the site's default description.
+   */
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    image?: (number | null) | Media;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "IndustriesBlock".
+ */
+export interface IndustriesBlock {
+  anchor?: string | null;
+  /**
+   * Label kecil di atas judul, mis. FITUR. Kosongkan untuk menyembunyikan.
+   */
+  tag?: string | null;
+  header: {
+    /**
+     * Press Enter for a new line.
+     */
+    title: string;
+    description?: string | null;
+  };
+  /**
+   * Kosongkan untuk memakai semua solusi yang dicentang "Tampilkan di beranda".
+   */
+  solutions?: (number | Solution)[] | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'industries';
+}
+/**
+ * Setiap solusi punya halaman detail di /solusi/<slug> dan muncul di mega menu. Geser untuk mengatur urutan.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "solutions".
+ */
+export interface Solution {
+  id: number;
+  _order?: string | null;
+  name: string;
+  type: 'industry' | 'scale';
+  showOnHome?: boolean | null;
+  /**
+   * Satu kalimat untuk kartu dan mega menu.
+   */
+  tagline: string;
+  /**
+   * URL part. Lowercase letters, numbers and "-". Generated from the title when empty.
+   */
+  slug: string;
+  heroTitle: string;
+  heroDescription: string;
+  pains?:
+    | {
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  points?:
+    | {
+        title: string;
+        description: string;
+        feature?: (number | null) | Feature;
+        id?: string | null;
+      }[]
+    | null;
+  faqs?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Leave empty to use the page title & the site's default description.
+   */
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    image?: (number | null) | Media;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialsBlock".
+ */
+export interface TestimonialsBlock {
+  anchor?: string | null;
+  /**
+   * Label kecil di atas judul, mis. FITUR. Kosongkan untuk menyembunyikan.
+   */
+  tag?: string | null;
+  header: {
+    /**
+     * Press Enter for a new line.
+     */
+    title: string;
+    description?: string | null;
+  };
+  items?:
+    | {
+        quote: string;
+        name: string;
+        role: string;
+        tone?: ('yellow' | 'cyan' | 'pink') | null;
+        /**
+         * Kemiringan kartu (derajat).
+         */
+        rotationDeg?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'testimonials';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PricingBlock".
+ */
+export interface PricingBlock {
+  anchor?: string | null;
+  variant?: ('full' | 'compact') | null;
+  /**
+   * Label kecil di atas judul, mis. FITUR. Kosongkan untuk menyembunyikan.
+   */
+  tag?: string | null;
+  header: {
+    /**
+     * Press Enter for a new line.
+     */
+    title: string;
+    description?: string | null;
+  };
+  /**
+   * Warna pita latar bagian ini.
+   */
+  tint?: ('white' | 'sky' | 'lavender' | 'peach') | null;
+  /**
+   * Harga masih contoh. Ubah sesuai harga resmi sebelum rilis.
+   */
+  plans?:
+    | {
+        name: string;
+        /**
+         * Mis. Paling populer.
+         */
+        badge?: string | null;
+        isFeatured?: boolean | null;
+        pricePrefix?: string | null;
+        /**
+         * Contoh: Rp11.900
+         */
+        price: string;
+        priceUnit?: string | null;
+        description?: string | null;
+        /**
+         * Mis. Semua fitur paket Basic.
+         */
+        inheritsFrom?: string | null;
+        features?:
+          | {
+              text: string;
+              isSoon?: boolean | null;
+              id?: string | null;
+            }[]
+          | null;
+        actionLabel: string;
+        /**
+         * Pick a page, or "Other" for your own URL (/contact, #faq, https://…).
+         */
+        actionHref: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Pengunjung mengisi jumlah karyawan dan melihat perkiraan biaya per bulan tiap paket (harga paket × jumlah).
+   */
+  showEstimator?: boolean | null;
+  /**
+   * Mis. Pilih paket yang tepat.
+   */
+  estimatorTitle?: string | null;
+  estimatorDescription?: string | null;
+  /**
+   * Tabel fitur per kategori. Kolom "Isi per paket" mengikuti urutan paket di atas (paket pertama, kedua, dst.).
+   */
+  matrix?:
+    | {
+        title: string;
+        groups?:
+          | {
+              title: string;
+              isSoon?: boolean | null;
+              points?:
+                | {
+                    text: string;
+                    id?: string | null;
+                  }[]
+                | null;
+              cells?:
+                | {
+                    mode?: ('included' | 'excluded' | 'addon') | null;
+                    /**
+                     * Untuk tambahan berbayar, mis. +Rp2.000.000/bulan.
+                     */
+                    label?: string | null;
+                    id?: string | null;
+                  }[]
+                | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Catatan di bawah paket, mis. harga tambah fitur.
+   */
+  addonNote?: string | null;
+  points?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  buttons?:
+    | {
+        label: string;
+        /**
+         * Pick a page, or "Other" for your own URL (/contact, #faq, https://…).
+         */
+        href: string;
+        style?: ('fill' | 'stroke') | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'pricing';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FaqBlock".
+ */
+export interface FaqBlock {
+  anchor?: string | null;
+  /**
+   * Label kecil di atas judul, mis. FITUR. Kosongkan untuk menyembunyikan.
+   */
+  tag?: string | null;
+  header: {
+    /**
+     * Press Enter for a new line.
+     */
+    title: string;
+    description?: string | null;
+  };
+  items?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'faq';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CtaBlock".
+ */
+export interface CtaBlock {
+  header: {
+    /**
+     * Press Enter for a new line.
+     */
+    title: string;
+    description?: string | null;
+  };
+  buttons?:
+    | {
+        label: string;
+        /**
+         * Pick a page, or "Other" for your own URL (/contact, #faq, https://…).
+         */
+        href: string;
+        style?: ('fill' | 'stroke') | null;
+        id?: string | null;
+      }[]
+    | null;
+  guarantees?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'cta';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SectionBlock".
+ */
+export interface SectionBlock {
+  anchor?: string | null;
+  /**
+   * Label kecil di atas judul, mis. FITUR. Kosongkan untuk menyembunyikan.
+   */
+  tag?: string | null;
+  header: {
+    /**
+     * Press Enter for a new line.
+     */
+    title: string;
+    description?: string | null;
+  };
+  /**
+   * Warna pita latar bagian ini.
+   */
+  tint?: ('white' | 'sky' | 'lavender' | 'peach') | null;
+  visualSide?: ('right' | 'left') | null;
+  /**
+   * Gambar beranimasi di samping teks. Isinya mengikuti data halaman.
+   */
+  visual: {
+    kind: 'isometric' | 'board' | 'phone' | 'offer' | 'tilted' | 'calculator' | 'panel' | 'shield' | 'none';
+    tone?: ('sky' | 'lavender' | 'peach') | null;
+    accessory?:
+      | (
+          | 'bell'
+          | 'shield'
+          | 'checkCircle'
+          | 'users'
+          | 'calculator'
+          | 'wallet'
+          | 'chat'
+          | 'chart'
+          | 'calendar'
+          | 'clock'
+          | 'document'
+          | 'lock'
+          | 'star'
+        )
+      | null;
+    title?: string | null;
+    /**
+     * Tangkapan layar aplikasi di dalam HP. Kosongkan untuk HP berisi daftar di bawah.
+     */
+    screen?: (number | null) | Media;
+    rowsSource?: ('manual' | 'features' | 'solutions' | 'calculators') | null;
+    rows?:
+      | {
+          title: string;
+          detail?: string | null;
+          badge?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  columns?: ('2' | '3' | '4') | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        /**
+         * Pick a page, or "Other" for your own URL (/contact, #faq, https://…).
+         */
+        href?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'section';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeatureCatalogBlock".
+ */
+export interface FeatureCatalogBlock {
+  /**
+   * Label kecil di atas judul, mis. FITUR. Kosongkan untuk menyembunyikan.
+   */
+  tag?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'featureCatalog';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SolutionCatalogBlock".
+ */
+export interface SolutionCatalogBlock {
+  /**
+   * Label kecil di atas judul, mis. FITUR. Kosongkan untuk menyembunyikan.
+   */
+  tag?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'solutionCatalog';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ToolsListBlock".
+ */
+export interface ToolsListBlock {
+  anchor?: string | null;
+  /**
+   * Label kecil di atas judul, mis. FITUR. Kosongkan untuk menyembunyikan.
+   */
+  tag?: string | null;
+  header: {
+    /**
+     * Press Enter for a new line.
+     */
+    title: string;
+    description?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'toolsList';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactFormBlock".
+ */
+export interface ContactFormBlock {
+  anchor?: string | null;
+  /**
+   * Label kecil di atas judul, mis. FITUR. Kosongkan untuk menyembunyikan.
+   */
+  tag?: string | null;
+  header: {
+    /**
+     * Press Enter for a new line.
+     */
+    title: string;
+    description?: string | null;
+  };
+  /**
+   * Gambar beranimasi di samping teks. Isinya mengikuti data halaman.
+   */
+  visual: {
+    kind: 'isometric' | 'board' | 'phone' | 'offer' | 'tilted' | 'calculator' | 'panel' | 'shield' | 'none';
+    tone?: ('sky' | 'lavender' | 'peach') | null;
+    accessory?:
+      | (
+          | 'bell'
+          | 'shield'
+          | 'checkCircle'
+          | 'users'
+          | 'calculator'
+          | 'wallet'
+          | 'chat'
+          | 'chart'
+          | 'calendar'
+          | 'clock'
+          | 'document'
+          | 'lock'
+          | 'star'
+        )
+      | null;
+    title?: string | null;
+    /**
+     * Tangkapan layar aplikasi di dalam HP. Kosongkan untuk HP berisi daftar di bawah.
+     */
+    screen?: (number | null) | Media;
+    rowsSource?: ('manual' | 'features' | 'solutions' | 'calculators') | null;
+    rows?:
+      | {
+          title: string;
+          detail?: string | null;
+          badge?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  submitLabel?: string | null;
+  successTitle?: string | null;
+  successMessage?: string | null;
+  /**
+   * Pilihan dropdown jumlah karyawan.
+   */
+  employeeCountOptions?: string[] | null;
+  /**
+   * Pilihan dropdown jenis usaha.
+   */
+  industryOptions?: string[] | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contactForm';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextSectionsBlock".
+ */
+export interface TextSectionsBlock {
+  sections?:
+    | {
+        heading?: string | null;
+        /**
+         * Baris kosong = paragraf baru. Baris berawalan "- " = daftar.
+         */
+        body: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'textSections';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeatureGridBlock".
+ */
+export interface FeatureGridBlock {
+  /**
+   * Label kecil di atas judul, mis. FITUR. Kosongkan untuk menyembunyikan.
+   */
+  tag?: string | null;
+  header: {
+    /**
+     * Press Enter for a new line.
+     */
+    title: string;
+    description?: string | null;
+  };
+  /**
+   * Warna pita latar bagian ini.
+   */
+  tint?: ('white' | 'sky' | 'lavender' | 'peach') | null;
+  columns?: ('2' | '3' | '4') | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        badge?: string | null;
+        /**
+         * Pick a page, or "Other" for your own URL (/contact, #faq, https://…).
+         */
+        href?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'featureGrid';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WorkflowBlock".
+ */
+export interface WorkflowBlock {
+  /**
+   * Label kecil di atas judul, mis. FITUR. Kosongkan untuk menyembunyikan.
+   */
+  tag?: string | null;
+  header: {
+    /**
+     * Press Enter for a new line.
+     */
+    title: string;
+    description?: string | null;
+  };
+  /**
+   * Numbers (01, 02, …) follow the order automatically.
+   */
+  steps?:
+    | {
+        title: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'workflow';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PromoBentoBlock".
+ */
+export interface PromoBentoBlock {
+  /**
+   * Kata di awal judul yang diberi warna aksen. Mis. "Book Demo Gratis".
+   */
+  highlight?: string | null;
+  header: {
+    /**
+     * Press Enter for a new line.
+     */
+    title: string;
+    description?: string | null;
+  };
+  /**
+   * Warna pita latar bagian ini.
+   */
+  tint?: ('white' | 'sky' | 'lavender' | 'peach') | null;
+  cards?:
+    | {
+        title: string;
+        description?: string | null;
+        icon?:
+          | (
+              | 'headset'
+              | 'cloudDownload'
+              | 'wrench'
+              | 'settings'
+              | 'rocket'
+              | 'users'
+              | 'message'
+              | 'calendar'
+              | 'shield'
+              | 'sparkles'
+            )
+          | null;
+        tone?: ('lavender' | 'yellow' | 'sky' | 'peach' | 'cyan') | null;
+        size?: ('normal' | 'wide' | 'tall') | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'promoBento';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PartnersBlock".
+ */
+export interface PartnersBlock {
+  header: {
+    eyebrow?: string | null;
+    /**
+     * Press Enter for a new line.
+     */
+    title: string;
+    description?: string | null;
+  };
+  rowOne: (number | Partner)[];
+  rowTwo?: (number | Partner)[] | null;
+  showTooltip?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'partners';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partners".
+ */
+export interface Partner {
+  id: number;
+  _order?: string | null;
+  name: string;
+  /**
+   * Shown in a card when the logo is hovered.
+   */
+  description?: string | null;
+  /**
+   * Pick a page, or "Other" for your own URL (/contact, #faq, https://…).
+   */
+  website?: string | null;
+  showInHero?: boolean | null;
+  logo: number | Media;
+  /**
+   * Optional. The original colour logo shown when the logo is hovered.
+   */
+  logoHover?: (number | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LayoutSectionBlock".
+ */
+export interface LayoutSectionBlock {
+  columns: '1' | '2' | '3' | '4';
+  verticalAlign?: ('start' | 'center') | null;
+  gap?: ('sm' | 'md' | 'lg') | null;
+  background?: ('white' | 'sky' | 'lavender' | 'peach' | 'night' | 'image') | null;
+  padding?: ('sm' | 'md' | 'lg') | null;
+  width?: ('narrow' | 'default' | 'wide') | null;
+  backgroundImage?: (number | null) | Media;
+  column1?:
+    | (BadgeElement | HeadingElement | ParagraphElement | ImageElement | ButtonElement | CardElement | SpacerElement)[]
+    | null;
+  column2?:
+    | (BadgeElement | HeadingElement | ParagraphElement | ImageElement | ButtonElement | CardElement | SpacerElement)[]
+    | null;
+  column3?:
+    | (BadgeElement | HeadingElement | ParagraphElement | ImageElement | ButtonElement | CardElement | SpacerElement)[]
+    | null;
+  column4?:
+    | (BadgeElement | HeadingElement | ParagraphElement | ImageElement | ButtonElement | CardElement | SpacerElement)[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'layoutSection';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BadgeElement".
+ */
+export interface BadgeElement {
+  text: string;
+  align?: ('left' | 'center' | 'right') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'badge';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeadingElement".
+ */
+export interface HeadingElement {
+  text: string;
+  level?: ('h1' | 'h2' | 'h3' | 'h4') | null;
+  size?: ('sm' | 'md' | 'lg' | 'xl') | null;
+  color?: ('ink' | 'accent' | 'white') | null;
+  align?: ('left' | 'center' | 'right') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'heading';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ParagraphElement".
+ */
+export interface ParagraphElement {
+  text: string;
+  size?: ('sm' | 'base' | 'lg') | null;
+  tone?: ('default' | 'muted') | null;
+  align?: ('left' | 'center' | 'right') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'paragraph';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageElement".
+ */
+export interface ImageElement {
+  image: number | Media;
+  aspect?: ('video' | 'landscape' | 'square' | 'portrait') | null;
+  framed?: boolean | null;
+  caption?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'image';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ButtonElement".
+ */
+export interface ButtonElement {
+  label: string;
+  /**
+   * Pick a page, or "Other" for your own URL (/contact, #faq, https://…).
+   */
+  href: string;
+  style?: ('fill' | 'stroke') | null;
+  align?: ('left' | 'center' | 'right') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'button';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CardElement".
+ */
+export interface CardElement {
+  icon?: (number | null) | Media;
+  title: string;
+  description?: string | null;
+  /**
+   * Optional. Makes the card clickable.
+   */
+  href?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'card';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SpacerElement".
+ */
+export interface SpacerElement {
+  size?: ('sm' | 'md' | 'lg' | 'xl') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'spacer';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-submissions".
+ */
+export interface ContactSubmission {
+  id: number;
+  status?: ('new' | 'in-progress' | 'done' | 'spam') | null;
+  fullName: string;
+  organization: string;
+  email: string;
+  phone: string;
+  employeeCount?: string | null;
+  industry?: string | null;
+  interest?: string | null;
+  message?: string | null;
+  internalNotes?: string | null;
+  meta?: {
+    ip?: string | null;
+    userAgent?: string | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -419,7 +1445,22 @@ export interface Category {
  */
 export interface User {
   id: number;
+  totpEnabled?: boolean | null;
+  tutorialSeen?: number | null;
+  twoFactor?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   name?: string | null;
+  /**
+   * Admin: manage users & settings. Editor: content only.
+   */
+  roles: ('admin' | 'editor')[];
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -441,437 +1482,20 @@ export interface User {
   collection: 'users';
 }
 /**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CallToActionBlock".
- */
-export interface CallToActionBlock {
-  richText?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  links?:
-    | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: number | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: number | Post;
-              } | null);
-          url?: string | null;
-          label: string;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'outline') | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'cta';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentBlock".
- */
-export interface ContentBlock {
-  columns?:
-    | {
-        size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null;
-        richText?: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
-        enableLink?: boolean | null;
-        link?: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: number | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: number | Post;
-              } | null);
-          url?: string | null;
-          label: string;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'outline') | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'content';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MediaBlock".
- */
-export interface MediaBlock {
-  media: number | Media;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'mediaBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ArchiveBlock".
- */
-export interface ArchiveBlock {
-  introContent?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  populateBy?: ('collection' | 'selection') | null;
-  relationTo?: 'posts' | null;
-  categories?: (number | Category)[] | null;
-  limit?: number | null;
-  selectedDocs?:
-    | {
-        relationTo: 'posts';
-        value: number | Post;
-      }[]
-    | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'archive';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FormBlock".
- */
-export interface FormBlock {
-  form: number | Form;
-  enableIntro?: boolean | null;
-  introContent?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'formBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "forms".
- */
-export interface Form {
-  id: number;
-  title: string;
-  fields?:
-    | (
-        | {
-            name: string;
-            label?: string | null;
-            width?: number | null;
-            required?: boolean | null;
-            defaultValue?: boolean | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'checkbox';
-          }
-        | {
-            name: string;
-            label?: string | null;
-            width?: number | null;
-            required?: boolean | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'country';
-          }
-        | {
-            name: string;
-            label?: string | null;
-            width?: number | null;
-            required?: boolean | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'email';
-          }
-        | {
-            message?: {
-              root: {
-                type: string;
-                children: {
-                  type: any;
-                  version: number;
-                  [k: string]: unknown;
-                }[];
-                direction: ('ltr' | 'rtl') | null;
-                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                indent: number;
-                version: number;
-              };
-              [k: string]: unknown;
-            } | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'message';
-          }
-        | {
-            name: string;
-            label?: string | null;
-            width?: number | null;
-            defaultValue?: number | null;
-            required?: boolean | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'number';
-          }
-        | {
-            name: string;
-            label?: string | null;
-            width?: number | null;
-            defaultValue?: string | null;
-            placeholder?: string | null;
-            options?:
-              | {
-                  label: string;
-                  value: string;
-                  id?: string | null;
-                }[]
-              | null;
-            required?: boolean | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'select';
-          }
-        | {
-            name: string;
-            label?: string | null;
-            width?: number | null;
-            required?: boolean | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'state';
-          }
-        | {
-            name: string;
-            label?: string | null;
-            width?: number | null;
-            defaultValue?: string | null;
-            required?: boolean | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'text';
-          }
-        | {
-            name: string;
-            label?: string | null;
-            width?: number | null;
-            defaultValue?: string | null;
-            required?: boolean | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'textarea';
-          }
-      )[]
-    | null;
-  submitButtonLabel?: string | null;
-  confirmationType?: ('message' | 'redirect') | null;
-  confirmationMessage?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  redirect?: {
-    url: string;
-  };
-  emails?:
-    | {
-        emailTo?: string | null;
-        cc?: string | null;
-        bcc?: string | null;
-        replyTo?: string | null;
-        emailFrom?: string | null;
-        subject: string;
-        message?: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PinnedStoryBlock".
- */
-export interface PinnedStoryBlock {
-  /**
-   * Setiap langkah tampil bergantian saat halaman di-scroll.
-   */
-  steps: {
-    title: string;
-    description: string;
-    backgroundColor: string;
-    screenshot: number | Media;
-    /**
-     * Label kecil yang muncul berurutan, mis. "Lokasi valid".
-     */
-    chips?:
-      | {
-          label: string;
-          id?: string | null;
-        }[]
-      | null;
-    id?: string | null;
-  }[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'pinnedStory';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "redirects".
- */
-export interface Redirect {
-  id: number;
-  /**
-   * You will need to rebuild the website when changing this field.
-   */
-  from: string;
-  to?: {
-    type?: ('reference' | 'custom') | null;
-    reference?:
-      | ({
-          relationTo: 'pages';
-          value: number | Page;
-        } | null)
-      | ({
-          relationTo: 'posts';
-          value: number | Post;
-        } | null);
-    url?: string | null;
-  };
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "form-submissions".
- */
-export interface FormSubmission {
-  id: number;
-  form: number | Form;
-  submissionData?:
-    | {
-        field: string;
-        value: string;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This is a collection of automatically created search results. These results are used by the global site search and will be updated automatically as documents in the CMS are created or updated.
+ * History of changes & logins. Cannot be edited or deleted.
  *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "search".
+ * via the `definition` "audit-logs".
  */
-export interface Search {
+export interface AuditLog {
   id: number;
-  title?: string | null;
-  priority?: number | null;
-  doc: {
-    relationTo: 'posts';
-    value: number | Post;
-  };
-  slug?: string | null;
-  meta?: {
-    title?: string | null;
-    description?: string | null;
-    image?: (number | null) | Media;
-  };
-  categories?:
-    | {
-        relationTo?: string | null;
-        categoryID?: string | null;
-        title?: string | null;
-        id?: string | null;
-      }[]
-    | null;
+  action: 'create' | 'update' | 'delete' | 'login' | 'security';
+  resource: string;
+  documentId?: string | null;
+  changedFields?: string[] | null;
+  user?: (number | null) | User;
+  ip?: string | null;
+  userAgent?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -996,40 +1620,32 @@ export interface PayloadLockedDocument {
         value: number | Page;
       } | null)
     | ({
-        relationTo: 'posts';
-        value: number | Post;
-      } | null)
-    | ({
         relationTo: 'media';
         value: number | Media;
       } | null)
     | ({
-        relationTo: 'categories';
-        value: number | Category;
+        relationTo: 'partners';
+        value: number | Partner;
+      } | null)
+    | ({
+        relationTo: 'solutions';
+        value: number | Solution;
+      } | null)
+    | ({
+        relationTo: 'features';
+        value: number | Feature;
+      } | null)
+    | ({
+        relationTo: 'contact-submissions';
+        value: number | ContactSubmission;
       } | null)
     | ({
         relationTo: 'users';
         value: number | User;
       } | null)
     | ({
-        relationTo: 'redirects';
-        value: number | Redirect;
-      } | null)
-    | ({
-        relationTo: 'forms';
-        value: number | Form;
-      } | null)
-    | ({
-        relationTo: 'form-submissions';
-        value: number | FormSubmission;
-      } | null)
-    | ({
-        relationTo: 'search';
-        value: number | Search;
-      } | null)
-    | ({
-        relationTo: 'payload-folders';
-        value: number | FolderInterface;
+        relationTo: 'audit-logs';
+        value: number | AuditLog;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -1079,71 +1695,164 @@ export interface PayloadMigration {
  */
 export interface PagesSelect<T extends boolean = true> {
   title?: T;
-  hero?:
-    | T
-    | {
-        type?: T;
-        richText?: T;
-        links?:
-          | T
-          | {
-              link?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    label?: T;
-                    appearance?: T;
-                  };
-              id?: T;
-            };
-        media?: T;
-      };
+  slug?: T;
   layout?:
     | T
     | {
-        cta?: T | CallToActionBlockSelect<T>;
-        content?: T | ContentBlockSelect<T>;
-        mediaBlock?: T | MediaBlockSelect<T>;
-        archive?: T | ArchiveBlockSelect<T>;
-        formBlock?: T | FormBlockSelect<T>;
-        pinnedStory?: T | PinnedStoryBlockSelect<T>;
+        hero?: T | HeroBlockSelect<T>;
+        featureBand?: T | FeatureBandBlockSelect<T>;
+        requestsBoard?: T | RequestsBoardBlockSelect<T>;
+        modulesMap?: T | ModulesMapBlockSelect<T>;
+        industries?: T | IndustriesBlockSelect<T>;
+        testimonials?: T | TestimonialsBlockSelect<T>;
+        pricing?: T | PricingBlockSelect<T>;
+        faq?: T | FaqBlockSelect<T>;
+        cta?: T | CtaBlockSelect<T>;
+        section?: T | SectionBlockSelect<T>;
+        featureCatalog?: T | FeatureCatalogBlockSelect<T>;
+        solutionCatalog?: T | SolutionCatalogBlockSelect<T>;
+        toolsList?: T | ToolsListBlockSelect<T>;
+        contactForm?: T | ContactFormBlockSelect<T>;
+        textSections?: T | TextSectionsBlockSelect<T>;
+        featureGrid?: T | FeatureGridBlockSelect<T>;
+        workflow?: T | WorkflowBlockSelect<T>;
+        promoBento?: T | PromoBentoBlockSelect<T>;
+        partners?: T | PartnersBlockSelect<T>;
+        layoutSection?: T | LayoutSectionBlockSelect<T>;
+        badge?: T | BadgeElementSelect<T>;
+        heading?: T | HeadingElementSelect<T>;
+        paragraph?: T | ParagraphElementSelect<T>;
+        image?: T | ImageElementSelect<T>;
+        button?: T | ButtonElementSelect<T>;
+        card?: T | CardElementSelect<T>;
+        spacer?: T | SpacerElementSelect<T>;
       };
   meta?:
     | T
     | {
         title?: T;
-        image?: T;
         description?: T;
+        image?: T;
       };
-  publishedAt?: T;
-  generateSlug?: T;
-  slug?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CallToActionBlock_select".
+ * via the `definition` "HeroBlock_select".
  */
-export interface CallToActionBlockSelect<T extends boolean = true> {
-  richText?: T;
-  links?:
+export interface HeroBlockSelect<T extends boolean = true> {
+  variant?: T;
+  tag?: T;
+  titleLineOne?: T;
+  titleLineTwo?: T;
+  title?: T;
+  note?: T;
+  description?: T;
+  buttons?:
     | T
     | {
-        link?:
+        label?: T;
+        href?: T;
+        style?: T;
+        id?: T;
+      };
+  mockup?:
+    | T
+    | {
+        approvalsTitle?: T;
+        approvals?:
           | T
           | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-              appearance?: T;
+              person?: T;
+              detail?: T;
+              status?: T;
+              id?: T;
             };
+        doneLabel?: T;
+        attendanceTitle?: T;
+        attendanceFigure?: T;
+        attendanceDetail?: T;
+        payslipTitle?: T;
+        payslipDetail?: T;
+        phoneChips?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        phoneScreen?: T;
+      };
+  trustPoints?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  visual?:
+    | T
+    | {
+        kind?: T;
+        tone?: T;
+        accessory?: T;
+        title?: T;
+        screen?: T;
+        rowsSource?: T;
+        rows?:
+          | T
+          | {
+              title?: T;
+              detail?: T;
+              badge?: T;
+              id?: T;
+            };
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeatureBandBlock_select".
+ */
+export interface FeatureBandBlockSelect<T extends boolean = true> {
+  anchor?: T;
+  screen?: T;
+  screenImage?: T;
+  tag?: T;
+  header?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  buttons?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        style?: T;
+        id?: T;
+      };
+  tint?: T;
+  accessory?: T;
+  screenTitle?: T;
+  screenSubtitle?: T;
+  chips?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  screenButton?: T;
+  pendingLabel?: T;
+  doneLabel?: T;
+  items?:
+    | T
+    | {
+        name?: T;
+        detail?: T;
         id?: T;
       };
   id?: T;
@@ -1151,25 +1860,39 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentBlock_select".
+ * via the `definition` "RequestsBoardBlock_select".
  */
-export interface ContentBlockSelect<T extends boolean = true> {
-  columns?:
+export interface RequestsBoardBlockSelect<T extends boolean = true> {
+  anchor?: T;
+  tag?: T;
+  header?:
     | T
     | {
-        size?: T;
-        richText?: T;
-        enableLink?: T;
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-              appearance?: T;
-            };
+        title?: T;
+        description?: T;
+      };
+  buttons?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        style?: T;
+        id?: T;
+      };
+  cards?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+        status?: T;
+        id?: T;
+      };
+  doneLabel?: T;
+  stripTitle?: T;
+  stripItems?:
+    | T
+    | {
+        text?: T;
         id?: T;
       };
   id?: T;
@@ -1177,56 +1900,377 @@ export interface ContentBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MediaBlock_select".
+ * via the `definition` "ModulesMapBlock_select".
  */
-export interface MediaBlockSelect<T extends boolean = true> {
-  media?: T;
+export interface ModulesMapBlockSelect<T extends boolean = true> {
+  anchor?: T;
+  tag?: T;
+  header?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  tint?: T;
+  features?: T;
   id?: T;
   blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ArchiveBlock_select".
+ * via the `definition` "IndustriesBlock_select".
  */
-export interface ArchiveBlockSelect<T extends boolean = true> {
-  introContent?: T;
-  populateBy?: T;
-  relationTo?: T;
-  categories?: T;
-  limit?: T;
-  selectedDocs?: T;
+export interface IndustriesBlockSelect<T extends boolean = true> {
+  anchor?: T;
+  tag?: T;
+  header?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  solutions?: T;
   id?: T;
   blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FormBlock_select".
+ * via the `definition` "TestimonialsBlock_select".
  */
-export interface FormBlockSelect<T extends boolean = true> {
-  form?: T;
-  enableIntro?: T;
-  introContent?: T;
+export interface TestimonialsBlockSelect<T extends boolean = true> {
+  anchor?: T;
+  tag?: T;
+  header?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  items?:
+    | T
+    | {
+        quote?: T;
+        name?: T;
+        role?: T;
+        tone?: T;
+        rotationDeg?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PinnedStoryBlock_select".
+ * via the `definition` "PricingBlock_select".
  */
-export interface PinnedStoryBlockSelect<T extends boolean = true> {
+export interface PricingBlockSelect<T extends boolean = true> {
+  anchor?: T;
+  variant?: T;
+  tag?: T;
+  header?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  tint?: T;
+  plans?:
+    | T
+    | {
+        name?: T;
+        badge?: T;
+        isFeatured?: T;
+        pricePrefix?: T;
+        price?: T;
+        priceUnit?: T;
+        description?: T;
+        inheritsFrom?: T;
+        features?:
+          | T
+          | {
+              text?: T;
+              isSoon?: T;
+              id?: T;
+            };
+        actionLabel?: T;
+        actionHref?: T;
+        id?: T;
+      };
+  showEstimator?: T;
+  estimatorTitle?: T;
+  estimatorDescription?: T;
+  matrix?:
+    | T
+    | {
+        title?: T;
+        groups?:
+          | T
+          | {
+              title?: T;
+              isSoon?: T;
+              points?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              cells?:
+                | T
+                | {
+                    mode?: T;
+                    label?: T;
+                    id?: T;
+                  };
+              id?: T;
+            };
+        id?: T;
+      };
+  addonNote?: T;
+  points?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  buttons?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        style?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FaqBlock_select".
+ */
+export interface FaqBlockSelect<T extends boolean = true> {
+  anchor?: T;
+  tag?: T;
+  header?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  items?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CtaBlock_select".
+ */
+export interface CtaBlockSelect<T extends boolean = true> {
+  header?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  buttons?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        style?: T;
+        id?: T;
+      };
+  guarantees?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SectionBlock_select".
+ */
+export interface SectionBlockSelect<T extends boolean = true> {
+  anchor?: T;
+  tag?: T;
+  header?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  tint?: T;
+  visualSide?: T;
+  visual?:
+    | T
+    | {
+        kind?: T;
+        tone?: T;
+        accessory?: T;
+        title?: T;
+        screen?: T;
+        rowsSource?: T;
+        rows?:
+          | T
+          | {
+              title?: T;
+              detail?: T;
+              badge?: T;
+              id?: T;
+            };
+      };
+  columns?: T;
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        href?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeatureCatalogBlock_select".
+ */
+export interface FeatureCatalogBlockSelect<T extends boolean = true> {
+  tag?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SolutionCatalogBlock_select".
+ */
+export interface SolutionCatalogBlockSelect<T extends boolean = true> {
+  tag?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ToolsListBlock_select".
+ */
+export interface ToolsListBlockSelect<T extends boolean = true> {
+  anchor?: T;
+  tag?: T;
+  header?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactFormBlock_select".
+ */
+export interface ContactFormBlockSelect<T extends boolean = true> {
+  anchor?: T;
+  tag?: T;
+  header?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  visual?:
+    | T
+    | {
+        kind?: T;
+        tone?: T;
+        accessory?: T;
+        title?: T;
+        screen?: T;
+        rowsSource?: T;
+        rows?:
+          | T
+          | {
+              title?: T;
+              detail?: T;
+              badge?: T;
+              id?: T;
+            };
+      };
+  submitLabel?: T;
+  successTitle?: T;
+  successMessage?: T;
+  employeeCountOptions?: T;
+  industryOptions?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextSectionsBlock_select".
+ */
+export interface TextSectionsBlockSelect<T extends boolean = true> {
+  sections?:
+    | T
+    | {
+        heading?: T;
+        body?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeatureGridBlock_select".
+ */
+export interface FeatureGridBlockSelect<T extends boolean = true> {
+  tag?: T;
+  header?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  tint?: T;
+  columns?: T;
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        badge?: T;
+        href?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WorkflowBlock_select".
+ */
+export interface WorkflowBlockSelect<T extends boolean = true> {
+  tag?: T;
+  header?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
   steps?:
     | T
     | {
         title?: T;
         description?: T;
-        backgroundColor?: T;
-        screenshot?: T;
-        chips?:
-          | T
-          | {
-              label?: T;
-              id?: T;
-            };
         id?: T;
       };
   id?: T;
@@ -1234,43 +2278,195 @@ export interface PinnedStoryBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts_select".
+ * via the `definition` "PromoBentoBlock_select".
  */
-export interface PostsSelect<T extends boolean = true> {
-  title?: T;
-  heroImage?: T;
-  content?: T;
-  relatedPosts?: T;
-  categories?: T;
-  meta?:
+export interface PromoBentoBlockSelect<T extends boolean = true> {
+  highlight?: T;
+  header?:
     | T
     | {
         title?: T;
-        image?: T;
         description?: T;
       };
-  publishedAt?: T;
-  authors?: T;
-  populatedAuthors?:
+  tint?: T;
+  cards?:
     | T
     | {
+        title?: T;
+        description?: T;
+        icon?: T;
+        tone?: T;
+        size?: T;
         id?: T;
-        name?: T;
       };
-  generateSlug?: T;
-  slug?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  _status?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PartnersBlock_select".
+ */
+export interface PartnersBlockSelect<T extends boolean = true> {
+  header?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        description?: T;
+      };
+  rowOne?: T;
+  rowTwo?: T;
+  showTooltip?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LayoutSectionBlock_select".
+ */
+export interface LayoutSectionBlockSelect<T extends boolean = true> {
+  columns?: T;
+  verticalAlign?: T;
+  gap?: T;
+  background?: T;
+  padding?: T;
+  width?: T;
+  backgroundImage?: T;
+  column1?:
+    | T
+    | {
+        badge?: T | BadgeElementSelect<T>;
+        heading?: T | HeadingElementSelect<T>;
+        paragraph?: T | ParagraphElementSelect<T>;
+        image?: T | ImageElementSelect<T>;
+        button?: T | ButtonElementSelect<T>;
+        card?: T | CardElementSelect<T>;
+        spacer?: T | SpacerElementSelect<T>;
+      };
+  column2?:
+    | T
+    | {
+        badge?: T | BadgeElementSelect<T>;
+        heading?: T | HeadingElementSelect<T>;
+        paragraph?: T | ParagraphElementSelect<T>;
+        image?: T | ImageElementSelect<T>;
+        button?: T | ButtonElementSelect<T>;
+        card?: T | CardElementSelect<T>;
+        spacer?: T | SpacerElementSelect<T>;
+      };
+  column3?:
+    | T
+    | {
+        badge?: T | BadgeElementSelect<T>;
+        heading?: T | HeadingElementSelect<T>;
+        paragraph?: T | ParagraphElementSelect<T>;
+        image?: T | ImageElementSelect<T>;
+        button?: T | ButtonElementSelect<T>;
+        card?: T | CardElementSelect<T>;
+        spacer?: T | SpacerElementSelect<T>;
+      };
+  column4?:
+    | T
+    | {
+        badge?: T | BadgeElementSelect<T>;
+        heading?: T | HeadingElementSelect<T>;
+        paragraph?: T | ParagraphElementSelect<T>;
+        image?: T | ImageElementSelect<T>;
+        button?: T | ButtonElementSelect<T>;
+        card?: T | CardElementSelect<T>;
+        spacer?: T | SpacerElementSelect<T>;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BadgeElement_select".
+ */
+export interface BadgeElementSelect<T extends boolean = true> {
+  text?: T;
+  align?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeadingElement_select".
+ */
+export interface HeadingElementSelect<T extends boolean = true> {
+  text?: T;
+  level?: T;
+  size?: T;
+  color?: T;
+  align?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ParagraphElement_select".
+ */
+export interface ParagraphElementSelect<T extends boolean = true> {
+  text?: T;
+  size?: T;
+  tone?: T;
+  align?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageElement_select".
+ */
+export interface ImageElementSelect<T extends boolean = true> {
+  image?: T;
+  aspect?: T;
+  framed?: T;
+  caption?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ButtonElement_select".
+ */
+export interface ButtonElementSelect<T extends boolean = true> {
+  label?: T;
+  href?: T;
+  style?: T;
+  align?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CardElement_select".
+ */
+export interface CardElementSelect<T extends boolean = true> {
+  icon?: T;
+  title?: T;
+  description?: T;
+  href?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SpacerElement_select".
+ */
+export interface SpacerElementSelect<T extends boolean = true> {
+  size?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
+  displayName?: T;
   alt?: T;
-  caption?: T;
-  folder?: T;
+  fileSizeMb?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -1295,7 +2491,7 @@ export interface MediaSelect<T extends boolean = true> {
               filesize?: T;
               filename?: T;
             };
-        square?:
+        card?:
           | T
           | {
               url?: T;
@@ -1305,47 +2501,7 @@ export interface MediaSelect<T extends boolean = true> {
               filesize?: T;
               filename?: T;
             };
-        small?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        medium?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        large?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        xlarge?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        og?:
+        hero?:
           | T
           | {
               url?: T;
@@ -1359,20 +2515,152 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories_select".
+ * via the `definition` "partners_select".
  */
-export interface CategoriesSelect<T extends boolean = true> {
-  title?: T;
-  generateSlug?: T;
+export interface PartnersSelect<T extends boolean = true> {
+  _order?: T;
+  name?: T;
+  description?: T;
+  website?: T;
+  showInHero?: T;
+  logo?: T;
+  logoHover?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "solutions_select".
+ */
+export interface SolutionsSelect<T extends boolean = true> {
+  _order?: T;
+  name?: T;
+  type?: T;
+  showOnHome?: T;
+  tagline?: T;
   slug?: T;
-  parent?: T;
-  breadcrumbs?:
+  heroTitle?: T;
+  heroDescription?: T;
+  pains?:
     | T
     | {
-        doc?: T;
-        url?: T;
-        label?: T;
+        title?: T;
+        description?: T;
         id?: T;
+      };
+  points?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        feature?: T;
+        id?: T;
+      };
+  faqs?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "features_select".
+ */
+export interface FeaturesSelect<T extends boolean = true> {
+  _order?: T;
+  name?: T;
+  category?: T;
+  availability?: T;
+  shortDescription?: T;
+  slug?: T;
+  heroTitle?: T;
+  heroDescription?: T;
+  benefits?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  blocks?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        points?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  mock?:
+    | T
+    | {
+        title?: T;
+        screen?: T;
+        rows?:
+          | T
+          | {
+              label?: T;
+              detail?: T;
+              status?: T;
+              id?: T;
+            };
+      };
+  faqs?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
+  related?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-submissions_select".
+ */
+export interface ContactSubmissionsSelect<T extends boolean = true> {
+  status?: T;
+  fullName?: T;
+  organization?: T;
+  email?: T;
+  phone?: T;
+  employeeCount?: T;
+  industry?: T;
+  interest?: T;
+  message?: T;
+  internalNotes?: T;
+  meta?:
+    | T
+    | {
+        ip?: T;
+        userAgent?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1382,7 +2670,11 @@ export interface CategoriesSelect<T extends boolean = true> {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  totpEnabled?: T;
+  tutorialSeen?: T;
+  twoFactor?: T;
   name?: T;
+  roles?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -1403,193 +2695,16 @@ export interface UsersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "redirects_select".
+ * via the `definition` "audit-logs_select".
  */
-export interface RedirectsSelect<T extends boolean = true> {
-  from?: T;
-  to?:
-    | T
-    | {
-        type?: T;
-        reference?: T;
-        url?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "forms_select".
- */
-export interface FormsSelect<T extends boolean = true> {
-  title?: T;
-  fields?:
-    | T
-    | {
-        checkbox?:
-          | T
-          | {
-              name?: T;
-              label?: T;
-              width?: T;
-              required?: T;
-              defaultValue?: T;
-              id?: T;
-              blockName?: T;
-            };
-        country?:
-          | T
-          | {
-              name?: T;
-              label?: T;
-              width?: T;
-              required?: T;
-              id?: T;
-              blockName?: T;
-            };
-        email?:
-          | T
-          | {
-              name?: T;
-              label?: T;
-              width?: T;
-              required?: T;
-              id?: T;
-              blockName?: T;
-            };
-        message?:
-          | T
-          | {
-              message?: T;
-              id?: T;
-              blockName?: T;
-            };
-        number?:
-          | T
-          | {
-              name?: T;
-              label?: T;
-              width?: T;
-              defaultValue?: T;
-              required?: T;
-              id?: T;
-              blockName?: T;
-            };
-        select?:
-          | T
-          | {
-              name?: T;
-              label?: T;
-              width?: T;
-              defaultValue?: T;
-              placeholder?: T;
-              options?:
-                | T
-                | {
-                    label?: T;
-                    value?: T;
-                    id?: T;
-                  };
-              required?: T;
-              id?: T;
-              blockName?: T;
-            };
-        state?:
-          | T
-          | {
-              name?: T;
-              label?: T;
-              width?: T;
-              required?: T;
-              id?: T;
-              blockName?: T;
-            };
-        text?:
-          | T
-          | {
-              name?: T;
-              label?: T;
-              width?: T;
-              defaultValue?: T;
-              required?: T;
-              id?: T;
-              blockName?: T;
-            };
-        textarea?:
-          | T
-          | {
-              name?: T;
-              label?: T;
-              width?: T;
-              defaultValue?: T;
-              required?: T;
-              id?: T;
-              blockName?: T;
-            };
-      };
-  submitButtonLabel?: T;
-  confirmationType?: T;
-  confirmationMessage?: T;
-  redirect?:
-    | T
-    | {
-        url?: T;
-      };
-  emails?:
-    | T
-    | {
-        emailTo?: T;
-        cc?: T;
-        bcc?: T;
-        replyTo?: T;
-        emailFrom?: T;
-        subject?: T;
-        message?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "form-submissions_select".
- */
-export interface FormSubmissionsSelect<T extends boolean = true> {
-  form?: T;
-  submissionData?:
-    | T
-    | {
-        field?: T;
-        value?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "search_select".
- */
-export interface SearchSelect<T extends boolean = true> {
-  title?: T;
-  priority?: T;
-  doc?: T;
-  slug?: T;
-  meta?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        image?: T;
-      };
-  categories?:
-    | T
-    | {
-        relationTo?: T;
-        categoryID?: T;
-        title?: T;
-        id?: T;
-      };
+export interface AuditLogsSelect<T extends boolean = true> {
+  action?: T;
+  resource?: T;
+  documentId?: T;
+  changedFields?: T;
+  user?: T;
+  ip?: T;
+  userAgent?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1634,18 +2749,6 @@ export interface PayloadJobsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "payload-folders_select".
- */
-export interface PayloadFoldersSelect<T extends boolean = true> {
-  name?: T;
-  folder?: T;
-  documentsAndFolders?: T;
-  folderType?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents_select".
  */
 export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
@@ -1678,81 +2781,271 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "header".
+ * via the `definition` "site-settings".
  */
-export interface Header {
+export interface SiteSetting {
   id: number;
-  navItems?:
+  siteName: string;
+  siteDescription: string;
+  logo: number | Media;
+  contact: {
+    /**
+     * Full address (shown on the website map).
+     */
+    address: string;
+    /**
+     * Filled in from the map.
+     */
+    latitude?: number | null;
+    /**
+     * Filled in from the map.
+     */
+    longitude?: number | null;
+    /**
+     * Short version for the footer. Enter = new line.
+     */
+    shortAddress?: string | null;
+    email: string;
+    /**
+     * Display format, e.g. 021 2696 1651
+     */
+    phone: string;
+    /**
+     * Number visitors reach when they click WhatsApp. You can type 0812…, +62 812… or 62812…
+     */
+    whatsappNumber?: string | null;
+    /**
+     * Optional. Text already typed in when the chat opens.
+     */
+    whatsappMessage?: string | null;
+  };
+  socials?:
     | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: number | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: number | Post;
-              } | null);
-          url?: string | null;
-          label: string;
-        };
+        /**
+         * The icon follows the platform.
+         */
+        platform: 'facebook' | 'instagram' | 'linkedin' | 'tiktok' | 'youtube' | 'x' | 'whatsapp' | 'other';
+        label: string;
+        /**
+         * Pick a page, or "Other" for your own URL (/contact, #faq, https://…).
+         */
+        url: string;
+        icon?: (number | null) | Media;
         id?: string | null;
       }[]
     | null;
+  emailNotifications: {
+    /**
+     * Off: messages still arrive in the Inbox, just without an email.
+     */
+    enabled?: boolean | null;
+    fromName?: string | null;
+    /**
+     * Must be an address the mail server lets the sending account use.
+     */
+    fromEmail: string;
+    /**
+     * Placeholders: {name}, {organization}, {email}, {phone}, {interest} — replaced by what the visitor wrote.
+     */
+    subject: string;
+  };
+  _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
 /**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "navigation".
+ */
+export interface Navigation {
+  id: number;
+  /**
+   * The Features mega menu is filled automatically from the Features collection.
+   */
+  featuresLabel?: string | null;
+  /**
+   * The Solutions mega menu is filled automatically from the Solutions collection.
+   */
+  solutionsLabel?: string | null;
+  links?:
+    | {
+        label: string;
+        /**
+         * Pick a page, or "Other" for your own URL (/contact, #faq, https://…).
+         */
+        href: string;
+        /**
+         * Untick to hide this menu item without deleting it.
+         */
+        visible?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Extra link choices for the page editor (e.g. a section #faq, an external site), grouped by page. Pages and solution pages are listed automatically.
+   */
+  linkLibrary?:
+    | {
+        group: string;
+        links?:
+          | {
+              label: string;
+              /**
+               * Pick a page, or "Other" for your own URL (/contact, #faq, https://…).
+               */
+              target: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  cta: {
+    label: string;
+    /**
+     * Pick a page, or "Other" for your own URL (/contact, #faq, https://…).
+     */
+    href: string;
+  };
+  _status?: ('draft' | 'published') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Address, email, phone & social media are set in Site Settings.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "footer".
  */
 export interface Footer {
   id: number;
-  navItems?:
+  description?: string | null;
+  columns?:
     | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: number | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: number | Post;
-              } | null);
-          url?: string | null;
-          label: string;
-        };
+        title: string;
+        links?:
+          | {
+              label: string;
+              /**
+               * Pick a page, or "Other" for your own URL (/contact, #faq, https://…).
+               */
+              href: string;
+              id?: string | null;
+            }[]
+          | null;
         id?: string | null;
       }[]
+    | null;
+  /**
+   * Use {year} for the current year.
+   */
+  copyright?: string | null;
+  _status?: ('draft' | 'published') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * The guided tour shown to new users, and replayed from the Account page.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tutorial".
+ */
+export interface Tutorial {
+  id: number;
+  version?: number | null;
+  /**
+   * Opens on its own for everyone who hasn’t seen this version of the tour yet.
+   */
+  enabled?: boolean | null;
+  steps?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
     | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "header_select".
+ * via the `definition` "site-settings_select".
  */
-export interface HeaderSelect<T extends boolean = true> {
-  navItems?:
+export interface SiteSettingsSelect<T extends boolean = true> {
+  siteName?: T;
+  siteDescription?: T;
+  logo?: T;
+  contact?:
     | T
     | {
-        link?:
+        address?: T;
+        latitude?: T;
+        longitude?: T;
+        shortAddress?: T;
+        email?: T;
+        phone?: T;
+        whatsappNumber?: T;
+        whatsappMessage?: T;
+      };
+  socials?:
+    | T
+    | {
+        platform?: T;
+        label?: T;
+        url?: T;
+        icon?: T;
+        id?: T;
+      };
+  emailNotifications?:
+    | T
+    | {
+        enabled?: T;
+        fromName?: T;
+        fromEmail?: T;
+        subject?: T;
+      };
+  _status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "navigation_select".
+ */
+export interface NavigationSelect<T extends boolean = true> {
+  featuresLabel?: T;
+  solutionsLabel?: T;
+  links?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        visible?: T;
+        id?: T;
+      };
+  linkLibrary?:
+    | T
+    | {
+        group?: T;
+        links?:
           | T
           | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
               label?: T;
+              target?: T;
+              id?: T;
             };
         id?: T;
       };
+  cta?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  _status?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -1762,20 +3055,34 @@ export interface HeaderSelect<T extends boolean = true> {
  * via the `definition` "footer_select".
  */
 export interface FooterSelect<T extends boolean = true> {
-  navItems?:
+  description?: T;
+  columns?:
     | T
     | {
-        link?:
+        title?: T;
+        links?:
           | T
           | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
               label?: T;
+              href?: T;
+              id?: T;
             };
         id?: T;
       };
+  copyright?: T;
+  _status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tutorial_select".
+ */
+export interface TutorialSelect<T extends boolean = true> {
+  version?: T;
+  enabled?: T;
+  steps?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -1804,52 +3111,24 @@ export interface TaskSchedulePublish {
           value: number | Page;
         } | null)
       | ({
-          relationTo: 'posts';
-          value: number | Post;
+          relationTo: 'partners';
+          value: number | Partner;
+        } | null)
+      | ({
+          relationTo: 'solutions';
+          value: number | Solution;
+        } | null)
+      | ({
+          relationTo: 'features';
+          value: number | Feature;
         } | null);
-    global?: string | null;
+    global?: ('site-settings' | 'navigation' | 'footer') | null;
     user?: {
       relationTo: 'users';
       value: number | User;
     } | null;
   };
   output?: unknown;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BannerBlock".
- */
-export interface BannerBlock {
-  style: 'info' | 'warning' | 'error' | 'success';
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'banner';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CodeBlock".
- */
-export interface CodeBlock {
-  language?: ('typescript' | 'javascript' | 'css') | null;
-  code: string;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'code';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

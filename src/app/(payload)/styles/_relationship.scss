@@ -1,0 +1,127 @@
+@use 'mixins' as *;
+
+/* ── Relationship pickers (hasMany) ───────────────────────────────────── */
+
+/* Selected items: soft blue pills instead of flat grey boxes. */
+.multi-value.rs__multi-value {
+  align-items: center;
+  gap: 2px;
+  padding: 2px 4px 2px 12px;
+  margin: 3px 6px 3px 0;
+  background: rgb(31 122 224 / 0.08);
+  border: 1px solid rgb(31 122 224 / 0.22);
+  border-radius: 999px;
+  color: var(--hris-ink);
+  font-weight: 500;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+
+  &:hover {
+    background: rgb(31 122 224 / 0.14);
+    border-color: rgb(31 122 224 / 0.4);
+  }
+}
+
+/* Edit and remove icons: small round buttons that light up on hover. */
+.multi-value .multi-value-label button,
+.multi-value .multi-value-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border-radius: 999px;
+  color: var(--hris-muted);
+  background: transparent;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+
+  &:hover {
+    color: #fff;
+    background: var(--hris-accent);
+  }
+}
+
+.multi-value .multi-value-remove:hover {
+  background: #e05252;
+}
+
+.multi-value .multi-value-label button svg,
+.multi-value .multi-value-remove svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* The field itself: a dashed box like the media dropzone, with its
+   actions (clear, open list, add new) lined up on the right. */
+.relationship__wrap {
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px 6px 6px;
+  border: 1.5px dashed rgb(31 122 224 / 0.35);
+  border-radius: 18px;
+  background: rgb(255 255 255 / 0.55);
+  transition:
+    border-color 0.2s,
+    background-color 0.2s,
+    box-shadow 0.2s;
+
+  &:hover,
+  &:focus-within {
+    border-color: var(--hris-accent);
+    background: rgb(232 244 255 / 0.85);
+    box-shadow: 0 0 0 4px rgb(31 122 224 / 0.1);
+  }
+}
+
+.relationship__wrap .rs__control,
+.relationship__wrap .rs__control--is-focused {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  min-height: 40px;
+  padding: 2px 100px 2px 6px;
+  border: 0 !important;
+  border-radius: 12px;
+  background: transparent;
+  box-shadow: none !important;
+}
+
+.relationship__wrap .rs__value-container {
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+}
+
+/* Clear-all and dropdown: the same icon buttons as an upload field's
+   Replace · Edit · Remove, pinned to the right. */
+.relationship__wrap .rs__indicators {
+  position: absolute;
+  top: 50%;
+  right: 4px;
+  display: flex;
+  gap: 6px;
+  transform: translateY(-50%);
+}
+
+.relationship__wrap .dropdown-indicator {
+  @include icon-button;
+}
+
+.relationship__wrap .clear-indicator {
+  @include icon-button;
+  @include icon-button-danger;
+}
+
+/* "+" (create new): a matching icon button at the far right. */
+.relationship__wrap .relationship-add-new {
+  flex: none;
+  align-self: center;
+}
+
+.relationship__wrap .relationship-add-new__add-button {
+  @include icon-button;
+}

@@ -1,0 +1,297 @@
+/* ── Skeletons (PageSkeleton provider, visual editor loading) ─────────── */
+
+.hris-sk {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 10px;
+  background: rgb(31 122 224 / 0.08);
+}
+
+.hris-sk::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.75), transparent);
+  animation: hris-sk-shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes hris-sk-shimmer {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes hris-sk-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.hris-sk--title {
+  width: min(320px, 60%);
+  height: 40px;
+  border-radius: 12px;
+}
+.hris-sk--heading {
+  width: 160px;
+  height: 26px;
+  margin-bottom: 14px;
+}
+.hris-sk--pill {
+  width: 104px;
+  height: 32px;
+  border-radius: 999px;
+}
+.hris-sk--small {
+  width: 120px;
+  height: 28px;
+}
+.hris-sk--accent {
+  background: rgb(31 122 224 / 0.22);
+}
+.hris-sk--label {
+  width: 34%;
+  max-width: 180px;
+  height: 12px;
+  border-radius: 6px;
+}
+.hris-sk--strong {
+  width: 120px;
+  height: 16px;
+  margin-bottom: 6px;
+}
+.hris-sk--input {
+  height: 42px;
+  border-radius: 12px;
+}
+.hris-sk--textarea {
+  height: 96px;
+  border-radius: 12px;
+}
+.hris-sk--meta {
+  width: min(420px, 70%);
+  height: 14px;
+  margin: 18px 0 28px;
+  border-radius: 6px;
+}
+.hris-sk--check {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+}
+.hris-sk--cell {
+  flex: 1;
+  height: 14px;
+  border-radius: 6px;
+}
+.hris-sk--cell-lg {
+  flex: 2;
+}
+.hris-sk--icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+}
+.hris-sk--item {
+  height: 40px;
+  border-radius: 12px;
+}
+.hris-sk--frame {
+  flex: 1;
+  border-radius: 12px;
+}
+
+.hris-sk-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 14px var(--gutter-h) 40px;
+}
+
+.hris-sk-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hris-sk-card {
+  border: 1px solid rgb(255 255 255 / 0.9);
+  border-radius: 20px;
+  background: rgb(255 255 255 / 0.72);
+  box-shadow:
+    0 1px 2px rgb(6 41 79 / 0.04),
+    0 20px 40px -28px rgb(30 90 160 / 0.45);
+}
+
+.hris-sk-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+}
+
+.hris-sk-search .hris-sk--input {
+  flex: 1;
+}
+
+.hris-sk-table {
+  padding: 8px 20px;
+}
+
+.hris-sk-row {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  height: 58px;
+  border-bottom: 1px solid var(--hris-line);
+}
+
+.hris-sk-row:last-child {
+  border-bottom: 0;
+}
+
+.hris-sk-group + .hris-sk-group {
+  margin-top: 8px;
+}
+
+.hris-sk-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px;
+}
+
+.hris-sk-card--tile {
+  height: 76px;
+  padding: 18px;
+}
+
+.hris-sk-edit {
+  display: grid;
+  grid-template-columns: minmax(0, 2.4fr) minmax(0, 1fr);
+  gap: 32px;
+}
+
+.hris-sk-edit__main,
+.hris-sk-edit__side {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.hris-sk-card--fields {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 24px 26px;
+}
+
+.hris-sk-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hris-sk-card--editor {
+  height: calc(100vh - var(--app-header-height) - 150px);
+  min-height: 420px;
+  overflow: hidden;
+}
+
+.hris-sk-editor {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.hris-sk-editor__bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 20px;
+}
+
+.hris-sk-editor__spacer {
+  flex: 1;
+}
+
+.hris-sk-editor__body {
+  display: grid;
+  flex: 1;
+  grid-template-columns: 260px minmax(0, 1fr) 280px;
+  gap: 16px;
+  min-height: 0;
+  padding: 0 20px 20px;
+}
+
+.hris-sk-editor__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hris-sk-editor__canvas {
+  display: flex;
+  padding: 16px;
+  border-radius: 16px;
+  background: rgb(31 122 224 / 0.04);
+}
+
+/* Covers the content area (not the top bar or the sidebar) while navigating. */
+/* The skeleton overlay is positioned against the content wrapper. */
+.template-default__wrap {
+  position: relative;
+}
+
+.hris-sk-overlay {
+  position: absolute;
+  top: var(--app-header-height);
+  right: 0;
+  /* Down to the bottom of the content, not just one screen: on a scrolled,
+     long page the old screen must not show through below the skeleton. */
+  bottom: 0;
+  left: 0;
+  z-index: 30;
+  min-height: calc(100vh - var(--app-header-height));
+  background: var(--hris-page-bg);
+  background-attachment: fixed;
+  pointer-events: none;
+  animation: hris-sk-in 0.2s ease 0.15s both;
+}
+
+/* Visual editor: the skeleton sits over the iframe until the studio is ready. */
+.hris-visual {
+  position: relative;
+}
+
+.hris-visual__skeleton {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: #f5faff;
+}
+
+@media (max-width: 1024px) {
+  .hris-sk-edit {
+    grid-template-columns: 1fr;
+  }
+
+  .hris-sk-editor__body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hris-sk-editor__panel {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hris-sk::after {
+    animation: none;
+  }
+}

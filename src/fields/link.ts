@@ -1,139 +1,84 @@
-import type { Field, GroupField } from 'payload'
+import type { Field, TextField } from 'payload'
 
-import deepMerge from '@/utilities/deepMerge'
+import type { AdminOverrides, LocalizedText } from './section'
+import { withTextValidation } from './validate'
 
-export type LinkAppearances = 'default' | 'outline'
+/**
+ * Only internal paths, anchors, https, mailto and tel are accepted.
+ * This blocks `javascript:` / `data:` URLs — a classic stored-XSS vector
+ * when CMS links are rendered into <a href>.
+ */
+const SAFE_HREF = /^(\/(?!\/)|#|https:\/\/|mailto:|tel:)/i
 
-export const appearanceOptions: Record<LinkAppearances, { label: string; value: string }> = {
-  default: {
-    label: 'Default',
-    value: 'default',
-  },
-  outline: {
-    label: 'Outline',
-    value: 'outline',
-  },
+export const isSafeHref = (value: string): true | string => {
+  const href = value.trim()
+  if (/\s/.test(href) && !href.startsWith('mailto:')) return 'Link tidak boleh mengandung spasi.'
+  return SAFE_HREF.test(href)
+    ? true
+    : 'Gunakan path internal (/contact), anchor (#id), https://, mailto:, atau tel:.'
 }
 
-type LinkType = (options?: {
-  appearances?: LinkAppearances[] | false
-  disableLabel?: boolean
-  overrides?: Partial<GroupField>
-}) => Field
+type HrefOverrides = {
+  name?: string
+  label?: LocalizedText
+  required?: boolean
+  defaultValue?: string
+  admin?: AdminOverrides
+}
 
-export const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = {}) => {
-  const linkResult: GroupField = {
-    name: 'link',
-    type: 'group',
+/** Fields that point at a page get the page picker; URLs of other kinds (video, website…) stay free text. */
+const PICKER_FIELDS = new Set(['href', 'buttonHref'])
+
+export const hrefField = ({ admin, ...overrides }: HrefOverrides = {}): TextField => {
+  const name = overrides.name ?? 'href'
+  return {
+    name: 'href',
+    label: 'Link',
+    type: 'text',
+    required: true,
+    maxLength: 500,
+    ...overrides,
     admin: {
-      hideGutter: true,
+      description: {
+        en: 'Pick a page, or "Other" for your own URL (/contact, #faq, https://…).',
+        id: 'Pilih halaman, atau "Lainnya" untuk URL sendiri (/contact, #faq, https://…).',
+      },
+      ...admin,
+      ...(PICKER_FIELDS.has(name)
+        ? { components: { Field: '/components/admin/LinkField#LinkField' } }
+        : {}),
     },
-    fields: [
-      {
-        type: 'row',
-        fields: [
-          {
-            name: 'type',
-            type: 'radio',
-            admin: {
-              layout: 'horizontal',
-              width: '50%',
-            },
-            defaultValue: 'reference',
-            options: [
-              {
-                label: 'Internal link',
-                value: 'reference',
-              },
-              {
-                label: 'Custom URL',
-                value: 'custom',
-              },
-            ],
-          },
-          {
-            name: 'newTab',
-            type: 'checkbox',
-            admin: {
-              style: {
-                alignSelf: 'flex-end',
-              },
-              width: '50%',
-            },
-            label: 'Open in new tab',
-          },
-        ],
-      },
-    ],
+    validate: withTextValidation(isSafeHref),
   }
-
-  const linkTypes: Field[] = [
-    {
-      name: 'reference',
-      type: 'relationship',
-      admin: {
-        condition: (_, siblingData) => siblingData?.type === 'reference',
-      },
-      label: 'Document to link to',
-      relationTo: ['pages', 'posts'],
-      required: true,
-    },
-    {
-      name: 'url',
-      type: 'text',
-      admin: {
-        condition: (_, siblingData) => siblingData?.type === 'custom',
-      },
-      label: 'Custom URL',
-      required: true,
-    },
-  ]
-
-  if (!disableLabel) {
-    linkTypes.map((linkType) => ({
-      ...linkType,
-      admin: {
-        ...linkType.admin,
-        width: '50%',
-      },
-    }))
-
-    linkResult.fields.push({
-      type: 'row',
-      fields: [
-        ...linkTypes,
-        {
-          name: 'label',
-          type: 'text',
-          admin: {
-            width: '50%',
-          },
-          label: 'Label',
-          required: true,
-        },
-      ],
-    })
-  } else {
-    linkResult.fields = [...linkResult.fields, ...linkTypes]
-  }
-
-  if (appearances !== false) {
-    let appearanceOptionsToUse = [appearanceOptions.default, appearanceOptions.outline]
-
-    if (appearances) {
-      appearanceOptionsToUse = appearances.map((appearance) => appearanceOptions[appearance])
-    }
-
-    linkResult.fields.push({
-      name: 'appearance',
-      type: 'select',
-      admin: {
-        description: 'Choose how the link should be rendered.',
-      },
-      defaultValue: 'default',
-      options: appearanceOptionsToUse,
-    })
-  }
-
-  return deepMerge(linkResult, overrides)
 }
+
+export const linkFields = ({ withStyle = false }: { withStyle?: boolean } = {}): Field[] => [
+  {
+    type: 'row',
+    fields: [
+      { name: 'label', type: 'text', required: true, maxLength: 80, admin: { width: '50%' } },
+      hrefField({ admin: { width: '50%' } }),
+      ...(withStyle
+        ? [
+            {
+              name: 'style',
+              type: 'select',
+              defaultValue: 'fill',
+              options: [
+                { label: 'Fill (utama)', value: 'fill' },
+                { label: 'Outline', value: 'stroke' },
+              ],
+            } satisfies Field,
+          ]
+        : []),
+    ],
+  },
+]
+
+export const buttonsField = (maxRows = 4): Field => ({
+  name: 'buttons',
+  type: 'array',
+  maxRows,
+  labels: { singular: 'Button', plural: 'Buttons' },
+  fields: linkFields({ withStyle: true }),
+})
