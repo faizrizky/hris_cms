@@ -2,7 +2,7 @@ import type { Block } from 'payload'
 
 import { buttonsField } from '@/fields/link'
 import { ACCESSORY_OPTIONS, tagField, textListField, tintField } from '@/fields/hris'
-import { sectionHeaderField } from '@/fields/section'
+import { imageField, sectionHeaderField } from '@/fields/section'
 
 /** Pita warna dengan HP di kiri (layar absen wajah atau layar approval) dan teks di kanan. */
 export const FeatureBandBlock: Block = {
@@ -21,6 +21,10 @@ export const FeatureBandBlock: Block = {
         { label: 'Layar approval (centang berurutan)', value: 'approval' },
       ],
     },
+    imageField('screenImage', {
+      label: 'Layar aplikasi (gambar)',
+      admin: { description: 'Tangkapan layar aplikasi. Jika diisi, menggantikan layar beranimasi di atas.' },
+    }),
     tagField(),
     sectionHeaderField({ eyebrow: false }),
     buttonsField(1),

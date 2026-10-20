@@ -2,6 +2,7 @@ import type { Block } from 'payload'
 
 import { buttonsField } from '@/fields/link'
 import { textListField, visualField } from '@/fields/hris'
+import { imageField } from '@/fields/section'
 
 /**
  * Hero. Varian "home": judul dua baris + mockup isometrik + empat keunggulan.
@@ -75,6 +76,10 @@ export const HeroBlock: Block = {
         { name: 'payslipTitle', type: 'text', maxLength: 60 },
         { name: 'payslipDetail', type: 'text', maxLength: 80 },
         textListField('phoneChips', 'Chip di HP', 3),
+        imageField('phoneScreen', {
+          label: 'Layar aplikasi di HP',
+          admin: { description: 'Tangkapan layar aplikasi yang ditampilkan di HP pada mockup. Kosongkan untuk tampilan bawaan.' },
+        }),
       ],
     },
     {

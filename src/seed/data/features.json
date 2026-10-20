@@ -92,7 +92,8 @@
       "lembur-online",
       "approval-berjenjang"
     ],
-    "availability": "available"
+    "availability": "available",
+    "screenFile": "attendance"
   },
   {
     "slug": "koreksi-absensi",
@@ -162,7 +163,8 @@
       "absensi-online",
       "approval-berjenjang"
     ],
-    "availability": "available"
+    "availability": "available",
+    "screenFile": "correction-history"
   },
   {
     "slug": "cuti-online",
@@ -171,7 +173,7 @@
     "order": 30,
     "shortDescription": "Ajukan cuti dan pantau sisa kuota dari HP",
     "heroTitle": "Pengajuan cuti selesai dalam hitungan menit",
-    "heroDescription": "Karyawan mengajukan cuti dari HP dan langsung melihat sisa kuota. Atasan menyetujui tanpa kertas, HR tidak perlu merekap manual.",
+    "heroDescription": "Pilih jenis cuti, lihat saldo, dan tentukan tanggal langsung dari kalender. Saldo setelah pengajuan langsung terlihat.",
     "benefits": [
       {
         "title": "Sisa kuota selalu jelas",
@@ -188,32 +190,20 @@
     ],
     "blocks": [
       {
-        "title": "Ajukan, pantau, dan batalkan dari satu layar",
-        "description": "Pilih jenis cuti, tanggal, dan alasan. Status pengajuan terlihat real-time.",
+        "title": "Ajukan cuti dari kalender",
+        "description": "Karyawan memilih jenis cuti dan rentang tanggal, lalu mengirim ke atasan.",
         "points": [
           {
-            "text": "Berbagai jenis cuti"
+            "text": "Cuti tahunan, sakit, melahirkan, dan khusus"
           },
           {
-            "text": "Sisa kuota per jenis cuti"
+            "text": "Saldo dan sisa setelah pengajuan langsung tampil"
           },
           {
-            "text": "Status pengajuan real-time"
-          }
-        ]
-      },
-      {
-        "title": "Atasan menyetujui dengan konteks lengkap",
-        "description": "Atasan melihat siapa yang mengajukan, tanggalnya, dan sisa kuota sebelum memutuskan.",
-        "points": [
-          {
-            "text": "Antrean persetujuan di HP atasan"
+            "text": "Pilih tanggal mulai dan selesai di kalender"
           },
           {
-            "text": "Setuju atau tolak dengan catatan"
-          },
-          {
-            "text": "Karyawan langsung diberi tahu"
+            "text": "Durasi terhitung otomatis"
           }
         ]
       }
@@ -252,7 +242,8 @@
       "dinas-luar-dan-wfh",
       "slip-gaji-online"
     ],
-    "availability": "available"
+    "availability": "available",
+    "screenFile": "leave"
   },
   {
     "slug": "lembur-online",
@@ -261,7 +252,7 @@
     "order": 40,
     "shortDescription": "Ajukan dan setujui lembur tanpa formulir kertas",
     "heroTitle": "Lembur tercatat rapi, disetujui tanpa ribet",
-    "heroDescription": "Karyawan mengajukan lembur dari HP, atasan menyetujui, dan datanya siap dipakai untuk perhitungan upah lembur.",
+    "heroDescription": "Ajukan lembur dengan tanggal dan jam yang jelas. Aplikasi mengenali jenis hari (hari kerja atau libur) dan membatasi lembur sesuai aturan perusahaan.",
     "benefits": [
       {
         "title": "Tidak ada lembur yang terlewat",
@@ -278,17 +269,20 @@
     ],
     "blocks": [
       {
-        "title": "Dari pengajuan sampai disetujui dalam satu alur",
-        "description": "Karyawan mengisi tanggal, jam, dan alasan lembur. Atasan menyetujui dari HP.",
+        "title": "Pengajuan lembur yang tertata",
+        "description": "Karyawan memilih tanggal dan jam, sisanya dihitung dan diarahkan ke persetujuan.",
         "points": [
           {
-            "text": "Pengajuan dengan jam dan alasan"
+            "text": "Pilih tanggal dari kalender"
           },
           {
-            "text": "Persetujuan atasan"
+            "text": "Jenis hari terdeteksi otomatis"
           },
           {
-            "text": "Riwayat lembur per karyawan"
+            "text": "Hari kerja: mulai setelah jam pulang, maksimal 4 jam"
+          },
+          {
+            "text": "Durasi terhitung dari jam mulai dan selesai"
           }
         ]
       }
@@ -323,7 +317,8 @@
       "approval-berjenjang",
       "slip-gaji-online"
     ],
-    "availability": "available"
+    "availability": "available",
+    "screenFile": "overtime"
   },
   {
     "slug": "dinas-luar-dan-wfh",
@@ -332,7 +327,7 @@
     "order": 50,
     "shortDescription": "Kelola perjalanan dinas dan kerja dari rumah",
     "heroTitle": "Dinas luar dan WFH tetap terpantau",
-    "heroDescription": "Karyawan mengajukan dinas luar atau WFH dari HP. Atasan menyetujui, dan HR punya catatan lengkap tanpa menunggu laporan.",
+    "heroDescription": "Ajukan dinas luar dengan pilihan transportasi, rincian biaya beserta bukti, dan uang saku harian. Ajukan WFH untuk satu hari atau berulang di hari tertentu.",
     "benefits": [
       {
         "title": "Fleksibel namun terkendali",
@@ -349,17 +344,35 @@
     ],
     "blocks": [
       {
-        "title": "Satu alur untuk semua kerja di luar kantor",
-        "description": "Pilih jenis pengajuan, isi tanggal dan tujuan, kirim. Selesai.",
+        "title": "Dinas luar lengkap dengan biaya",
+        "description": "Karyawan memilih transportasi, mengisi tujuan, dan menambahkan biaya perjalanan dengan bukti.",
         "points": [
           {
-            "text": "Pengajuan dinas luar"
+            "text": "Pilihan pesawat, kereta, mobil perusahaan, atau lainnya"
           },
           {
-            "text": "Pengajuan WFH"
+            "text": "Rincian biaya dengan unggahan bukti (nota, tiket, invoice)"
           },
           {
-            "text": "Persetujuan atasan dan riwayat"
+            "text": "Uang saku harian terhitung otomatis dari jumlah hari"
+          },
+          {
+            "text": "Alur persetujuan tampil jelas di formulir"
+          }
+        ]
+      },
+      {
+        "title": "WFH satu hari atau berulang",
+        "description": "Kosongkan hari untuk WFH di setiap tanggal terpilih, atau pilih hari tertentu untuk WFH mingguan.",
+        "points": [
+          {
+            "text": "Pilih rentang tanggal di kalender"
+          },
+          {
+            "text": "Ulangi di hari tertentu (opsional)"
+          },
+          {
+            "text": "Alasan tercatat untuk atasan"
           }
         ]
       }
@@ -393,7 +406,8 @@
       "cuti-online",
       "approval-berjenjang"
     ],
-    "availability": "available"
+    "availability": "available",
+    "screenFile": "trip"
   },
   {
     "slug": "approval-berjenjang",
@@ -469,7 +483,8 @@
       "lembur-online",
       "koreksi-absensi"
     ],
-    "availability": "available"
+    "availability": "available",
+    "screenFile": "approvals"
   },
   {
     "slug": "slip-gaji-online",
@@ -539,7 +554,8 @@
       "ringkasan-pajak-bpjs",
       "keamanan-akun"
     ],
-    "availability": "available"
+    "availability": "available",
+    "screenFile": "payslip"
   },
   {
     "slug": "ringkasan-pajak-bpjs",
@@ -604,7 +620,8 @@
     "relatedSlugs": [
       "slip-gaji-online"
     ],
-    "availability": "available"
+    "availability": "available",
+    "screenFile": "tax-bpjs"
   },
   {
     "slug": "dokumen-digital",
@@ -674,7 +691,8 @@
       "approval-berjenjang",
       "keamanan-akun"
     ],
-    "availability": "available"
+    "availability": "available",
+    "screenFile": "profile"
   },
   {
     "slug": "pengumuman-perusahaan",
@@ -739,59 +757,71 @@
     "relatedSlugs": [
       "dokumen-digital"
     ],
-    "availability": "available"
+    "availability": "available",
+    "screenFile": "announcements"
   },
   {
     "slug": "keamanan-akun",
     "name": "Keamanan Akun",
     "category": "security",
     "order": 110,
-    "shortDescription": "Kunci aplikasi biometrik dan kelola sesi perangkat",
+    "shortDescription": "Kunci biometrik, verifikasi 2 langkah, dan kelola perangkat",
     "heroTitle": "Data karyawan aman di setiap perangkat",
-    "heroDescription": "Aplikasi dapat dikunci dengan biometrik, kata sandi bisa diganti kapan saja, dan sesi perangkat yang sedang masuk bisa dikelola.",
+    "heroDescription": "Aplikasi bisa dikunci dengan sidik jari atau wajah, login di perangkat baru diverifikasi lewat kode OTP, dan perangkat aktif bisa dikelola dari dalam aplikasi.",
     "benefits": [
       {
         "title": "Kunci biometrik",
-        "description": "Sidik jari atau wajah diminta sebelum aplikasi terbuka."
+        "description": "Masuk dan buka aplikasi dengan sidik jari atau wajah, dengan opsi kunci otomatis."
+      },
+      {
+        "title": "Verifikasi 2 langkah",
+        "description": "Login di perangkat baru meminta kode OTP yang dikirim ke email."
       },
       {
         "title": "Kendali atas perangkat",
-        "description": "Lihat dan akhiri sesi di perangkat lain."
-      },
-      {
-        "title": "Akses sesuai peran",
-        "description": "Menu yang tampil mengikuti peran karyawan, atasan, atau HR."
+        "description": "Lihat perangkat yang sedang masuk dan keluarkan yang tidak dikenal."
       }
     ],
     "blocks": [
       {
-        "title": "Keamanan yang terasa praktis",
-        "description": "Perlindungan dasar yang diharapkan dari aplikasi HR, tanpa membuat karyawan repot.",
+        "title": "Akun terlindungi di tiap perangkat",
+        "description": "Pengaturan keamanan ada di satu layar dan mudah dinyalakan sendiri oleh karyawan.",
         "points": [
           {
-            "text": "Kunci aplikasi dengan biometrik"
+            "text": "Masuk dengan sidik jari atau wajah"
           },
           {
-            "text": "Ganti kata sandi"
+            "text": "Kunci otomatis saat aplikasi dibuka kembali"
           },
           {
-            "text": "Kelola sesi perangkat"
+            "text": "Verifikasi 2 langkah lewat kode OTP email"
+          },
+          {
+            "text": "Ganti kata sandi kapan saja"
+          },
+          {
+            "text": "Daftar perangkat aktif dan keluar dari perangkat lain"
           }
         ]
       }
     ],
     "mock": {
-      "title": "Keamanan",
+      "title": "Keamanan akun",
       "rows": [
         {
-          "label": "Kunci biometrik",
-          "detail": "Sidik jari atau wajah",
+          "label": "Masuk dengan sidik jari / wajah",
+          "detail": "Aktif",
           "status": "Aktif"
         },
         {
-          "label": "Sesi perangkat",
-          "detail": "2 perangkat masuk",
-          "status": "Kelola"
+          "label": "Kunci otomatis",
+          "detail": "Saat aplikasi dibuka",
+          "status": "Opsional"
+        },
+        {
+          "label": "Verifikasi 2 langkah",
+          "detail": "Kode OTP ke email",
+          "status": "Opsional"
         }
       ]
     },
@@ -805,7 +835,8 @@
       "slip-gaji-online",
       "dokumen-digital"
     ],
-    "availability": "available"
+    "availability": "available",
+    "screenFile": "security"
   },
   {
     "slug": "penilaian-kinerja",
@@ -814,7 +845,7 @@
     "order": 120,
     "shortDescription": "Appraisal dan target karyawan",
     "heroTitle": "Penilaian kinerja yang terdokumentasi",
-    "heroDescription": "Karyawan dan atasan melihat appraisal serta target dalam satu tempat. Penilaian 360 derajat masih dalam rencana.",
+    "heroDescription": "Karyawan melihat skor penilaian dan progres tiap target. Atasan menilai tim dari tab Tim. Penilaian 360 derajat belum lengkap.",
     "benefits": [
       {
         "title": "Target jelas",
@@ -831,17 +862,20 @@
     ],
     "blocks": [
       {
-        "title": "Appraisal dan target",
-        "description": "Tersedia untuk penilaian dasar. Fitur seperti 360 derajat belum tersedia.",
+        "title": "Skor dan target dalam satu layar",
+        "description": "Skor tahunan dihitung otomatis dari progres target, lengkap dengan daftar KRA dan goals.",
         "points": [
           {
-            "text": "Appraisal karyawan"
+            "text": "Skor penilaian dengan label capaian"
           },
           {
-            "text": "Target kinerja"
+            "text": "Progres tiap target dalam persen"
           },
           {
-            "text": "360 derajat: dalam rencana"
+            "text": "Tab Tim untuk atasan"
+          },
+          {
+            "text": "Penilai ganda (multi-rater), bertahap berkembang"
           }
         ]
       }
@@ -865,7 +899,8 @@
     "relatedSlugs": [
       "approval-berjenjang"
     ],
-    "availability": "partial"
+    "availability": "partial",
+    "screenFile": "appraisal"
   },
   {
     "slug": "verifikasi-wajah",
@@ -945,7 +980,7 @@
     "order": 10,
     "shortDescription": "Atasan melihat kehadiran dan riwayat anggota tim",
     "heroTitle": "Atasan tahu kondisi timnya tanpa menunggu laporan",
-    "heroDescription": "Atasan membuka daftar anggota tim, melihat siapa yang sudah absen hari ini, dan menelusuri riwayat kehadiran tiap orang dari HP.",
+    "heroDescription": "Atasan melihat kehadiran anggota tim hari ini, dikelompokkan menjadi hadir, terlambat, cuti, dan belum absen, lengkap dengan pencarian dan filter departemen.",
     "benefits": [
       {
         "title": "Kehadiran hari ini",
@@ -962,14 +997,17 @@
     ],
     "blocks": [
       {
-        "title": "Satu layar untuk tim",
-        "description": "Daftar anggota dan detailnya mudah dibuka kapan saja.",
+        "title": "Kehadiran tim dalam satu layar",
+        "description": "Ringkasan jumlah per status tampil di atas, daftar anggota di bawahnya.",
         "points": [
           {
-            "text": "Daftar anggota tim"
+            "text": "Hadir, terlambat, cuti, dan belum absen"
           },
           {
-            "text": "Kehadiran hari ini"
+            "text": "Cari anggota dan filter per departemen"
+          },
+          {
+            "text": "Jam masuk dan pulang tiap anggota"
           },
           {
             "text": "Riwayat kehadiran per anggota"
@@ -1008,7 +1046,8 @@
       "approval-berjenjang",
       "cuti-online"
     ],
-    "availability": "available"
+    "availability": "available",
+    "screenFile": "team-attendance"
   },
   {
     "slug": "profil-dan-data-karyawan",
@@ -1017,7 +1056,7 @@
     "order": 20,
     "shortDescription": "Karyawan memperbarui data diri, HR meninjau perubahannya",
     "heroTitle": "Data karyawan selalu mutakhir dan terverifikasi",
-    "heroDescription": "Karyawan melihat data dirinya dan mengajukan perubahan dari aplikasi. Perubahan baru berlaku setelah ditinjau HR, lengkap dengan jejak apa yang berubah.",
+    "heroDescription": "Karyawan melihat kelengkapan data dirinya dalam persen, mengubah foto profil, dan mengajukan perubahan data. HR meninjau sebelum perubahan berlaku.",
     "benefits": [
       {
         "title": "Karyawan ikut menjaga data",
@@ -1034,17 +1073,20 @@
     ],
     "blocks": [
       {
-        "title": "Ajukan, tinjau, setujui",
-        "description": "Alur perubahan data yang rapi dan terdokumentasi.",
+        "title": "Data lengkap, perubahan terkontrol",
+        "description": "Kelengkapan data tampil sebagai persentase, perubahan diajukan lewat tombol Ajukan Perubahan.",
         "points": [
           {
-            "text": "Ubah data diri dan foto profil"
+            "text": "Kelengkapan data dalam persen"
           },
           {
-            "text": "Ringkasan perubahan untuk peninjau"
+            "text": "Data pribadi, kontak, dan alamat"
           },
           {
-            "text": "Unggah dokumen pendukung"
+            "text": "Ganti foto profil"
+          },
+          {
+            "text": "Perubahan ditinjau HR sebelum berlaku"
           }
         ]
       }
@@ -1075,7 +1117,8 @@
       "approval-berjenjang",
       "database-karyawan"
     ],
-    "availability": "available"
+    "availability": "available",
+    "screenFile": "personal-data"
   },
   {
     "slug": "notifikasi",
@@ -1084,7 +1127,7 @@
     "order": 30,
     "shortDescription": "Kabar pengajuan dan persetujuan langsung di aplikasi",
     "heroTitle": "Tidak ada pengajuan yang terlewat",
-    "heroDescription": "Setiap pengajuan, persetujuan, dan pengumuman muncul sebagai notifikasi di aplikasi. Notifikasi push ke layar kunci HP sedang disiapkan.",
+    "heroDescription": "Pengajuan, persetujuan, dan pengumuman muncul di kotak masuk aplikasi, lengkap dengan penanda belum dibaca. Notifikasi push bisa dinyalakan dari pengaturan.",
     "benefits": [
       {
         "title": "Semua di satu tempat",
@@ -1101,14 +1144,20 @@
     ],
     "blocks": [
       {
-        "title": "Pusat notifikasi",
-        "description": "Riwayat notifikasi tersimpan dan bisa dibuka kapan saja.",
+        "title": "Kotak masuk dan pengumuman",
+        "description": "Dua tab dengan pencarian, supaya tidak ada kabar yang terlewat.",
         "points": [
           {
-            "text": "Notifikasi di dalam aplikasi sudah berjalan"
+            "text": "Tab Inbox dan Pengumuman"
           },
           {
-            "text": "Notifikasi push menyusul"
+            "text": "Penanda belum dibaca dan tombol tandai dibaca"
+          },
+          {
+            "text": "Pencarian di dalam daftar"
+          },
+          {
+            "text": "Saklar notifikasi push di pengaturan"
           }
         ]
       }
@@ -1139,7 +1188,8 @@
       "pengumuman-perusahaan",
       "cuti-online"
     ],
-    "availability": "partial"
+    "availability": "partial",
+    "screenFile": "inbox"
   },
   {
     "slug": "database-karyawan",
@@ -1480,5 +1530,144 @@
       "database-karyawan"
     ],
     "availability": "available"
+  },
+  {
+    "slug": "tinjauan-absen",
+    "name": "Tinjauan Absen",
+    "category": "attendance",
+    "order": 30,
+    "shortDescription": "HR meninjau absen yang ditandai server",
+    "heroTitle": "Absen mencurigakan tidak lolos begitu saja",
+    "heroDescription": "Absen yang ditandai server, misalnya dari luar area, lewat mode offline, atau memakai lokasi palsu, masuk ke antrean tinjauan HR untuk disetujui atau ditolak.",
+    "benefits": [
+      {
+        "title": "Ditandai otomatis",
+        "description": "Server menandai absen dengan waktu atau lokasi yang janggal."
+      },
+      {
+        "title": "HR yang memutuskan",
+        "description": "Setiap absen yang ditandai ditinjau lalu disetujui atau ditolak."
+      },
+      {
+        "title": "Mudah disaring",
+        "description": "Filter Perlu Ditinjau, Disetujui, Ditolak, atau Semua."
+      }
+    ],
+    "blocks": [
+      {
+        "title": "Antrean tinjauan untuk HR",
+        "description": "Absen yang ditandai tidak langsung masuk hitungan kehadiran sebelum ditinjau.",
+        "points": [
+          {
+            "text": "Absen offline, di luar area, atau lokasi palsu ditandai"
+          },
+          {
+            "text": "Filter berdasarkan status tinjauan"
+          },
+          {
+            "text": "Keputusan HR tercatat"
+          }
+        ]
+      }
+    ],
+    "mock": {
+      "title": "Tinjauan absen",
+      "rows": [
+        {
+          "label": "Absen dari luar area",
+          "detail": "Perlu ditinjau",
+          "status": "Ditandai"
+        },
+        {
+          "label": "Absen offline",
+          "detail": "Disetujui HR",
+          "status": "Disetujui"
+        }
+      ]
+    },
+    "faqs": [
+      {
+        "question": "Absen apa saja yang ditandai?",
+        "answer": "Absen yang dikirim saat offline, dari luar area kerja, atau memakai lokasi palsu."
+      },
+      {
+        "question": "Siapa yang meninjau?",
+        "answer": "HR meninjau dan memutuskan untuk menyetujui atau menolaknya."
+      }
+    ],
+    "relatedSlugs": [
+      "absensi-online",
+      "verifikasi-wajah",
+      "koreksi-absensi"
+    ],
+    "availability": "available",
+    "screenFile": "checkin-review"
+  },
+  {
+    "slug": "bahasa-dan-tampilan",
+    "name": "Bahasa & Tampilan",
+    "category": "team",
+    "order": 30,
+    "shortDescription": "Bahasa Indonesia atau Inggris, plus mode gelap",
+    "heroTitle": "Aplikasi yang nyaman dipakai tiap orang",
+    "heroDescription": "Karyawan memilih bahasa Indonesia atau Inggris dan menyalakan mode gelap dari pengaturan profil.",
+    "benefits": [
+      {
+        "title": "Dua bahasa",
+        "description": "Ganti antara Indonesia dan Inggris kapan saja."
+      },
+      {
+        "title": "Mode gelap",
+        "description": "Tampilan gelap untuk mata yang lelah."
+      },
+      {
+        "title": "Satu tempat pengaturan",
+        "description": "Semua ada di halaman Profil."
+      }
+    ],
+    "blocks": [
+      {
+        "title": "Pengaturan yang mudah dijangkau",
+        "description": "Tersedia di bagian Keamanan dan Pengaturan pada halaman Profil.",
+        "points": [
+          {
+            "text": "Pilihan bahasa ID atau EN"
+          },
+          {
+            "text": "Saklar mode gelap"
+          },
+          {
+            "text": "Saklar notifikasi push"
+          }
+        ]
+      }
+    ],
+    "mock": {
+      "title": "Pengaturan",
+      "rows": [
+        {
+          "label": "Bahasa",
+          "detail": "Indonesia atau Inggris",
+          "status": "ID / EN"
+        },
+        {
+          "label": "Mode gelap",
+          "detail": "Mengikuti pilihanmu",
+          "status": "Opsional"
+        }
+      ]
+    },
+    "faqs": [
+      {
+        "question": "Bahasa apa saja yang tersedia?",
+        "answer": "Bahasa Indonesia dan Inggris."
+      }
+    ],
+    "relatedSlugs": [
+      "keamanan-akun",
+      "notifikasi"
+    ],
+    "availability": "available",
+    "screenFile": "profile"
   }
 ]

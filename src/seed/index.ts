@@ -76,7 +76,7 @@ async function main() {
 
   // ── Fitur (dua putaran: dulu dibuat, lalu fitur terkait disambungkan) ──
   const featureIds = new Map<string, number>()
-  for (const { relatedSlugs: _related, ...feature } of featuresData) {
+  for (const { relatedSlugs: _related, screenFile: _screenFile, ...feature } of featuresData as (typeof featuresData[number] & { screenFile?: string })[]) {
     const doc = await payload.create({
       collection: 'features',
       overrideAccess: true,

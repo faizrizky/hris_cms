@@ -1,5 +1,7 @@
 import type { Field, GroupField } from 'payload'
 
+import { imageField } from '@/fields/section'
+
 /** Label kecil di atas judul bagian (pil berwarna di landing). */
 export const tagField = (): Field => ({
   name: 'tag',
@@ -96,6 +98,13 @@ export const visualField = (defaultKind = 'none'): GroupField => ({
       maxLength: 80,
       admin: { condition: (_, s) => ['isometric', 'phone', 'offer', 'calculator'].includes(s?.kind) },
     },
+    imageField('screen', {
+      label: 'Layar aplikasi',
+      admin: {
+        description: 'Tangkapan layar aplikasi di dalam HP. Kosongkan untuk HP berisi daftar di bawah.',
+        condition: (_, s) => s?.kind === 'phone',
+      },
+    }),
     {
       name: 'rowsSource',
       type: 'select',

@@ -4,6 +4,7 @@ import { publishedOrAuthenticated } from '@/access'
 import { contentAccess, contentHooks } from '@/collections/content'
 import { fieldCard } from '@/fields/card'
 import { textListField } from '@/fields/hris'
+import { imageField } from '@/fields/section'
 import { seoField } from '@/fields/seo'
 import { slugField } from '@/fields/slug'
 import { visualEditorViews } from '@/lib/visualViews'
@@ -109,6 +110,10 @@ export const Features: CollectionConfig = {
               type: 'group',
               fields: [
                 { name: 'title', type: 'text', required: true, maxLength: 80 },
+                imageField('screen', {
+                  label: 'Layar aplikasi',
+                  admin: { description: 'Tangkapan layar aplikasi di HP pada bagian atas halaman. Kosongkan untuk memakai daftar di bawah.' },
+                }),
                 {
                   name: 'rows',
                   type: 'array',
