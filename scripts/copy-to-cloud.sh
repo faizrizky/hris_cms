@@ -4,8 +4,7 @@
 #
 #   CLOUD_DATABASE_URL='postgresql://postgres.<ref>:<password>@aws-…pooler.supabase.com:5432/postgres' \
 #   (Supabase: the *Session* pooler, port 5432 — a restore needs a session)
-#   S3_ENDPOINT='https://<ref>.supabase.co/storage/v1/s3' \
-#   S3_ACCESS_KEY_ID='…' S3_SECRET_ACCESS_KEY='…' S3_BUCKET='hris-media' \
+#   BLOB_READ_WRITE_TOKEN='vercel_blob_rw_…' \          # media ke Vercel Blob (atau isi S3_* untuk bucket S3)
 #   ./scripts/copy-to-cloud.sh
 #
 # Existing data in the cloud database is REPLACED by the local copy.
@@ -28,10 +27,13 @@ ask() {
   [ -n "${!name:-}" ] || { echo "$name is required" >&2; exit 1; }
 }
 ask CLOUD_DATABASE_URL "Database URL (Supabase session pooler, port 5432)" secret
-ask S3_ENDPOINT "S3 endpoint (https://<ref>.supabase.co/storage/v1/s3)"
-ask S3_ACCESS_KEY_ID "S3 access key ID"
-ask S3_SECRET_ACCESS_KEY "S3 secret access key" secret
-S3_BUCKET="${S3_BUCKET:-hris-media}"
+# Media: Vercel Blob bila BLOB_READ_WRITE_TOKEN diisi, selain itu bucket S3-compatible.
+if [ -z "${BLOB_READ_WRITE_TOKEN:-}" ]; then
+  ask S3_ENDPOINT "S3 endpoint (https://<ref>.supabase.co/storage/v1/s3)"
+  ask S3_ACCESS_KEY_ID "S3 access key ID"
+  ask S3_SECRET_ACCESS_KEY "S3 secret access key" secret
+  S3_BUCKET="${S3_BUCKET:-hris-media}"
+fi
 
 LOCAL_DATABASE_URL="$(grep '^DATABASE_URL=' .env | cut -d= -f2-)"
 INITIAL_MIGRATION="$(ls src/migrations/*_initial.ts | head -1 | xargs basename | sed 's/\.ts$//')"
@@ -56,7 +58,12 @@ WHERE NOT EXISTS (SELECT 1 FROM payload_migrations WHERE name = '$INITIAL_MIGRAT
 SQL
 fi
 
-echo "→ Copying media to bucket ${S3_BUCKET}…"
-node scripts/copy-media.mjs
+if [ -n "${BLOB_READ_WRITE_TOKEN:-}" ]; then
+  echo "→ Copying media to Vercel Blob…"
+  node scripts/copy-media-to-blob.mjs
+else
+  echo "→ Copying media to bucket ${S3_BUCKET}…"
+  node scripts/copy-media.mjs
+fi
 
 echo "✓ Done. Database and media are in the cloud."
