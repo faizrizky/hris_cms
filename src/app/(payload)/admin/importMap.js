@@ -1,6 +1,6 @@
 import { LinkField as LinkField_d8d7081459c50b661660640e5b56f664 } from '../../../components/admin/LinkField'
-import { Nothing as Nothing_e2b1b0e7fee819dbb082017850c6ef2a } from '../../../components/admin/Nothing'
 import { UploadFieldActions as UploadFieldActions_c632941d5838fdd6bc9f8c5a60667615 } from '../../../components/admin/UploadFieldActions'
+import { Nothing as Nothing_e2b1b0e7fee819dbb082017850c6ef2a } from '../../../components/admin/Nothing'
 import { RowActions as RowActions_4ac536b05bcf7dd66a6c577ab1ace490 } from '../../../components/admin/RowActions'
 import { SelectionBar as SelectionBar_f7534a8a02a657e5c7e609e9cec59411 } from '../../../components/admin/SelectionBar'
 import { VisualEditorView as VisualEditorView_61cd617b938842b661c9f6d1678c1c79 } from '../../../components/admin/VisualEditorView'
@@ -31,14 +31,15 @@ import { MediaNamesProvider as MediaNamesProvider_7334bec1d083369e67567d95aef9b8
 import { DocumentLockNamesProvider as DocumentLockNamesProvider_d4086420fab5ac17b9999bdfb8ced8b6 } from '../../../components/admin/DocumentLockNames'
 import { SaveProgressProvider as SaveProgressProvider_7afde912eebf3da11b20fbdc876d592c } from '../../../components/admin/SaveProgress'
 import { TutorialProvider as TutorialProvider_9c55c7c07c91684ff639c1b430adf718 } from '../../../components/admin/tutorial/TutorialProvider'
+import { VercelBlobClientUploadHandler as VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e } from '@payloadcms/storage-vercel-blob/client'
 import { StatsDashboard as StatsDashboard_02957e108870d4d62b84242af16991cf } from '../../../components/admin/StatsDashboard'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
 /** @type import('payload').ImportMap */
 export const importMap = {
   "/components/admin/LinkField#LinkField": LinkField_d8d7081459c50b661660640e5b56f664,
-  "/components/admin/Nothing#Nothing": Nothing_e2b1b0e7fee819dbb082017850c6ef2a,
   "/components/admin/UploadFieldActions#UploadFieldActions": UploadFieldActions_c632941d5838fdd6bc9f8c5a60667615,
+  "/components/admin/Nothing#Nothing": Nothing_e2b1b0e7fee819dbb082017850c6ef2a,
   "/components/admin/RowActions#RowActions": RowActions_4ac536b05bcf7dd66a6c577ab1ace490,
   "/components/admin/SelectionBar#SelectionBar": SelectionBar_f7534a8a02a657e5c7e609e9cec59411,
   "/components/admin/VisualEditorView#VisualEditorView": VisualEditorView_61cd617b938842b661c9f6d1678c1c79,
@@ -69,6 +70,7 @@ export const importMap = {
   "/components/admin/DocumentLockNames#DocumentLockNamesProvider": DocumentLockNamesProvider_d4086420fab5ac17b9999bdfb8ced8b6,
   "/components/admin/SaveProgress#SaveProgressProvider": SaveProgressProvider_7afde912eebf3da11b20fbdc876d592c,
   "/components/admin/tutorial/TutorialProvider#TutorialProvider": TutorialProvider_9c55c7c07c91684ff639c1b430adf718,
+  "@payloadcms/storage-vercel-blob/client#VercelBlobClientUploadHandler": VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e,
   "/components/admin/StatsDashboard#StatsDashboard": StatsDashboard_02957e108870d4d62b84242af16991cf,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }

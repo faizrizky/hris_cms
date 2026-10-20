@@ -334,6 +334,7 @@ export interface Media {
    */
   alt?: string | null;
   fileSizeMb?: string | null;
+  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -2467,6 +2468,7 @@ export interface MediaSelect<T extends boolean = true> {
   displayName?: T;
   alt?: T;
   fileSizeMb?: T;
+  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
