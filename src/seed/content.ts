@@ -606,8 +606,8 @@ export const siteSettingsData = {
   contact: {
     address: 'Alamat kantor (isi di Pengaturan Situs)',
     shortAddress: 'Indonesia',
-    email: 'halo@falahtech.co.id',
-    phone: '000000000',
+    email: 'faizrizky@ymail.com',
+    phone: '085714371106',
   },
 }
 
